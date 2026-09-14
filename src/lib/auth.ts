@@ -22,8 +22,24 @@ export type Session = {
   exp: number
 }
 
-function secret(): string {
-  return process.env.ADMIN_SESSION_SECRET || 'upar-ai-chave-de-desenvolvimento-trocar-em-producao'
+/** Segredo mínimo aceitável para a assinatura HMAC da sessão. */
+const MIN_SECRET_LENGTH = 32
+
+/**
+ * Em produção o segredo é obrigatório: sem ele não há sessão possível.
+ * O valor padrão de desenvolvimento é público no repositório — se valesse em
+ * produção, qualquer pessoa conseguiria forjar um cookie de administrador.
+ */
+function secret(): string | null {
+  const configured = process.env.ADMIN_SESSION_SECRET
+  if (configured && configured.length >= MIN_SECRET_LENGTH) return configured
+  if (process.env.NODE_ENV === 'production') return null
+  return 'upar-ai-chave-de-desenvolvimento-nao-usar-em-producao'
+}
+
+/** Indica se o ambiente tem segredo de sessão utilizável. */
+export function isSessionSecretConfigured(): boolean {
+  return secret() !== null
 }
 
 function toBase64Url(bytes: Uint8Array): string {
@@ -47,10 +63,12 @@ function encode(value: string): Uint8Array<ArrayBuffer> {
   return bytes
 }
 
-async function key(): Promise<CryptoKey> {
+async function key(): Promise<CryptoKey | null> {
+  const value = secret()
+  if (!value) return null
   return crypto.subtle.importKey(
     'raw',
-    encode(secret()),
+    encode(value),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign', 'verify'],
@@ -58,9 +76,16 @@ async function key(): Promise<CryptoKey> {
 }
 
 export async function createSessionToken(payload: Omit<Session, 'exp'>): Promise<string> {
+  const signingKey = await key()
+  if (!signingKey) {
+    throw new Error(
+      'ADMIN_SESSION_SECRET ausente ou muito curto. Defina uma chave de ao menos ' +
+        `${MIN_SECRET_LENGTH} caracteres para habilitar o painel administrativo.`,
+    )
+  }
   const session: Session = { ...payload, exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS }
   const body = toBase64Url(new TextEncoder().encode(JSON.stringify(session)))
-  const signature = await crypto.subtle.sign('HMAC', await key(), encode(body))
+  const signature = await crypto.subtle.sign('HMAC', signingKey, encode(body))
   return `${body}.${toBase64Url(new Uint8Array(signature))}`
 }
 
@@ -70,9 +95,13 @@ export async function verifySessionToken(token: string | undefined): Promise<Ses
   if (!body || !signature) return null
 
   try {
+    const signingKey = await key()
+    // Sem segredo configurado nenhuma sessão é aceita: falha fechada.
+    if (!signingKey) return null
+
     const valid = await crypto.subtle.verify(
       'HMAC',
-      await key(),
+      signingKey,
       fromBase64Url(signature),
       encode(body),
     )

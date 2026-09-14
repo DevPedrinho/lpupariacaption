@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { isSupabaseConfigured } from '@/lib/supabase/config'
+import { isSessionSecretConfigured } from '@/lib/auth'
 import { LoginForm } from './LoginForm'
 
 export const metadata: Metadata = {
@@ -44,6 +45,16 @@ export default async function LoginPage({
         </Link>
 
         <div className="rounded-2xl border border-ink-700/70 bg-ink-880/80 p-7 backdrop-blur-xl md:p-9">
+          {!isSessionSecretConfigured() && (
+            <div className="mb-6 rounded-lg border border-critical-500/30 bg-critical-500/8 px-4 py-3.5 text-sm text-critical-500">
+              <p className="font-medium">Painel indisponível</p>
+              <p className="mt-1.5 leading-relaxed">
+                A variável <code className="rounded bg-black/25 px-1 py-0.5 text-xs">ADMIN_SESSION_SECRET</code>{' '}
+                não está definida neste ambiente, então nenhuma sessão pode ser criada. Configure-a para
+                habilitar o acesso.
+              </p>
+            </div>
+          )}
           <h1 className="text-2xl font-semibold text-white">Acesso administrativo</h1>
           <p className="mt-2 text-sm leading-relaxed text-ink-300">
             Área restrita para gestão de catálogo, leads e conteúdo.
@@ -51,7 +62,7 @@ export default async function LoginPage({
 
           <LoginForm next={proximo} />
 
-          {!isSupabaseConfigured && (
+          {!isSupabaseConfigured && process.env.NODE_ENV !== 'production' && (
             <div className="mt-7 rounded-lg border border-caution-500/30 bg-caution-500/8 px-4 py-3.5 text-sm text-[#F0C560]">
               <p className="font-medium">Modo de demonstração</p>
               <p className="mt-1.5 leading-relaxed">

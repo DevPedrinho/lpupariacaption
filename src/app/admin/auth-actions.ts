@@ -39,6 +39,18 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
       role: profile.role as AdminRole,
     }
   } else {
+    // As credenciais de demonstração são públicas no repositório. Em produção
+    // só valem se tiverem sido definidas explicitamente no ambiente — nunca
+    // pelo valor padrão.
+    const explicitDemo = Boolean(process.env.ADMIN_DEMO_EMAIL && process.env.ADMIN_DEMO_PASSWORD)
+    if (process.env.NODE_ENV === 'production' && !explicitDemo) {
+      return {
+        error:
+          'Acesso administrativo não configurado neste ambiente. ' +
+          'Defina as credenciais do Supabase para habilitar o painel.',
+      }
+    }
+
     const demoEmail = (process.env.ADMIN_DEMO_EMAIL ?? 'admin@uparai.com.br').toLowerCase()
     const demoPassword = process.env.ADMIN_DEMO_PASSWORD ?? 'upar-ai-demo'
     if (email !== demoEmail || password !== demoPassword) {
@@ -53,7 +65,14 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
     }
   }
 
-  const token = await createSessionToken(session)
+  let token: string
+  try {
+    token = await createSessionToken(session)
+  } catch (error) {
+    console.error('Falha ao criar sessão administrativa', error)
+    return { error: 'Painel administrativo não configurado neste ambiente.' }
+  }
+
   const store = await cookies()
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
