@@ -38,8 +38,43 @@ correto: nenhum acesso é liberado por engano.
 
 ## Vercel
 
-O projeto precisa ser importado uma vez pelo painel (a conexão desta sessão não
-expõe nenhum time da Vercel, e a criação de projeto exige um `teamId`).
+### O que já foi publicado desta sessão
+
+Dois projetos foram criados e receberam um deploy de produção:
+
+| Projeto | O que é | Endereço |
+| --- | --- | --- |
+| `upar-ai` | a aplicação Next.js completa | `upar-ai-pedros-projects-8bfe3549.vercel.app` |
+| `upar-ai-demo` | página estática de apresentação (`static-demo/`) | `upar-ai-demo-pedros-projects-8bfe3549.vercel.app` |
+
+O token desta sessão consegue **criar** deploys, mas recebe `403` ao ler
+qualquer coisa do escopo `pedros-projects-8bfe3549` (status, logs de build,
+lista de projetos). O resultado dos dois deploys, portanto, **não foi
+verificado** — confira no painel da Vercel.
+
+### Como o deploy foi feito (e por que é provisório)
+
+A conexão desta sessão não permite ligar o projeto ao repositório pelo Git.
+Como contorno, o deploy sobe apenas o `package.json` e busca o código-fonte no
+próprio GitHub durante o build, usando um comando de instalação customizado:
+
+```
+curl -sSL -o src.tgz https://codeload.github.com/DevPedrinho/lpupariacaption/tar.gz/refs/heads/claude/practical-bell-ko7hcb \
+  && tar xzf src.tgz --strip-components=1 && rm -f src.tgz && npm ci --no-audit --no-fund
+```
+
+Isso funciona porque o repositório é público. Mas tem duas limitações:
+
+- **não há deploy automático a cada push** — é preciso disparar manualmente;
+- o comando aponta para uma branch fixa, então ele ignora qualquer outra
+  referência que a Vercel venha a passar.
+
+> **Ao importar o repositório pelo Git (recomendado), apague esse comando** em
+> *Settings → Build & Development Settings → Install Command*. Se ele ficar,
+> continuará sobrescrevendo o checkout pela branch fixa e o deploy deixará de
+> refletir o que foi enviado.
+
+### Importação definitiva pelo painel
 
 1. Acesse **https://vercel.com/new** e importe `DevPedrinho/lpupariacaption`.
 2. Framework: **Next.js** (detectado automaticamente). Nenhum ajuste de build é
@@ -113,3 +148,24 @@ ambiente ausente ou incorreta — confira `NEXT_PUBLIC_SUPABASE_URL` e
 `npm run seed` recarrega `src/data` no Supabase. É idempotente (usa upsert) e
 **não** toca na tabela de leads. Requer `NEXT_PUBLIC_SUPABASE_URL` e
 `SUPABASE_SERVICE_ROLE_KEY` no ambiente ou em `.env.local`.
+
+## Risco conhecido: build depende do Supabase de pé
+
+O build gera as páginas estáticas lendo o catálogo. Se o Supabase estiver
+inacessível nesse momento, `/comparador` interrompe o build inteiro — as rotas
+dinâmicas e o `sitemap.xml` já toleram a falha, essa página ainda não.
+
+Isso importa porque **projetos no plano gratuito do Supabase são pausados
+automaticamente após alguns dias sem uso**. Com o projeto pausado, todo novo
+deploy passa a falhar, e a mensagem no log aponta para o host do Supabase.
+
+Se acontecer: despause o projeto em <https://supabase.com/dashboard> e refaça o
+deploy. Para eliminar a dependência de vez, a página `/comparador` precisa
+degradar em vez de quebrar, como já fazem `generateStaticParams` e o sitemap.
+
+Comprovação local (os dois comandos que a Vercel executa):
+
+```bash
+curl -sSL -o src.tgz https://codeload.github.com/DevPedrinho/lpupariacaption/tar.gz/refs/heads/claude/practical-bell-ko7hcb
+tar xzf src.tgz --strip-components=1 && npm ci && npm run build
+```
