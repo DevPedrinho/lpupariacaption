@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Workstations e computadores de alta performance dimensionados para Inteligência Artificial. Catálogo, comparador e diagnóstico de configuração.">
+<meta name="robots" content="noindex">
+<title>UPAR AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap">
+<style>:root{--ground:#05070E;--surface:#0B1120;--surface-2:#0E1526;--raised:#121B2F;--line:#1F2C49;--line-soft:#182238;--brand:#1F6BFF;--brand-soft:#4B84FF;--brand-dim:rgba(31,107,255,.12);--flux:#35D8F0;--flux-dim:rgba(53,216,240,.12);--text:#D8E0EC;--head:#FFFFFF;--muted:#8698B8;--faint:#5B6E95;--ok:#21B573;--warn:#E0A21A;--wa:#1FA855;--r:10px;--r-lg:16px;--sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;--display:'Sora',var(--sans)}*,*::before,*::after{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}h1,h2,h3,h4{font-family:var(--display);color:var(--head);letter-spacing:-.022em;text-wrap:balance;margin:0}p{margin:0;text-wrap:pretty}a{color:inherit}button{font:inherit;color:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--flux);outline-offset:2px;border-radius:4px}.wrap{width:100%;max-width:80rem;margin-inline:auto;padding-inline:20px}@media(min-width:768px){.wrap{padding-inline:32px}}.topbar{position:sticky;top:0;z-index:40;background:rgba(5,7,14,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}.topbar .wrap{display:flex;align-items:center;gap:16px;height:60px}.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--brand),#14BCD8);display:grid;place-items:center;flex-shrink:0}.brand-name{font-family:var(--display);font-weight:600;font-size:16px;color:var(--head);letter-spacing:-.01em}.brand-name span{color:var(--flux)}.nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav button{background:none;border:0;padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14px;white-space:nowrap;transition:color .18s,background .18s}.nav button:hover{color:var(--head);background:rgba(255,255,255,.05)}.nav button[aria-current="true"]{color:var(--head);background:var(--brand-dim);box-shadow:inset 0 0 0 1px rgba(31,107,255,.3)}.notice{background:rgba(224,162,26,.07);border-bottom:1px solid rgba(224,162,26,.22)}.notice .wrap{display:flex;gap:10px;padding-block:10px;font-size:13px;color:#F0C560;line-height:1.5}.notice svg{flex-shrink:0;margin-top:2px}.section{padding-block:56px;border-top:1px solid var(--line-soft)}.section:first-of-type{border-top:0}.eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--flux);display:block;margin-bottom:12px}.h2{font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.16;font-weight:600}.lede{color:var(--muted);font-size:16px;max-width:62ch;margin-top:14px;line-height:1.65}.stack{display:flex;flex-direction:column;gap:14px}.hero{position:relative;padding-block:56px 64px;overflow:hidden}.hero-glow{position:absolute;inset-inline:0;top:-260px;height:560px;pointer-events:none;background:radial-gradient(ellipse 60% 100% at 50% 50%,rgba(31,107,255,.28),rgba(53,216,240,.09) 45%,transparent 72%)}.hero-mesh{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(to right,rgba(39,52,85,.34) 1px,transparent 1px),linear-gradient(to bottom,rgba(39,52,85,.34) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}.hero-grid{position:relative;display:grid;gap:40px;align-items:center}@media(min-width:960px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:24px}}.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(31,107,255,.3);background:var(--brand-dim);padding:6px 14px;border-radius:999px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#A9C5FF;align-self:flex-start}.hero h1{font-size:clamp(2rem,5.4vw,3.2rem);line-height:1.08;font-weight:600;max-width:15ch}.grad{background:linear-gradient(100deg,#fff 8%,#A9C5FF 48%,#7BEBFA 96%);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p.lede{font-size:17px;max-width:54ch}.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}.trust{display:flex;flex-direction:column;gap:9px;margin-top:8px;padding:0;list-style:none}@media(min-width:640px){.trust{flex-direction:row;flex-wrap:wrap;column-gap:22px}}.trust li{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:var(--r);padding:0 20px;height:46px;font-size:15px;font-weight:500;text-decoration:none;transition:background .18s,border-color .18s,transform .1s}.btn:active{transform:translateY(1px)}.btn-primary{background:var(--brand);color:#fff;box-shadow:0 10px 30px -12px rgba(31,107,255,.85)}.btn-primary:hover{background:var(--brand-soft)}.btn-ghost{background:rgba(18,27,47,.7);color:var(--text);border:1px solid var(--line)}.btn-ghost:hover{border-color:#3A4A70}.btn-wa{background:var(--wa);color:#fff}.btn-wa:hover{background:#199247}.btn-sm{height:38px;padding:0 14px;font-size:14px}.grid{display:grid;gap:12px}.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr}@media(min-width:640px){.g2,.g3{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.g3{grid-template-columns:repeat(3,1fr)}}.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:12px}.card h3{font-size:17px;line-height:1.35;font-weight:600}.card p{font-size:14px;color:var(--muted);line-height:1.6}.icon-chip{width:38px;height:38px;border-radius:10px;background:var(--brand-dim);box-shadow:inset 0 0 0 1px rgba(31,107,255,.25);display:grid;place-items:center;color:#7BA4FF;flex-shrink:0}.link-card{background:none;border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:20px;text-align:left;width:100%;display:flex;flex-direction:column;gap:11px;transition:border-color .2s,transform .2s,background .2s}.link-card:hover{border-color:rgba(31,107,255,.45);transform:translateY(-2px);background:var(--surface)}.go{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:6px;color:var(--flux);font-size:14px;font-weight:500}.p-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;position:relative;container-type:inline-size}.p-visual{position:relative;background:linear-gradient(to bottom,var(--surface-2),var(--surface));border-bottom:1px solid var(--line-soft);padding:18px;display:grid;place-items:center}.p-visual svg{width:118px;height:auto}.p-body{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1}.p-kicker{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}.p-name{font-size:17px;font-weight:600;line-height:1.3}.p-tag{font-size:14px;color:var(--muted);line-height:1.55}.spec{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line-soft);padding-top:13px;font-size:13.5px}.spec div{display:flex;justify-content:space-between;gap:12px}.spec dt{color:var(--faint);flex-shrink:0}.spec dd{margin:0;text-align:right;color:var(--text)}.spec dd.hi{color:var(--flux);font-weight:500}.p-foot{border-top:1px solid var(--line-soft);padding-top:13px;margin-top:auto;display:flex;flex-direction:column;gap:11px}.price{font-size:17px;font-weight:600;color:var(--head)}.price-note{font-size:12px;color:var(--faint);margin-top:2px}.p-actions{display:flex;flex-direction:column;gap:8px}@container (min-width:22rem){.p-actions{flex-direction:row}.p-actions>*{flex:1}}.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}.pill-brand{background:var(--brand-dim);color:#A9C5FF;box-shadow:inset 0 0 0 1px rgba(31,107,255,.3)}.pill-flux{background:var(--flux-dim);color:#7BEBFA;box-shadow:inset 0 0 0 1px rgba(53,216,240,.3)}.pill-ok{background:rgba(33,181,115,.12);color:#5FD9A4;box-shadow:inset 0 0 0 1px rgba(33,181,115,.3)}.pill-warn{background:rgba(224,162,26,.1);color:#F0C560;box-shadow:inset 0 0 0 1px rgba(224,162,26,.35)}.pill-mute{background:rgba(255,255,255,.06);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}.tags li{background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);border-radius:6px;padding:3px 8px;font-size:11.5px;color:var(--text)}.cmp-btn{position:absolute;top:12px;right:12px;z-index:2;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(11,17,32,.88);border:1px solid var(--line);color:var(--muted);transition:all .18s}.cmp-btn:hover{border-color:#3A4A70;color:var(--head)}.cmp-btn[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}.cmp-btn:disabled{opacity:.35;cursor:not-allowed}.cat{display:grid;gap:24px}@media(min-width:1000px){.cat{grid-template-columns:250px 1fr;gap:32px}}.filters{display:flex;flex-direction:column}.fgroup{border-bottom:1px solid var(--line-soft);padding-block:14px}.fgroup:last-child{border-bottom:0}.fgroup>strong{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px}.fopt{display:flex;align-items:center;gap:9px;padding:3px 0;font-size:13.5px;color:var(--muted);cursor:pointer}.fopt:hover{color:var(--text)}.fopt input{width:15px;height:15px;accent-color:var(--brand);flex-shrink:0;cursor:pointer}.fopt .n{margin-left:auto;font-size:12px;color:var(--faint)}.cat-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px}.count{font-size:14px;color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;list-style:none;padding:0}.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px 4px 12px;font-size:13px;background:var(--brand-dim);color:#A9C5FF;border:1px solid rgba(31,107,255,.35)}.chip button{background:none;border:0;padding:0;line-height:0;color:inherit;opacity:.75}.chip button:hover{opacity:1}.empty{border:1px dashed var(--line);border-radius:var(--r-lg);padding:40px 24px;text-align:center}.det{display:grid;gap:28px}@media(min-width:900px){.det{grid-template-columns:.85fr 1.15fr;gap:40px;align-items:start}}.det-visual{background:linear-gradient(to bottom,var(--surface-2),var(--surface));border:1px solid var(--line-soft);border-radius:var(--r-lg);display:grid;place-items:center;padding:28px;position:sticky;top:76px}.det-visual svg{width:min(240px,60vw);height:auto}.explain{display:grid;gap:12px}@media(min-width:640px){.explain{grid-template-columns:repeat(2,1fr)}}@media(min-width:1100px){.explain{grid-template-columns:repeat(3,1fr)}}.ex{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:10px}.ex h4{font-size:15.5px;font-weight:600}.ex .val{font-size:13.5px;color:var(--flux);font-weight:500;margin-top:-4px}.ex p{font-size:13.5px;color:var(--muted);line-height:1.6}.sheet{border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}.sheet h4{background:var(--surface-2);border-bottom:1px solid var(--line-soft);padding:11px 18px;font-size:13.5px;font-weight:600}.sheet .row{display:flex;gap:16px;padding:11px 18px;border-bottom:1px solid var(--line-soft);font-size:13.5px;flex-wrap:wrap}.sheet .row:last-child{border-bottom:0}.sheet .row dt{color:var(--faint);min-width:150px;flex-shrink:0}.sheet .row dd{margin:0;color:var(--text)}.tbl-scroll{overflow-x:auto;border:1px solid var(--line-soft);border-radius:var(--r-lg)}table{border-collapse:collapse;width:100%;font-size:13.5px;text-align:left}th,td{padding:13px 16px;vertical-align:top;border-bottom:1px solid var(--line-soft)}thead th{background:var(--surface-2);color:var(--head);font-weight:600;position:sticky;top:0}tbody th{background:var(--surface);color:var(--muted);font-weight:500;position:sticky;left:0;min-width:170px;border-right:1px solid var(--line-soft);z-index:1}tbody tr.diff th{color:var(--head)}tbody tr.diff{background:rgba(31,107,255,.035)}td.best::after{content:attr(data-note);display:block;margin-top:5px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--flux);font-weight:600}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--flux);margin-right:7px;vertical-align:middle}.hint{display:block;font-size:11.5px;color:var(--faint);font-weight:400;margin-top:3px;text-transform:none;letter-spacing:0}.diag{max-width:44rem;margin-inline:auto}.bar{height:5px;border-radius:999px;background:var(--raised);overflow:hidden;margin-top:10px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--flux));transition:width .4s ease}.qbox{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:26px;margin-top:26px}.opts{display:grid;gap:10px;margin-top:20px;list-style:none;padding:0}@media(min-width:620px){.opts{grid-template-columns:repeat(2,1fr)}}.opt{width:100%;text-align:left;background:rgba(9,13,24,.5);border:1px solid var(--line-soft);border-radius:12px;padding:13px 15px;display:flex;flex-direction:column;gap:5px;transition:all .18s}.opt:hover{border-color:#3A4A70;background:var(--surface-2)}.opt[aria-pressed="true"]{border-color:var(--brand);background:rgba(31,107,255,.12);box-shadow:inset 0 0 0 1px rgba(31,107,255,.4)}.opt b{font-weight:500;font-size:14.5px;color:var(--text)}.opt span{font-size:13px;color:var(--muted);line-height:1.5}.nav-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}textarea{width:100%;background:rgba(9,13,24,.6);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--text);font:inherit;font-size:14px;min-height:96px;resize:vertical}textarea:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 3px rgba(31,107,255,.2)}.result{background:linear-gradient(135deg,var(--surface),var(--ground));border:1px solid var(--line);border-radius:var(--r-lg);padding:30px}.caution{display:flex;gap:10px;border:1px solid rgba(224,162,26,.3);background:rgba(224,162,26,.07);border-radius:10px;padding:13px 15px;font-size:13.5px;color:#F0C560;line-height:1.55;margin-top:20px}.caution svg{flex-shrink:0;margin-top:2px}.weights{display:flex;flex-direction:column;gap:11px;list-style:none;padding:0;margin:0}.weight{display:grid;gap:4px 14px;grid-template-columns:1fr;align-items:center}@media(min-width:700px){.weight{grid-template-columns:130px 120px 1fr}}.weight b{font-weight:500;font-size:14px;color:var(--text)}.wbar{display:flex;gap:3px}.wbar i{height:5px;width:20px;border-radius:999px;background:var(--raised)}.wbar i.on{background:linear-gradient(90deg,var(--brand),var(--flux))}.weight p{font-size:13px;color:var(--muted)}.foot{border-top:1px solid var(--line-soft);padding-block:34px;margin-top:20px}.foot .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:13px;color:var(--faint)}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none !important}@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important}}</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 5.5v7.2A6 6 0 0 0 18 12.7V5.5" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/><circle cx="6" cy="18.5" r="1.9" fill="#fff"/><circle cx="18" cy="18.5" r="1.9" fill="#fff"/></svg>
+      </span>
+      <span class="brand-name">UPAR<span> AI</span></span>
+    </div>
+    <nav class="nav" id="nav" aria-label="Telas"></nav>
+  </div>
+</header>
+
+<div class="notice">
+  <div class="wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.4"/></svg>
+    <p><strong>Apresentação navegável da primeira entrega.</strong> Catálogo, filtros, comparador e diagnóstico funcionam de verdade, com os mesmos dados e o mesmo design system do projeto. Os produtos são <strong>demonstrativos</strong> — serão substituídos pelo catálogo real da UPAR.</p>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>UPAR AI — computadores de alta performance para Inteligência Artificial</span>
+    <span id="foot-note"></span>
+  </div>
+</footer>
+
+<script src="upar-data.js"></script>
+<script>
+function boot(D){
+'use strict';
+var app = document.getElementById('app'), nav = document.getElementById('nav');
+var WA = '5585000000000';
+
+/* ---------------- utilidades ---------------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function cap(gb){ if(gb>=1000){var t=gb/1000; return (Number.isInteger(t)?t:t.toFixed(1).replace('.',','))+' TB';} return gb+' GB';}
+var TIER={essencial:'Essencial',avancado:'Avançado',profissional:'Profissional',extremo:'Extremo'};
+var RANK={essencial:1,avancado:2,profissional:3,extremo:4};
+var FORM={workstation:'Workstation',desktop:'Desktop',server:'Servidor'};
+var AVAIL={in_stock:'Pronta entrega',made_to_order:'Montagem sob encomenda',pre_order:'Sob encomenda',unavailable:'Indisponível'};
+var AVAIL_PILL={in_stock:'pill-ok',made_to_order:'pill-brand',pre_order:'pill-warn',unavailable:'pill-mute'};
+function vram(p){return p.gpu.vramGb*p.gpu.quantity;}
+function vramLabel(p){return p.gpu.quantity>1 ? cap(vram(p))+' ('+p.gpu.quantity+'×'+cap(p.gpu.vramGb)+')' : cap(p.gpu.vramGb);}
+function gpuLabel(p){return p.gpu.quantity>1 ? p.gpu.quantity+'× '+p.gpu.model : p.gpu.model;}
+function storeTotal(p){return p.storage.reduce(function(s,d){return s+d.capacityGb;},0);}
+function storeLabel(p){return p.storage.map(function(d){return cap(d.capacityGb)+' '+d.kind;}).join(' + ');}
+function brl(n){return 'R$ '+n.toLocaleString('pt-BR');}
+function price(p){ if(p.priceMode==='on_request'||!p.priceBrl) return 'Sob consulta'; return (p.priceMode==='from'?'A partir de ':'')+brl(p.priceBrl);}
+function appName(slug){var a=D.applications.find(function(x){return x.slug===slug;});return a?a.name:slug;}
+function waLink(msg){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);}
+
+/* ---------------- render do equipamento ---------------- */
+function machine(variant,gpus,id){
+  var g=Math.min(Math.max(gpus||1,1),4), u='m'+id;
+  var defs='<defs>'+
+    '<linearGradient id="'+u+'c" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1A2440"/><stop offset="55%" stop-color="#0E1526"/><stop offset="100%" stop-color="#080D18"/></linearGradient>'+
+    '<linearGradient id="'+u+'a" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1F6BFF"/><stop offset="100%" stop-color="#35D8F0"/></linearGradient>'+
+    '<linearGradient id="'+u+'g" x1="0" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#5C7FC4" stop-opacity=".22"/><stop offset="100%" stop-color="#1F6BFF" stop-opacity=".14"/></linearGradient>'+
+    '<radialGradient id="'+u+'b" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#1F6BFF" stop-opacity=".5"/><stop offset="100%" stop-color="#1F6BFF" stop-opacity="0"/></radialGradient></defs>';
+  function fan(x,y,r){var s='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#0B1120" stroke="#273455" stroke-width="1.2"/><circle cx="'+x+'" cy="'+y+'" r="'+(r*.62)+'" fill="none" stroke="url(#'+u+'a)" stroke-width="1" opacity=".75"/>';
+    for(var k=0;k<6;k++){var ang=k*60*Math.PI/180;s+='<path d="M '+x+' '+y+' L '+(x+r*.58*Math.cos(ang))+' '+(y+r*.58*Math.sin(ang))+'" stroke="#3A4A70" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>';}
+    return s+'<circle cx="'+x+'" cy="'+y+'" r="'+(r*.2)+'" fill="#273455"/>';}
+  var body='';
+  if(variant==='rack-2u'){
+    body='<ellipse cx="210" cy="420" rx="170" ry="24" fill="url(#'+u+'b)" opacity=".45"/>';
+    for(var un=0;un<3;un++){var yy=150+un*96, op=un===1?1:.42;
+      body+='<g opacity="'+op+'"><rect x="40" y="'+yy+'" width="340" height="82" rx="8" fill="url(#'+u+'c)" stroke="#273455" stroke-width="1.5"/>'+
+        '<rect x="52" y="'+(yy+12)+'" width="14" height="58" rx="3" fill="#0A0F1C"/><circle cx="59" cy="'+(yy+22)+'" r="3" fill="url(#'+u+'a)"/>';
+      for(var c=0;c<8;c++) body+='<rect x="'+(80+c*33)+'" y="'+(yy+14)+'" width="26" height="54" rx="3" fill="#0C1322" stroke="#1A2540"/>';
+      body+='<rect x="80" y="'+(yy+76)+'" width="290" height="2" rx="1" fill="url(#'+u+'a)" opacity="'+(un===1?.9:.3)+'"/></g>';}
+  } else if(variant==='component-gpu'){
+    body='<ellipse cx="210" cy="380" rx="160" ry="30" fill="url(#'+u+'b)" opacity=".5"/>'+
+      '<rect x="40" y="180" width="340" height="122" rx="12" fill="#16203A" stroke="#3A4A70" stroke-width="1.5"/>'+
+      '<rect x="56" y="196" width="200" height="5" rx="2.5" fill="url(#'+u+'a)"/>'+fan(140,250,40)+fan(270,250,40)+
+      '<rect x="60" y="302" width="300" height="12" rx="3" fill="#0B1120" stroke="#273455"/>';
+  } else if(variant==='component-board'){
+    body='<ellipse cx="210" cy="420" rx="150" ry="26" fill="url(#'+u+'b)" opacity=".4"/>'+
+      '<rect x="70" y="90" width="280" height="310" rx="12" fill="#0C1322" stroke="#273455" stroke-width="1.5"/>'+
+      '<rect x="102" y="128" width="92" height="92" rx="8" fill="#131C31" stroke="url(#'+u+'a)" stroke-width="1.2"/>'+
+      '<rect x="118" y="144" width="60" height="60" rx="4" fill="#0B1120"/><rect x="128" y="162" width="40" height="5" rx="2.5" fill="url(#'+u+'a)"/>';
+    for(var m=0;m<4;m++) body+='<rect x="'+(216+m*18)+'" y="126" width="11" height="96" rx="3" fill="#16203A" stroke="#3A4A70"/>';
+    for(var s3=0;s3<3;s3++) body+='<rect x="102" y="'+(252+s3*40)+'" width="216" height="22" rx="4" fill="#101828" stroke="#273455"/>';
+  } else {
+    var compact = variant==='desktop-compact';
+    var x0=compact?116:86, w=compact?188:248, y0=compact?146:52, h=compact?252:412;
+    body='<ellipse cx="210" cy="'+(compact?420:470)+'" rx="140" ry="24" fill="url(#'+u+'b)" opacity=".5"/>'+
+      '<rect x="'+x0+'" y="'+y0+'" width="'+w+'" height="'+h+'" rx="18" fill="url(#'+u+'c)" stroke="#273455" stroke-width="1.5"/>'+
+      '<rect x="'+x0+'" y="'+y0+'" width="'+(compact?30:42)+'" height="'+h+'" rx="18" fill="#0A0F1C"/>';
+    if(compact){
+      body+='<rect x="158" y="160" width="132" height="224" rx="9" fill="url(#'+u+'g)" stroke="#3A4A70"/>'+
+        '<rect x="170" y="178" width="50" height="46" rx="5" fill="#131C31" stroke="#3A4A70"/><rect x="180" y="194" width="30" height="4" rx="2" fill="url(#'+u+'a)"/>'+
+        '<rect x="166" y="246" width="118" height="22" rx="4" fill="#16203A" stroke="#3A4A70"/><rect x="172" y="252" width="70" height="3" rx="1.5" fill="url(#'+u+'a)"/>'+fan(238,330,26)+
+        '<rect x="126" y="176" width="5" height="192" rx="2.5" fill="url(#'+u+'a)"/>';
+    } else {
+      if(variant==='tower-mesh'){ for(var r2=0;r2<17;r2++) body+='<line x1="140" x2="316" y1="'+(80+r2*21)+'" y2="'+(80+r2*21)+'" stroke="#273455" opacity=".5"/>'; }
+      else { body+='<rect x="136" y="66" width="184" height="384" rx="10" fill="url(#'+u+'g)" stroke="#3A4A70"/><path d="M150 440 L292 80" stroke="#8698B8" opacity=".12"/>'; }
+      body+='<rect x="146" y="74" width="164" height="30" rx="6" fill="#0B1120" stroke="#273455"/>'+fan(175,89,11)+fan(228,89,11)+fan(281,89,11)+
+        '<rect x="152" y="118" width="152" height="196" rx="6" fill="#0C1322" stroke="#1A2540"/>'+
+        '<rect x="168" y="130" width="56" height="52" rx="5" fill="#131C31" stroke="#3A4A70"/><rect x="182" y="146" width="28" height="4" rx="2" fill="url(#'+u+'a)"/>';
+      for(var mm=0;mm<4;mm++) body+='<rect x="'+(238+mm*12)+'" y="128" width="7" height="58" rx="2" fill="#16203A" stroke="#3A4A70" stroke-width=".8"/>';
+      for(var gi=0;gi<g;gi++) body+='<rect x="150" y="'+(206+gi*30)+'" width="158" height="24" rx="4" fill="#16203A" stroke="#3A4A70"/>'+
+        '<rect x="156" y="'+(212+gi*30)+'" width="96" height="3" rx="1.5" fill="url(#'+u+'a)" opacity=".9"/>';
+      body+='<rect x="146" y="380" width="164" height="62" rx="8" fill="#0A101E" stroke="#273455"/>'+fan(280,411,16)+
+        '<rect x="100" y="96" width="6" height="324" rx="3" fill="url(#'+u+'a)"/>';
+    }
+  }
+  return '<svg viewBox="0 0 420 520" role="presentation">'+defs+body+'</svg>';
+}
+
+/* ---------------- estado ---------------- */
+var state={view:'home',slug:null,cmp:[],filters:{app:[],vram:[],form:[],tier:[],avail:[]},diag:{step:0,ans:{},done:false}};
+
+/* ---------------- ícones ---------------- */
+var I={
+  arrow:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>',
+  check:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  close:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  cmp:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 8 2.5 14h7L6 8ZM18 8l-3.5 6h7L18 8Z"/></svg>',
+  wa:'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.05 8.05 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.07.81.82-3-.19-.31a8.07 8.07 0 0 1-1.24-4.29c0-4.46 3.63-8.08 8.11-8.08Zm-3.2 4.1c-.15 0-.4.06-.61.28-.21.22-.8.79-.8 1.92s.82 2.23.94 2.38c.12.16 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.04.15 1.43.09.44-.07 1.34-.55 1.53-1.08.19-.53.19-.98.13-1.08-.06-.09-.21-.15-.44-.26-.23-.12-1.34-.66-1.55-.74-.21-.08-.36-.11-.5.11-.15.22-.58.74-.71.89-.13.15-.26.17-.49.06-.23-.12-.96-.36-1.83-1.13-.68-.6-1.13-1.35-1.27-1.57-.13-.23-.01-.35.1-.46.1-.1.23-.27.34-.4.11-.14.15-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.5-1.23-.69-1.68-.18-.44-.37-.38-.5-.39-.13 0-.28-.01-.43-.01Z"/></svg>',
+  info:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.4"/></svg>',
+  spark:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.3 6.3l2.5 2.5m6.4 6.4 2.5 2.5m0-11.4-2.5 2.5m-6.4 6.4-2.5 2.5"/></svg>',
+  up:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V7m0 0-5 5m5-5 5 5M5 4h14"/></svg>'
+};
+var GLYPH={cpu:'▣',gpu:'▤',memory:'▥',storage:'▦',cooling:'✳',power:'⏻',network:'⇄',upgrade:'↑'};
+
+/* ---------------- navegação ---------------- */
+var VIEWS=[{id:'home',label:'Home'},{id:'catalogo',label:'Catálogo'},{id:'comparador',label:'Comparador'},{id:'diagnostico',label:'Diagnóstico'},{id:'solucoes',label:'Soluções'}];
+function renderNav(){
+  nav.innerHTML = VIEWS.map(function(v){
+    var on = (state.view===v.id || (v.id==='catalogo'&&state.view==='produto'));
+    var extra = v.id==='comparador'&&state.cmp.length ? ' ('+state.cmp.length+')' : '';
+    return '<button type="button" data-go="'+v.id+'" aria-current="'+on+'">'+v.label+extra+'</button>';
+  }).join('');
+}
+function go(view,slug){ state.view=view; state.slug=slug||null; window.scrollTo({top:0,behavior:'instant'}); render(); }
+
+/* ---------------- cartão de produto ---------------- */
+function productCard(p){
+  var sel=state.cmp.indexOf(p.slug)>-1, full=state.cmp.length>=3&&!sel;
+  var apps=p.applications.slice(0,3).map(function(s){return '<li>'+esc(appName(s))+'</li>';}).join('');
+  var more=p.applications.length>3?'<li style="background:none;box-shadow:none;color:var(--faint)">+'+(p.applications.length-3)+'</li>':'';
+  return '<article class="p-card">'+
+    '<button type="button" class="cmp-btn" data-cmp="'+p.slug+'" aria-pressed="'+sel+'"'+(full?' disabled':'')+
+      ' title="'+(full?'Já há três configurações selecionadas':(sel?'Remover da comparação':'Adicionar à comparação'))+'">'+(sel?I.check:I.cmp)+
+      '<span class="sr">'+(sel?'Remover ':'Comparar ')+esc(p.name)+'</span></button>'+
+    '<div class="p-visual">'+machine(p.images[0]?p.images[0].render:'tower-glass',p.gpu.quantity,p.id)+
+      '<div style="position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start">'+
+      '<span class="pill pill-brand">'+TIER[p.performanceTier]+'</span>'+
+      (p.isDemo?'<span class="pill pill-warn">Demonstrativo</span>':'')+'</div></div>'+
+    '<div class="p-body">'+
+      '<span class="p-kicker">'+FORM[p.formFactor]+(p.customizable?' · Personalizável':'')+'</span>'+
+      '<h3 class="p-name">'+esc(p.name)+'</h3>'+
+      '<p class="p-tag">'+esc(p.tagline)+'</p>'+
+      '<ul class="tags">'+apps+more+'</ul>'+
+      '<dl class="spec">'+
+        '<div><dt>Processador</dt><dd>'+esc(p.cpu.model)+'</dd></div>'+
+        '<div><dt>Placa de vídeo</dt><dd>'+esc(gpuLabel(p))+'</dd></div>'+
+        '<div><dt>VRAM</dt><dd class="hi">'+vramLabel(p)+'</dd></div>'+
+        '<div><dt>Memória</dt><dd>'+cap(p.ram.capacityGb)+' '+esc(p.ram.type)+'</dd></div>'+
+        '<div><dt>Armazenamento</dt><dd>'+esc(storeLabel(p))+'</dd></div>'+
+      '</dl>'+
+      '<div class="p-foot">'+
+        '<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap">'+
+          '<div><div class="price">'+price(p)+'</div><div class="price-note">'+(p.isDemo&&p.priceMode!=='on_request'?'Valor demonstrativo':'Confirmado pelo especialista')+'</div></div>'+
+          '<span class="pill '+AVAIL_PILL[p.availability]+'">'+AVAIL[p.availability]+'</span>'+
+        '</div>'+
+        '<div class="p-actions">'+
+          '<button type="button" class="btn btn-ghost btn-sm" data-open="'+p.slug+'">Analisar computador '+I.arrow+'</button>'+
+          '<a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="'+waLink('Olá! Estou analisando o computador '+p.name+' no site da UPAR AI. Minha principal aplicação será '+appName(p.applications[0])+'. Gostaria de validar essa configuração com um especialista.')+'">'+I.wa+' Orçamento</a>'+
+        '</div>'+
+      '</div>'+
+    '</div></article>';
+}
+
+/* ---------------- telas ---------------- */
+function viewHome(){
+  var featured=D.products.filter(function(p){return p.featured;}).slice(0,6);
+  return '<section class="hero"><div class="hero-glow"></div><div class="hero-mesh"></div><div class="wrap hero-grid">'+
+      '<div class="stack">'+
+        '<span class="badge">'+I.spark+' Consultoria técnica antes da configuração</span>'+
+        '<h1>Potência computacional para transformar <span class="grad">Inteligência Artificial</span> em resultado.</h1>'+
+        '<p class="lede">Workstations e computadores de alta performance dimensionados para modelos de IA, geração de conteúdo, ciência de dados, visão computacional e processamento local.</p>'+
+        '<div class="cta-row"><button type="button" class="btn btn-primary" data-go="diagnostico">Encontrar minha configuração '+I.arrow+'</button>'+
+        '<a class="btn btn-wa" target="_blank" rel="noopener" href="'+waLink('Olá! Vim pelo site da UPAR AI e gostaria de falar com um especialista.')+'">'+I.wa+' Falar com especialista</a></div>'+
+        '<ul class="trust"><li>'+I.check+' Consultoria antes da proposta</li><li>'+I.check+' Dimensionado pela sua aplicação</li><li>'+I.check+' Montagem e testes pela equipe</li></ul>'+
+      '</div>'+
+      '<div style="display:grid;place-items:center">'+machine('tower-glass',3,'hero')+'</div>'+
+    '</div></section>'+
+
+    '<section class="section"><div class="wrap">'+
+      '<span class="eyebrow">Aplicações atendidas</span>'+
+      '<h2 class="h2">Cada aplicação exige um equilíbrio diferente de hardware</h2>'+
+      '<p class="lede">Um computador excelente para gerar imagens pode ser insuficiente para analisar dados. Comece pela sua aplicação — é ela que define onde o investimento faz diferença.</p>'+
+      '<div class="grid g3" style="margin-top:28px">'+D.applications.map(function(a){
+        return '<button type="button" class="link-card" data-app="'+a.slug+'"><span class="icon-chip">'+I.spark+'</span>'+
+          '<h3>'+esc(a.name)+'</h3><p>'+esc(a.short)+'</p><span class="go">Ver dimensionamento '+I.arrow+'</span></button>';
+      }).join('')+'</div>'+
+    '</div></section>'+
+
+    '<section class="section"><div class="wrap">'+
+      '<span class="eyebrow">Computadores em destaque</span>'+
+      '<h2 class="h2">Configurações que resolvem os cenários mais comuns</h2>'+
+      '<p class="lede">Pontos de partida testados em projetos reais. Qualquer uma delas pode ser ajustada à sua aplicação.</p>'+
+      '<div class="grid g3" style="margin-top:28px">'+featured.map(productCard).join('')+'</div>'+
+      '<div style="margin-top:20px"><button type="button" class="btn btn-ghost" data-go="catalogo">Ver catálogo completo '+I.arrow+'</button></div>'+
+    '</div></section>'+
+
+    '<section class="section"><div class="wrap">'+
+      '<span class="eyebrow">Comparativo de categorias</span>'+
+      '<h2 class="h2">Quatro níveis, quatro tipos de operação</h2>'+
+      '<p class="lede">As categorias orientam o ponto de partida. A configuração final depende da sua aplicação — não existe categoria melhor em tudo.</p>'+
+      '<div class="tbl-scroll" style="margin-top:26px"><table><thead><tr>'+
+        '<th>Categoria</th><th>Placas</th><th>VRAM típica</th><th>Memória típica</th><th>Melhor para</th><th>Não é a escolha para</th></tr></thead><tbody>'+
+        D.categoryComparison.map(function(c){return '<tr><th scope="row">'+esc(c.name)+'<span class="hint">'+esc(c.positioning)+'</span></th>'+
+          '<td>'+esc(c.typicalGpu)+'</td><td style="color:var(--flux);font-weight:500">'+esc(c.typicalVram)+'</td><td>'+esc(c.typicalRam)+'</td>'+
+          '<td style="color:var(--muted)">'+esc(c.bestFor)+'</td><td style="color:var(--faint)">'+esc(c.notFor)+'</td></tr>';}).join('')+
+      '</tbody></table></div>'+
+    '</div></section>'+
+
+    '<section class="section"><div class="wrap">'+
+      '<span class="eyebrow">Por que a UPAR</span>'+
+      '<h2 class="h2">A diferença está na conversa que acontece antes da compra</h2>'+
+      '<div class="grid g3" style="margin-top:28px">'+D.differentials.map(function(d){
+        return '<div class="card"><span class="icon-chip">'+I.check+'</span><h3>'+esc(d.title)+'</h3><p>'+esc(d.description)+'</p></div>';}).join('')+'</div>'+
+    '</div></section>'+
+
+    '<section class="section"><div class="wrap">'+
+      '<span class="eyebrow">Perguntas frequentes</span>'+
+      '<h2 class="h2">Dúvidas que aparecem em quase toda conversa</h2>'+
+      '<div style="margin-top:24px;max-width:56rem">'+D.faqs.filter(function(f){return f.scope==='home';}).map(function(f,i){
+        return '<details'+(i===0?' open':'')+' style="border-bottom:1px solid var(--line-soft);padding-block:16px">'+
+          '<summary style="cursor:pointer;font-size:16px;color:var(--head);font-weight:500;list-style:none">'+esc(f.question)+'</summary>'+
+          '<p style="color:var(--muted);font-size:14.5px;margin-top:10px;max-width:70ch">'+esc(f.answer)+'</p></details>';}).join('')+'</div>'+
+    '</div></section>';
+}
+
+function viewCatalogo(){
+  var list=D.products.filter(function(p){
+    var f=state.filters;
+    if(f.app.length && !f.app.some(function(s){return p.applications.indexOf(s)>-1;})) return false;
+    if(f.vram.length && !f.vram.some(function(v){return vram(p)>=+v;})) return false;
+    if(f.form.length && f.form.indexOf(p.formFactor)<0) return false;
+    if(f.tier.length && f.tier.indexOf(p.performanceTier)<0) return false;
+    if(f.avail.length && f.avail.indexOf(p.availability)<0) return false;
+    return true;
+  }).sort(function(a,b){return (b.featured-a.featured)||(vram(a)-vram(b));});
+
+  function group(key,title,opts,hint){
+    return '<div class="fgroup"><strong>'+title+'</strong>'+(hint?'<p style="font-size:12px;color:var(--faint);margin:-4px 0 9px;line-height:1.45">'+hint+'</p>':'')+
+      opts.map(function(o){
+        var on=state.filters[key].indexOf(o.v)>-1;
+        return '<label class="fopt"><input type="checkbox" data-f="'+key+'" value="'+esc(o.v)+'"'+(on?' checked':'')+'>'+
+          '<span>'+esc(o.l)+'</span>'+(o.n!=null?'<span class="n">'+o.n+'</span>':'')+'</label>';
+      }).join('')+'</div>';
+  }
+  var cnt=function(fn){return D.products.filter(fn).length;};
+  var filters='<div class="filters">'+
+    group('app','Aplicação',D.applications.map(function(a){return {v:a.slug,l:a.name,n:cnt(function(p){return p.applications.indexOf(a.slug)>-1;})};}).filter(function(o){return o.n>0;}))+
+    group('vram','VRAM',[16,24,32,48,96,192].map(function(v){return {v:String(v),l:v+' GB ou mais'};}),'Soma da memória de todas as placas.')+
+    group('form','Formato',['workstation','desktop','server'].map(function(v){return {v:v,l:FORM[v],n:cnt(function(p){return p.formFactor===v;})};}))+
+    group('tier','Nível de desempenho',['essencial','avancado','profissional','extremo'].map(function(v){return {v:v,l:TIER[v],n:cnt(function(p){return p.performanceTier===v;})};}))+
+    group('avail','Disponibilidade',['in_stock','made_to_order','pre_order'].map(function(v){return {v:v,l:AVAIL[v],n:cnt(function(p){return p.availability===v;})};}).filter(function(o){return o.n>0;}))+
+  '</div>';
+
+  var chips=[];
+  Object.keys(state.filters).forEach(function(k){
+    state.filters[k].forEach(function(v){
+      var lbl = k==='app'?appName(v) : k==='vram'?(v+' GB ou mais') : k==='form'?FORM[v] : k==='tier'?TIER[v] : AVAIL[v];
+      chips.push('<li class="chip">'+esc(lbl)+'<button type="button" data-clear="'+k+'|'+esc(v)+'" aria-label="Remover filtro">'+I.close+'</button></li>');
+    });
+  });
+
+  return '<section class="section" style="padding-top:36px"><div class="wrap">'+
+    '<span class="eyebrow">Catálogo</span><h2 class="h2">Configurações prontas para começar a conversa</h2>'+
+    '<p class="lede">Todas podem ser ajustadas. Use os filtros para chegar perto do que você precisa e valide o restante com um especialista.</p>'+
+    '<div class="cat" style="margin-top:30px">'+filters+
+      '<div><div class="cat-head"><span class="count" aria-live="polite">'+list.length+(list.length===1?' configuração encontrada':' configurações encontradas')+'</span>'+
+      (chips.length?'<button type="button" class="btn btn-ghost btn-sm" data-clear="all" style="margin-left:auto">Limpar filtros</button>':'')+'</div>'+
+      (chips.length?'<ul class="chips">'+chips.join('')+'</ul>':'')+
+      (list.length? '<div class="grid g2">'+list.map(productCard).join('')+'</div>'
+        : '<div class="empty"><span class="pill pill-flux">Nada com esses critérios</span>'+
+          '<p style="margin-top:14px;color:var(--muted);max-width:52ch;margin-inline:auto">Grande parte dos equipamentos é montada sob medida e não aparece no catálogo pronto. Descreva o que você precisa executar.</p>'+
+          '<div style="margin-top:18px"><button type="button" class="btn btn-ghost btn-sm" data-clear="all">Limpar filtros</button></div></div>')+
+      '</div></div></div></section>';
+}
+
+function viewProduto(){
+  var p=D.products.find(function(x){return x.slug===state.slug;});
+  if(!p) return viewCatalogo();
+  var rel=p.relatedSlugs.map(function(s){return D.products.find(function(x){return x.slug===s;});}).filter(Boolean);
+  var sel=state.cmp.indexOf(p.slug)>-1;
+  return '<section class="section" style="padding-top:30px"><div class="wrap">'+
+    '<button type="button" class="btn btn-ghost btn-sm" data-go="catalogo" style="margin-bottom:22px">← Voltar ao catálogo</button>'+
+    '<div class="det">'+
+      '<div class="det-visual">'+machine(p.images[0]?p.images[0].render:'tower-glass',p.gpu.quantity,p.id+'d')+
+        '<p style="font-size:12px;color:var(--faint);margin-top:12px">Ilustração técnica</p></div>'+
+      '<div class="stack">'+
+        '<div style="display:flex;flex-wrap:wrap;gap:7px">'+
+          '<span class="pill pill-brand">'+TIER[p.performanceTier]+'</span><span class="pill pill-mute">'+FORM[p.formFactor]+'</span>'+
+          '<span class="pill '+AVAIL_PILL[p.availability]+'">'+AVAIL[p.availability]+'</span>'+
+          (p.customizable?'<span class="pill pill-flux">Personalizável</span>':'')+
+          (p.isDemo?'<span class="pill pill-warn">Demonstrativo</span>':'')+'</div>'+
+        '<h2 class="h2" style="font-size:clamp(1.6rem,4vw,2.3rem)">'+esc(p.name)+'</h2>'+
+        '<p style="font-size:16px;color:var(--text)">'+esc(p.tagline)+'</p>'+
+        '<p style="font-size:14.5px;color:var(--muted);line-height:1.65">'+esc(p.summary)+'</p>'+
+        '<dl class="spec" style="background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:18px;border-top:1px solid var(--line-soft)">'+
+          '<div><dt>Processador</dt><dd>'+esc(p.cpu.model)+' · '+p.cpu.cores+'C/'+p.cpu.threads+'T</dd></div>'+
+          '<div><dt>Placa de vídeo</dt><dd>'+esc(gpuLabel(p))+'</dd></div>'+
+          '<div><dt>VRAM</dt><dd class="hi">'+vramLabel(p)+'</dd></div>'+
+          '<div><dt>Memória RAM</dt><dd>'+cap(p.ram.capacityGb)+' '+esc(p.ram.type)+'</dd></div>'+
+          '<div><dt>Armazenamento</dt><dd>'+esc(storeLabel(p))+'</dd></div>'+
+        '</dl>'+
+        '<div style="background:linear-gradient(135deg,var(--surface),var(--ground));border:1px solid var(--line);border-radius:var(--r-lg);padding:20px">'+
+          '<div class="price" style="font-size:22px">'+price(p)+'</div>'+
+          '<p style="font-size:13px;color:var(--faint);margin-top:4px">'+(p.isDemo&&p.priceMode!=='on_request'?'Valor demonstrativo. ':'')+'O investimento final depende da configuração definida com o especialista.</p>'+
+          '<div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">'+
+            '<a class="btn btn-wa" target="_blank" rel="noopener" href="'+waLink('Olá! Estou analisando o computador '+p.name+' no site da UPAR AI. Minha principal aplicação será '+appName(p.applications[0])+'. Gostaria de validar essa configuração com um especialista.')+'">'+I.wa+' Validar com um especialista</a>'+
+            '<button type="button" class="btn btn-ghost" data-cmp="'+p.slug+'" aria-pressed="'+sel+'">'+(sel?I.check+' Na comparação':I.cmp+' Comparar')+'</button>'+
+          '</div></div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div style="margin-top:56px"><span class="eyebrow">Entenda esta máquina</span>'+
+      '<h3 class="h2" style="font-size:1.5rem">O que cada componente faz — e por que ele está aqui</h3>'+
+      '<p class="lede">Não é preciso dominar hardware para decidir bem. Abaixo, o papel de cada peça desta configuração.</p>'+
+      '<div class="explain" style="margin-top:24px">'+p.explainers.map(function(e){
+        return '<div class="ex"><span class="icon-chip" aria-hidden="true">'+(GLYPH[e.icon]||'▪')+'</span>'+
+          '<h4>'+esc(e.title)+'</h4><div class="val">'+esc(e.spec)+'</div><p>'+esc(e.role)+'</p></div>';}).join('')+'</div></div>'+
+
+    '<div style="margin-top:56px"><span class="eyebrow">Aplicações práticas</span>'+
+      '<h3 class="h2" style="font-size:1.5rem">O que este computador consegue fazer?</h3>'+
+      '<div class="grid g3" style="margin-top:24px">'+p.capabilities.map(function(c){
+        return '<div class="card"><h3>'+esc(c.title)+'</h3><p>'+esc(c.description)+'</p></div>';}).join('')+'</div>'+
+      '<p style="font-size:13.5px;color:var(--faint);margin-top:18px;max-width:72ch;line-height:1.6">A UPAR não publica velocidade de resposta, tempo de renderização ou compatibilidade com modelos específicos sem ter medido. Quando existir medição validada pela equipe técnica, ela aparece nesta página com o contexto do teste.</p></div>'+
+
+    '<div style="margin-top:56px" class="grid g3">'+
+      '<div class="card"><h3>Possibilidades de expansão</h3>'+p.expansion.map(function(x){return '<p style="display:flex;gap:8px"><span style="color:var(--flux)">'+I.up+'</span>'+esc(x)+'</p>';}).join('')+'</div>'+
+      '<div class="card"><h3>Garantia e serviços</h3>'+p.services.map(function(x){return '<p style="display:flex;gap:8px"><span style="color:var(--flux)">'+I.check+'</span>'+esc(x)+'</p>';}).join('')+'</div>'+
+      '<div class="card"><h3>Perfil de cliente</h3><p>'+esc(p.clientProfile)+'</p>'+
+        '<h3 style="margin-top:8px;font-size:15px">Aplicações recomendadas</h3><ul class="tags">'+p.applications.map(function(s){return '<li>'+esc(appName(s))+'</li>';}).join('')+'</ul></div>'+
+    '</div>'+
+
+    (rel.length?'<div style="margin-top:56px"><span class="eyebrow">Também vale avaliar</span><h3 class="h2" style="font-size:1.5rem">Configurações relacionadas</h3>'+
+      '<div class="grid g3" style="margin-top:24px">'+rel.map(productCard).join('')+'</div></div>':'')+
+  '</div></section>';
+}
+
+function viewComparador(){
+  var sel=state.cmp.map(function(s){return D.products.find(function(x){return x.slug===s;});}).filter(Boolean);
+  if(!sel.length){
+    return '<section class="section" style="padding-top:36px"><div class="wrap">'+
+      '<span class="eyebrow">Comparador</span><h2 class="h2">Compare sem perder de vista a sua aplicação</h2>'+
+      '<p class="lede">Destacamos as diferenças, mas não elegemos um vencedor: o computador certo é o que atende o que você precisa executar, não o que tem o maior número em cada linha.</p>'+
+      '<div class="empty" style="margin-top:28px"><span class="pill pill-flux">Nenhuma configuração selecionada</span>'+
+      '<p style="margin-top:14px;color:var(--muted);max-width:50ch;margin-inline:auto">Escolha até três computadores usando o botão de comparação nos cards.</p></div>'+
+      '<h3 style="margin-top:34px;font-size:17px">Selecione a partir do catálogo</h3>'+
+      '<div class="grid g3" style="margin-top:16px">'+D.products.map(productCard).join('')+'</div>'+
+    '</div></section>';
+  }
+  var rows=[
+    {l:'Processador',g:function(p){return p.cpu.model;}},
+    {l:'Núcleos e threads',g:function(p){return p.cpu.cores+' núcleos · '+p.cpu.threads+' threads';},m:function(p){return p.cpu.cores;},n:'Mais núcleos',h:'Pesa mais em ciência de dados e simulação do que em inferência.'},
+    {l:'Placa de vídeo',g:gpuLabel},
+    {l:'VRAM total',g:vramLabel,m:vram,n:'Mais VRAM',h:'Define o tamanho do modelo e do contexto que cabem na máquina.'},
+    {l:'Memória RAM',g:function(p){return cap(p.ram.capacityGb)+' '+p.ram.type;},m:function(p){return p.ram.capacityGb;},n:'Mais memória'},
+    {l:'Armazenamento',g:storeLabel,m:storeTotal,n:'Mais capacidade'},
+    {l:'GPUs suportadas',g:function(p){return p.gpu.quantity+' instalada'+(p.gpu.quantity>1?'s':'')+' · até '+p.maxGpus;},m:function(p){return p.maxGpus;},n:'Mais posições'},
+    {l:'Refrigeração',g:function(p){return p.cooling;}},
+    {l:'Fonte',g:function(p){return p.psu;}},
+    {l:'Rede',g:function(p){return p.network;}},
+    {l:'Expansibilidade',g:function(p){return p.expansion.join(' · ');}},
+    {l:'Aplicações recomendadas',g:function(p){return p.applications.map(appName).join(' · ');}},
+    {l:'Nível estimado',g:function(p){return TIER[p.performanceTier];},h:'Posição relativa na linha UPAR. Não é uma medição de desempenho.'},
+    {l:'Perfil de cliente',g:function(p){return p.clientProfile;}},
+    {l:'Disponibilidade',g:function(p){return AVAIL[p.availability];}},
+    {l:'Investimento',g:function(p){return price(p)+(p.isDemo&&p.priceMode!=='on_request'?' (demonstrativo)':'');}}
+  ];
+  var head='<tr><th style="min-width:170px">Característica</th>'+sel.map(function(p){
+    return '<th style="min-width:230px"><div style="display:flex;flex-direction:column;gap:9px">'+
+      '<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div style="width:52px">'+machine(p.images[0]?p.images[0].render:'tower-glass',p.gpu.quantity,p.id+'c')+'</div>'+
+      '<button type="button" class="cmp-btn" style="position:static;width:28px;height:28px" data-cmp="'+p.slug+'" aria-pressed="true" title="Remover">'+I.close+'</button></div>'+
+      '<span style="font-size:15px">'+esc(p.name)+'</span>'+
+      '<a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="'+waLink('Olá! Estou analisando o computador '+p.name+' no site da UPAR AI. Gostaria de validar essa configuração com um especialista.')+'">'+I.wa+' Orçamento</a>'+
+      '</div></th>';}).join('')+'</tr>';
+
+  var body=rows.map(function(r){
+    var vals=sel.map(r.g), diff=new Set(vals).size>1;
+    var best=null, uniq=false;
+    if(r.m){var ms=sel.map(r.m); best=Math.max.apply(null,ms); uniq=ms.filter(function(x){return x===best;}).length===1;}
+    return '<tr class="'+(diff?'diff':'')+'"><th scope="row">'+(diff?'<span class="dot"></span>':'')+esc(r.l)+(r.h?'<span class="hint">'+esc(r.h)+'</span>':'')+'</th>'+
+      sel.map(function(p,i){
+        var isBest = uniq && r.m && r.m(p)===best && r.n;
+        return '<td'+(isBest?' class="best" data-note="'+esc(r.n)+'"':'')+'>'+esc(vals[i])+'</td>';}).join('')+'</tr>';
+  }).join('');
+
+  return '<section class="section" style="padding-top:36px"><div class="wrap">'+
+    '<span class="eyebrow">Comparador</span><h2 class="h2">Comparando '+sel.length+' de 3 configurações</h2>'+
+    '<div style="display:flex;gap:10px;margin:18px 0 0;flex-wrap:wrap">'+
+      (sel.length<3?'<button type="button" class="btn btn-ghost btn-sm" data-go="catalogo">+ Adicionar configuração</button>':'')+
+      '<button type="button" class="btn btn-ghost btn-sm" data-clear="cmp">Limpar comparação</button></div>'+
+    '<div class="tbl-scroll" style="margin-top:20px"><table><thead>'+head+'</thead><tbody>'+body+'</tbody></table></div>'+
+    '<div class="caution" style="border-color:var(--line);background:var(--surface);color:var(--muted)">'+I.info+
+      '<p>As marcações indicam apenas onde cada configuração tem o maior número em uma característica isolada. Elas <strong style="color:var(--text)">não</strong> significam que um computador é melhor que outro: a escolha certa depende da aplicação, do software e do volume de trabalho.</p></div>'+
+    '<div style="margin-top:22px;display:flex;justify-content:center">'+
+      '<a class="btn btn-wa" target="_blank" rel="noopener" href="'+waLink('Olá! Comparei as configurações '+sel.map(function(p){return p.name;}).join(', ')+' no site da UPAR AI. Quero ajuda para identificar a melhor opção para minha aplicação.')+'">'+I.wa+' Enviar comparação no WhatsApp</a></div>'+
+  '</div></section>';
+}
+
+function recommendTier(a){
+  var s=1;
+  if(a.workloadType==='Ajuste fino de modelos') s+=1;
+  if(a.workloadType==='Treinar modelos do zero') s+=2;
+  if(a.users==='4 a 10 pessoas') s+=1;
+  if(a.users==='Mais de 10 pessoas') s+=2;
+  if(a.dataVolume==='2 TB a 10 TB') s+=.5;
+  if(a.dataVolume==='Acima de 10 TB') s+=1;
+  if(a.localExecution==='Sim, obrigatoriamente local') s+=.5;
+  if(a.expansion==='Sim, expansão planejada') s+=.5;
+  if(['deep-learning','servidores-ia','llms-locais','geracao-de-video','renderizacao-3d'].indexOf(a.application)>-1) s+=.5;
+  if(a.budget==='Até R$ 25.000') s=Math.min(s,1.4);
+  if(a.budget==='R$ 25.000 a R$ 50.000') s=Math.min(s,2.4);
+  if(a.budget==='R$ 50.000 a R$ 100.000') s=Math.min(s,3.4);
+  return s>=3.5?'extremo':s>=2.5?'profissional':s>=1.5?'avancado':'essencial';
+}
+function recommendProducts(a,tier){
+  return D.products.map(function(p){
+    var s=0;
+    if(a.application && p.applications.indexOf(a.application)>-1) s+=5;
+    s+=Math.max(0,4-Math.abs(RANK[p.performanceTier]-RANK[tier])*2);
+    if(a.expansion==='Sim, expansão planejada' && p.maxGpus>p.gpu.quantity) s+=1.5;
+    if(a.dataVolume==='Acima de 10 TB' && storeTotal(p)>=16000) s+=1.5;
+    else if(a.dataVolume==='2 TB a 10 TB' && storeTotal(p)>=8000) s+=1;
+    if(a.users==='Mais de 10 pessoas' && p.formFactor==='server') s+=2;
+    if(a.users==='Apenas eu' && p.formFactor==='server') s-=2;
+    if(a.workloadType==='Treinar modelos do zero' && vram(p)>=48) s+=1.5;
+    if(a.deadline==='O quanto antes' && p.availability==='in_stock') s+=1;
+    return {p:p,s:s};
+  }).sort(function(x,y){return y.s-x.s || vram(x.p)-vram(y.p);}).filter(function(e){return e.s>0;}).slice(0,3).map(function(e){return e.p;});
+}
+
+function viewDiagnostico(){
+  var d=state.diag, qs=D.questions, total=qs.length;
+  if(d.done){
+    var tier=recommendTier(d.ans), sum=D.tierSummary[tier], recs=recommendProducts(d.ans,tier);
+    var lines=qs.filter(function(q){return d.ans[q.key];}).map(function(q){
+      return '• '+q.title+': '+(q.key==='application'?appName(d.ans[q.key]):d.ans[q.key]);}).join('\n');
+    return '<section class="section" style="padding-top:36px"><div class="wrap diag" style="max-width:62rem">'+
+      '<div class="result"><span class="pill pill-ok">'+I.check+' Diagnóstico concluído</span>'+
+      '<h2 class="h2" style="margin-top:16px">'+esc(sum.headline)+'</h2>'+
+      '<p class="lede">'+esc(sum.rationale)+'</p>'+
+      '<div class="caution">'+I.info+'<p>Esta indicação é um <strong>ponto de partida gerado a partir das suas respostas</strong>. Ela precisa ser validada por um especialista, que vai confirmar se os modelos e programas que você usa realmente rodam bem nesta categoria.</p></div>'+
+      '<div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:20px">'+
+        '<a class="btn btn-wa" target="_blank" rel="noopener" href="'+waLink('Olá! Finalizei o diagnóstico no site da UPAR AI. Estas são as minhas respostas:\n\n'+lines+'\n\nCategoria indicada pelo site: '+TIER[tier]+'.\n\nGostaria de receber uma recomendação e um orçamento.')+'">'+I.wa+' Enviar diagnóstico no WhatsApp</a>'+
+        '<button type="button" class="btn btn-ghost" data-diag="reset">Refazer</button></div></div>'+
+      (recs.length?'<h3 style="margin-top:38px;font-size:18px">Configurações relacionadas ao seu perfil</h3>'+
+        '<div class="grid g3" style="margin-top:16px">'+recs.map(productCard).join('')+'</div>':'')+
+    '</div></section>';
+  }
+  var q=qs[d.step], pct=Math.round((d.step+1)/total*100);
+  var opts;
+  if(q.kind==='application') opts=D.applications.map(function(a){return {v:a.slug,l:a.name,d:a.short};});
+  else if(q.kind==='single') opts=(q.options||[]).map(function(o){return {v:o.value,l:o.label,d:o.description};});
+  else opts=null;
+  var cur=d.ans[q.key];
+  return '<section class="section" style="padding-top:36px"><div class="wrap diag">'+
+    '<span class="eyebrow">Diagnóstico</span><h2 class="h2">Encontre a configuração certa para a sua aplicação</h2>'+
+    '<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--faint);margin-top:22px"><span>Etapa '+(d.step+1)+' de '+total+'</span><span>'+pct+'%</span></div>'+
+    '<div class="bar"><i style="width:'+pct+'%"></i></div>'+
+    '<div class="qbox"><h3 style="font-size:20px;line-height:1.3">'+esc(q.title)+'</h3>'+
+      (q.help?'<p style="color:var(--muted);font-size:14.5px;margin-top:10px">'+esc(q.help)+'</p>':'')+
+      (opts? '<ul class="opts">'+opts.map(function(o){
+          return '<li><button type="button" class="opt" data-ans="'+esc(o.v)+'" aria-pressed="'+(cur===o.v)+'">'+
+            '<b>'+esc(o.l)+'</b>'+(o.d?'<span>'+esc(o.d)+'</span>':'')+'</button></li>';}).join('')+'</ul>'
+        : '<div style="margin-top:18px"><label for="q-text" class="sr">'+esc(q.title)+'</label>'+
+          '<textarea id="q-text" placeholder="'+esc(q.placeholder||'')+'">'+esc(cur||'')+'</textarea></div>')+
+      '<div class="nav-row">'+
+        '<button type="button" class="btn btn-ghost btn-sm" data-diag="back"'+(d.step===0?' style="visibility:hidden"':'')+'>← Voltar</button>'+
+        '<div style="display:flex;gap:10px;align-items:center">'+
+          (q.optional&&!cur?'<button type="button" class="btn btn-ghost btn-sm" data-diag="next">Pular</button>':'')+
+          '<button type="button" class="btn btn-primary" data-diag="next"'+(!cur&&!q.optional?' disabled':'')+'>'+
+            (d.step===total-1?'Ver recomendação':'Continuar')+' '+I.arrow+'</button></div>'+
+      '</div></div></div></section>';
+}
+
+function viewSolucoes(){
+  var slug=state.slug, a=slug?D.applications.find(function(x){return x.slug===slug;}):null;
+  if(!a){
+    return '<section class="section" style="padding-top:36px"><div class="wrap">'+
+      '<span class="eyebrow">Soluções por aplicação</span><h2 class="h2">O hardware certo depende do que você precisa executar</h2>'+
+      '<p class="lede">Escolha a sua aplicação para entender quais componentes realmente importam, quais são os desafios comuns e quais configurações atendem.</p>'+
+      '<div class="grid g3" style="margin-top:28px">'+D.applications.map(function(x){
+        var n=D.products.filter(function(p){return p.applications.indexOf(x.slug)>-1;}).length;
+        return '<button type="button" class="link-card" data-app="'+x.slug+'"><span class="icon-chip">'+I.spark+'</span>'+
+          '<h3>'+esc(x.name)+'</h3><p>'+esc(x.short)+'</p>'+
+          '<span style="font-size:12px;color:var(--faint);border-top:1px solid var(--line-soft);padding-top:11px">'+n+(n===1?' configuração':' configurações')+' · '+x.recommendedTiers.map(function(t){return TIER[t];}).join(' · ')+'</span>'+
+          '<span class="go">Ver dimensionamento '+I.arrow+'</span></button>';}).join('')+'</div></div></section>';
+  }
+  var prods=D.products.filter(function(p){return p.applications.indexOf(a.slug)>-1;});
+  return '<section class="section" style="padding-top:30px"><div class="wrap">'+
+    '<button type="button" class="btn btn-ghost btn-sm" data-go="solucoes" style="margin-bottom:22px">← Todas as soluções</button>'+
+    '<span class="eyebrow">Solução por aplicação</span><h2 class="h2">'+esc(a.name)+'</h2>'+
+    '<p class="lede">'+esc(a.intro)+'</p>'+
+    '<div class="grid g2" style="margin-top:30px">'+
+      '<div class="card"><h3>Para quem é indicada</h3>'+a.whoFor.map(function(w){
+        return '<p style="display:flex;gap:9px"><span style="color:var(--flux);flex-shrink:0">'+I.check+'</span>'+esc(w)+'</p>';}).join('')+'</div>'+
+      '<div class="card"><h3>Principais desafios de hardware</h3>'+a.challenges.map(function(c){
+        return '<div><strong style="font-size:14.5px;color:var(--head);font-weight:500">'+esc(c.title)+'</strong>'+
+          '<p style="margin-top:3px">'+esc(c.description)+'</p></div>';}).join('')+'</div>'+
+    '</div>'+
+    '<div style="margin-top:44px"><span class="eyebrow">Prioridades técnicas</span>'+
+      '<h3 class="h2" style="font-size:1.4rem">Onde o investimento faz mais diferença</h3>'+
+      '<p class="lede">O peso de cada componente muda conforme o uso. As barras mostram a importância relativa neste cenário.</p>'+
+      '<ul class="weights" style="margin-top:22px">'+a.components.map(function(c){
+        var bars=''; for(var i=0;i<5;i++) bars+='<i class="'+(i<c.weight?'on':'')+'"></i>';
+        return '<li class="weight" style="background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px">'+
+          '<b>'+esc(c.component)+'</b><span class="wbar" role="img" aria-label="Importância '+c.weight+' de 5">'+bars+'</span>'+
+          '<p>'+esc(c.why)+'</p></li>';}).join('')+'</ul></div>'+
+    (prods.length?'<div style="margin-top:44px"><span class="eyebrow">Configurações recomendadas</span>'+
+      '<h3 class="h2" style="font-size:1.4rem">Computadores dimensionados para esta aplicação</h3>'+
+      '<div class="grid g3" style="margin-top:22px">'+prods.map(productCard).join('')+'</div></div>':'')+
+    '<div style="margin-top:40px;display:flex;justify-content:center">'+
+      '<a class="btn btn-wa" target="_blank" rel="noopener" href="'+waLink('Olá! Estou avaliando computadores da UPAR AI para '+a.name+'. Gostaria de entender qual configuração atende a minha necessidade.')+'">'+I.wa+' Falar sobre '+esc(a.name.toLowerCase())+'</a></div>'+
+  '</div></section>';
+}
+
+/* ---------------- render ---------------- */
+function render(){
+  renderNav();
+  var html = state.view==='home'?viewHome()
+    : state.view==='catalogo'?viewCatalogo()
+    : state.view==='produto'?viewProduto()
+    : state.view==='comparador'?viewComparador()
+    : state.view==='diagnostico'?viewDiagnostico()
+    : viewSolucoes();
+  app.innerHTML = html;
+  document.getElementById('foot-note').textContent = D.products.length+' configurações · '+D.applications.length+' aplicações · dados demonstrativos';
+}
+
+/* ---------------- eventos ---------------- */
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest('[data-go],[data-open],[data-cmp],[data-app],[data-clear],[data-diag],[data-ans]');
+  if(!t) return;
+  if(t.dataset.go){ go(t.dataset.go, t.dataset.go==='solucoes'?null:undefined); return; }
+  if(t.dataset.open){ go('produto',t.dataset.open); return; }
+  if(t.dataset.app){ state.slug=t.dataset.app; go('solucoes',t.dataset.app); return; }
+  if(t.dataset.cmp){
+    var s=t.dataset.cmp, i=state.cmp.indexOf(s);
+    if(i>-1) state.cmp.splice(i,1); else if(state.cmp.length<3) state.cmp.push(s);
+    render(); return;
+  }
+  if(t.dataset.clear){
+    var c=t.dataset.clear;
+    if(c==='all') state.filters={app:[],vram:[],form:[],tier:[],avail:[]};
+    else if(c==='cmp') state.cmp=[];
+    else { var parts=c.split('|'), arr=state.filters[parts[0]], k=arr.indexOf(parts[1]); if(k>-1) arr.splice(k,1); }
+    render(); return;
+  }
+  if(t.dataset.ans!==undefined){
+    var q=D.questions[state.diag.step];
+    state.diag.ans[q.key]=t.dataset.ans; render(); return;
+  }
+  if(t.dataset.diag){
+    var act=t.dataset.diag, d=state.diag, qn=D.questions[d.step];
+    if(act==='reset'){ state.diag={step:0,ans:{},done:false}; }
+    else if(act==='back'){ d.step=Math.max(0,d.step-1); }
+    else if(act==='next'){
+      if(qn.kind==='text'){ var ta=document.getElementById('q-text'); if(ta&&ta.value.trim()) d.ans[qn.key]=ta.value.trim(); }
+      if(d.step===D.questions.length-1) d.done=true; else d.step++;
+    }
+    render(); return;
+  }
+});
+document.addEventListener('change',function(ev){
+  var el=ev.target; if(!el.dataset || !el.dataset.f) return;
+  var arr=state.filters[el.dataset.f], i=arr.indexOf(el.value);
+  if(el.checked){ if(i<0) arr.push(el.value); } else if(i>-1) arr.splice(i,1);
+  render();
+});
+
+render();
+}
+window.UPAR_READY.then(boot).catch(function(err){
+  document.getElementById('app').innerHTML =
+    '<section class="section"><div class="wrap"><h2 class="h2">Não foi possível carregar os dados</h2>'+
+    '<p class="lede">'+String(err && err.message ? err.message : err)+'. Tente um navegador mais recente.</p></div></section>';
+});
+</script>
+</body>
+</html>
