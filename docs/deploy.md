@@ -50,21 +50,30 @@ expõe nenhum time da Vercel, e a criação de projeto exige um `teamId`).
 
 ### Variáveis de ambiente
 
-| Variável | Valor | Onde obter |
+As **públicas já estão versionadas** em `.env.production` (URL e chave `anon` do
+Supabase, mais a URL do site). A chave `anon` é projetada para ser exposta ao
+navegador — quem protege os dados é o RLS. Não é preciso configurá-las na Vercel.
+
+Faltam apenas **dois segredos**, que precisam ser definidos na Vercel em
+*Settings → Environment Variables*:
+
+| Variável | Para que serve | Onde obter |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | URL final do site | Defina o domínio de produção |
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://bzkhsyquveiuyosojwtr.supabase.co` | já definido |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | chave `anon` / publishable | Supabase → Settings → API Keys |
-| `SUPABASE_SERVICE_ROLE_KEY` | chave `service_role` | Supabase → Settings → API Keys |
-| `ADMIN_SESSION_SECRET` | string longa e aleatória | gere você (ver abaixo) |
+| `SUPABASE_SERVICE_ROLE_KEY` | registro de leads e painel administrativo | Supabase → Settings → API Keys → `service_role` |
+| `ADMIN_SESSION_SECRET` | assina o cookie de sessão (mín. 32 caracteres) | `openssl rand -base64 48` |
+
+Variáveis definidas na Vercel têm precedência sobre `.env.production`, então dá
+para sobrescrever qualquer valor público sem editar o repositório — inclusive
+`NEXT_PUBLIC_SITE_URL`, ao apontar o domínio final.
+
+**Sem `ADMIN_SESSION_SECRET` o painel administrativo fica desabilitado por
+segurança** (nenhuma sessão é criada nem aceita). Isso é proposital: o valor
+padrão do código é público no repositório e permitiria forjar um cookie de
+administrador.
 
 > **`SUPABASE_SERVICE_ROLE_KEY` é secreta.** Ela dá acesso total ao banco,
-> ignorando RLS. Vai apenas na Vercel (nunca no repositório, nunca em variável
-> `NEXT_PUBLIC_`). É ela que permite registrar leads e usar o painel.
-
-> **`ADMIN_SESSION_SECRET`** assina o cookie de sessão do painel. Se ficar no
-> valor padrão, qualquer pessoa que conheça o código consegue forjar uma sessão.
-> Gere com: `openssl rand -base64 48`
+> ignorando RLS. Vai apenas na Vercel — nunca no repositório, nunca em variável
+> `NEXT_PUBLIC_`.
 
 Não defina `ADMIN_DEMO_EMAIL` nem `ADMIN_DEMO_PASSWORD` em produção. Sem elas e
 com o Supabase configurado, o login passa a exigir Supabase Auth.
