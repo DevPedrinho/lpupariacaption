@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getRepository } from '@/lib/repository'
+import { siteUrl as base } from '@/lib/site-url'
 
-const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ai.upartech.com.br'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [

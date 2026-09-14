@@ -1,7 +1,7 @@
 import type { Article, Faq, Product, SiteSettings } from './types'
 import { availabilityLabel, gpuSummary, storageSummary, tierLabel, totalVramGb } from './format'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ai.upartech.com.br'
+import { siteUrl } from './site-url'
 
 export function organizationSchema(settings: SiteSettings) {
   return {

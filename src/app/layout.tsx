@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Sora } from 'next/font/google'
+import { siteUrl } from '@/lib/site-url'
 import '@/styles/globals.css'
 
 const inter = Inter({
@@ -22,7 +23,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ai.upartech.com.br'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'UPAR AI — Computadores de alta performance para Inteligência Artificial',
     template: '%s | UPAR AI',
