@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   UPAR AI — DESIGN SYSTEM
+   ----------------------------------------------------------------------------
+   ATENÇÃO (dados reais pendentes): as cores de marca abaixo são PROVISÓRIAS.
+   Não foi possível acessar upartech.com.br a partir deste ambiente para extrair
+   a paleta oficial. Para aplicar a identidade real da UPAR, basta substituir os
+   valores do bloco "MARCA" — todo o site consome apenas estes tokens.
+   ========================================================================== */
+
+@theme {
+  /* ---------- MARCA (provisória — substituir pelas cores oficiais) ---------- */
+  --color-brand-50:  #EAF1FF;
+  --color-brand-100: #D3E2FF;
+  --color-brand-200: #A9C5FF;
+  --color-brand-300: #7BA4FF;
+  --color-brand-400: #4B84FF;
+  --color-brand-500: #1F6BFF;
+  --color-brand-600: #1350D6;
+  --color-brand-700: #0E3CA3;
+  --color-brand-800: #0B2C75;
+  --color-brand-900: #081D4D;
+
+  /* Acento de dados / IA */
+  --color-flux-300: #7BEBFA;
+  --color-flux-400: #35D8F0;
+  --color-flux-500: #14BCD8;
+  --color-flux-600: #0C93AC;
+
+  /* Acento secundário, uso pontual (IA local, destaques) */
+  --color-neural-400: #9B8CFA;
+  --color-neural-500: #7C5CF5;
+  --color-neural-600: #6035D9;
+
+  /* ---------- NEUTROS ---------- */
+  --color-ink-950: #05070E;
+  --color-ink-900: #090D18;
+  --color-ink-880: #0B1120;
+  --color-ink-850: #0E1526;
+  --color-ink-800: #121B2F;
+  --color-ink-700: #1A2540;
+  --color-ink-600: #273455;
+  --color-ink-500: #3A4A70;
+  --color-ink-400: #5B6E95;
+  --color-ink-300: #8698B8;
+  --color-ink-200: #B4C1D6;
+  --color-ink-100: #D8E0EC;
+  --color-ink-50:  #EEF2F8;
+
+  /* Semânticos */
+  --color-positive-500: #21B573;
+  --color-caution-500:  #E0A21A;
+  --color-critical-500: #E0483F;
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  /* ---------- RAIOS ---------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* ---------- ELEVAÇÃO ---------- */
+  --shadow-soft: 0 1px 2px rgb(5 7 14 / 0.14), 0 8px 24px -12px rgb(5 7 14 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(5 7 14 / 0.16), 0 20px 44px -20px rgb(5 7 14 / 0.65);
+  --shadow-glow: 0 0 0 1px rgb(31 107 255 / 0.28), 0 18px 60px -24px rgb(31 107 255 / 0.55);
+
+  /* ---------- MOVIMENTO ---------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: color-mix(in oklab, var(--color-ink-600) 60%, transparent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.022em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Foco visível e consistente em todo o site (acessibilidade) */
+  :focus-visible {
+    outline: 2px solid var(--color-flux-400);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-brand-500) 45%, transparent);
+    color: #fff;
+  }
+
+  /* Áreas claras herdam a tipografia escura */
+  .surface-light {
+    background-color: var(--color-ink-50);
+    color: var(--color-ink-800);
+  }
+  .surface-light h1,
+  .surface-light h2,
+  .surface-light h3,
+  .surface-light h4 { color: var(--color-ink-900); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ============================================================================
+   UTILITÁRIOS DE COMPOSIÇÃO
+   ========================================================================== */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+  @media (min-width: 1280px) { padding-inline: 2.5rem; }
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, #fff 8%, var(--color-brand-200) 48%, var(--color-flux-300) 96%);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility panel {
+  background-color: color-mix(in oklab, var(--color-ink-880) 88%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-ink-600) 55%, transparent);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(10px);
+}
+
+@utility hairline {
+  border-color: color-mix(in oklab, var(--color-ink-600) 55%, transparent);
+}
+
+/* Malha sutil que remete a processamento / dados */
+@utility grid-mesh {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-ink-600) 34%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink-600) 34%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility glow-brand {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Animações funcionais (entrada suave) */
+@keyframes upar-rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes upar-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.75; }
+}
+@keyframes upar-sweep {
+  from { transform: translateX(-120%); }
+  to   { transform: translateX(220%); }
+}
+
+@utility animate-rise {
+  animation: upar-rise 0.62s var(--ease-out-soft) both;
+}
+@utility animate-slow-pulse {
+  animation: upar-pulse 6s ease-in-out infinite;
+}
+
+/* Scrollbar discreta nas áreas escuras */
+@layer base {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink-900); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-700);
+    border-radius: 999px;
+    border: 2px solid var(--color-ink-900);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-600); }
+}
