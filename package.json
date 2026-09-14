@@ -2,13 +2,14 @@
   "name": "upar-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "UPAR AI — Computadores de alta performance para Inteligência Artificial",
+  "description": "UPAR AI \u2014 Computadores de alta performance para Intelig\u00eancia Artificial",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx scripts/seed-supabase.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
@@ -24,6 +25,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "tailwindcss": "4.3.3",
+    "tsx": "^4.23.13",
     "typescript": "^5.9.3"
   }
 }

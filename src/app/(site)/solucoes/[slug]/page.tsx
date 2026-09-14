@@ -15,8 +15,13 @@ import { tierLabel } from '@/lib/format'
 type Params = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  const applications = await getRepository().listApplications()
-  return applications.map((application) => ({ slug: application.slug }))
+  try {
+    const applications = await getRepository().listApplications()
+    return applications.map((application) => ({ slug: application.slug }))
+  } catch (error) {
+    console.warn('generateStaticParams (soluções) indisponível:', error)
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

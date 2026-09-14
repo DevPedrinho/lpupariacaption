@@ -6,6 +6,16 @@ import type { Explainer, Product } from '@/lib/types'
  * o `spec` vem sempre do cadastro do produto. O painel permite sobrescrever
  * qualquer um dos blocos.
  */
+/** Número de posições de GPU ainda livres, já flexionado. */
+function free(p: Pick<Product, 'maxGpus' | 'gpu'>): number {
+  return p.maxGpus - p.gpu.quantity
+}
+
+function freeLabel(p: Pick<Product, 'maxGpus' | 'gpu'>): string {
+  const count = free(p)
+  return `${count} ${count === 1 ? 'posição' : 'posições'}`
+}
+
 export function buildExplainers(
   p: Pick<Product, 'cpu' | 'gpu' | 'ram' | 'storage' | 'cooling' | 'psu' | 'network' | 'expansion' | 'maxGpus'>,
 ): Explainer[] {
@@ -80,7 +90,7 @@ export function buildExplainers(
       title: 'Expansão futura',
       spec:
         p.maxGpus > p.gpu.quantity
-          ? `Suporta até ${p.maxGpus} placas de vídeo (${p.maxGpus - p.gpu.quantity} posição${p.maxGpus - p.gpu.quantity > 1 ? 'ões' : ''} livre${p.maxGpus - p.gpu.quantity > 1 ? 's' : ''})`
+          ? `Suporta até ${p.maxGpus} placas de vídeo (${freeLabel(p)} livre${free(p) === 1 ? '' : 's'})`
           : `Configuração no limite de ${p.maxGpus} placa${p.maxGpus > 1 ? 's' : ''} de vídeo`,
       role: p.expansion.join(' · '),
     },

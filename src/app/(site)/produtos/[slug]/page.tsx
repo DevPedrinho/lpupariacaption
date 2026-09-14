@@ -23,8 +23,15 @@ import {
 type Params = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  const products = await getRepository().listProducts()
-  return products.map((product) => ({ slug: product.slug }))
+  try {
+    const products = await getRepository().listProducts()
+    return products.map((product) => ({ slug: product.slug }))
+  } catch (error) {
+    // Se a origem de dados estiver indisponível no build, as páginas passam a
+    // ser renderizadas sob demanda em vez de derrubar o deploy inteiro.
+    console.warn('generateStaticParams (produtos) indisponível:', error)
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

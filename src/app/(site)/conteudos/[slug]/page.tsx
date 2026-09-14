@@ -16,8 +16,13 @@ import { formatDate } from '@/lib/format'
 type Params = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  const articles = await getRepository().listArticles()
-  return articles.map((article) => ({ slug: article.slug }))
+  try {
+    const articles = await getRepository().listArticles()
+    return articles.map((article) => ({ slug: article.slug }))
+  } catch (error) {
+    console.warn('generateStaticParams (conteúdos) indisponível:', error)
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

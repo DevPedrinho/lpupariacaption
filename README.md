@@ -44,15 +44,17 @@ Outros comandos: `npm run build`, `npm start`, `npm run typecheck`.
 `ADMIN_DEMO_PASSWORD` (padrão: `admin@uparai.com.br` / `upar-ai-demo`).
 **Remova essas variáveis em produção** e use exclusivamente o Supabase Auth.
 
-## Conectando o Supabase
+## Supabase e deploy
 
-1. Crie o projeto e rode `supabase/migrations/0001_init.sql` (tabelas, índices,
-   políticas de RLS e o bucket `produtos` do Storage).
-2. Preencha `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` e
-   `SUPABASE_SERVICE_ROLE_KEY`.
-3. Crie os usuários no Supabase Auth e insira a linha correspondente em
-   `admin_users` (com `auth_uid` e o papel).
-4. Migre o conteúdo demonstrativo de `src/data/` para as tabelas.
+O projeto Supabase **já está criado e populado** (`bzkhsyquveiuyosojwtr`, região
+`sa-east-1`): schema, RLS, bucket de Storage e todo o conteúdo demonstrativo.
+A tabela de leads começa vazia.
+
+Passos restantes (importar na Vercel, variáveis de ambiente, criação dos usuários
+no Supabase Auth): **[`docs/deploy.md`](docs/deploy.md)**.
+
+Para recarregar o conteúdo a partir de `src/data`: `npm run seed` (idempotente,
+não toca em leads).
 
 A troca é transparente para o restante do código: `getRepository()`
 (`src/lib/repository/index.ts`) escolhe o adaptador conforme as variáveis presentes.

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { SESSION_COOKIE, verifySessionToken } from '@/lib/auth'
 
 /** Protege todas as rotas administrativas, exceto a tela de login. */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (pathname === '/admin/login') {
