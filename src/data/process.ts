@@ -41,37 +41,37 @@ export const localAiBenefits = [
     icon: 'lock' as const,
     title: 'Seus dados permanecem na sua infraestrutura',
     description:
-      'Prompts, documentos e resultados não saem da sua rede. Para áreas com exigência contratual ou regulatória, isso costuma ser o critério decisivo.',
+      'Prompts, documentos e resultados não saem da sua rede. Não há termo de uso de terceiro definindo o que pode ser feito com o que você processa, nem dúvida sobre onde o dado ficou armazenado. Para áreas com exigência contratual ou regulatória, isso costuma deixar de ser vantagem e virar o critério decisivo.',
   },
   {
     icon: 'chart' as const,
     title: 'Custo previsível, sem medidor rodando',
     description:
-      'O investimento acontece uma vez. Não há cobrança por volume de uso, o que muda a conta para quem usa IA de forma constante.',
+      'O investimento acontece uma vez, e a partir daí o custo por requisição é zero. Isso muda completamente a conta de quem usa IA de forma constante: em vez de uma fatura que cresce junto com a adoção interna, a equipe pode experimentar à vontade sem ninguém vigiando o medidor.',
   },
   {
     icon: 'bolt' as const,
     title: 'Resposta imediata, sem fila',
     description:
-      'O processamento acontece ao lado de quem trabalha. Sem latência de rede e sem limite de requisições imposto por terceiros.',
+      'O processamento acontece ao lado de quem trabalha. Sem latência de rede, sem limite de requisições por minuto e sem fila em horário de pico. Para trabalho iterativo — onde se ajusta o prompt, roda de novo e compara — essa diferença aparece no ritmo do dia inteiro, não só no cronômetro.',
   },
   {
     icon: 'sliders' as const,
     title: 'Controle total sobre modelos e versões',
     description:
-      'Você decide qual modelo usar, quando atualizar e como ajustá-lo. Nada muda sem que você autorize.',
+      'Você decide qual modelo usar, quando atualizar e como ajustá-lo ao seu conteúdo. Nada muda sem que você autorize — um modelo não é descontinuado nem alterado no meio do seu projeto porque o fornecedor decidiu assim, e o resultado de hoje continua reproduzível amanhã.',
   },
   {
     icon: 'users' as const,
     title: 'Disponível para o time inteiro',
     description:
-      'Um equipamento bem dimensionado atende várias pessoas pela rede interna, sem custo adicional por usuário.',
+      'Um equipamento bem dimensionado atende várias pessoas pela rede interna, sem custo adicional por usuário. Quantas pessoas cabem ao mesmo tempo depende da VRAM e do modelo em uso — é uma das primeiras contas que a consultoria faz, porque atender uma equipe é bem diferente de atender uma pessoa.',
   },
   {
     icon: 'upgrade' as const,
     title: 'Cresce junto com a operação',
     description:
-      'Memória, armazenamento e placas de vídeo podem ser ampliados conforme a demanda aumenta, preservando o investimento.',
+      'Memória, armazenamento e placas de vídeo podem ser ampliados conforme a demanda aumenta, preservando o que já foi investido. É por isso que o chassi e a fonte são dimensionados na compra pensando no passo seguinte, mesmo quando esse passo ainda não tem data.',
   },
 ] as const
 
@@ -80,37 +80,37 @@ export const differentials = [
     icon: 'brain' as const,
     title: 'A conversa começa pela aplicação',
     description:
-      'Antes de falar de peças, entendemos o que você precisa executar. É isso que evita comprar o componente errado.',
+      'Antes de falar de peças, entendemos o que você precisa executar: quais modelos, quais programas, quantas pessoas vão usar e com que frequência. É essa lista que transforma uma recomendação em dimensionamento. Sem ela, qualquer configuração é palpite — por mais cara que seja.',
   },
   {
     icon: 'shield' as const,
     title: 'Quem monta é quem atende',
     description:
-      'A mesma equipe dimensiona, monta, testa e dá suporte. Você não é transferido para alguém que nunca viu a sua máquina.',
+      'A mesma equipe dimensiona, monta, testa sob carga e atende depois da entrega. Quando você liga com um problema, não precisa explicar a máquina do zero para alguém que nunca a viu: quem atende tem o histórico da configuração e sabe por que cada componente foi escolhido.',
   },
   {
     icon: 'cpu' as const,
     title: 'Especialização em alta performance',
     description:
-      'Computadores de trabalho pesado e upgrades são a origem da UPAR. A IA ampliou o escopo, não mudou a especialidade.',
+      'Computadores de trabalho pesado e upgrades são a origem da UPAR, não uma linha aberta às pressas por causa da inteligência artificial. O que mudou foi o tipo de pergunta que chega — antes renderização e simulação, agora também modelos e inferência. A especialidade em dimensionar máquinas que trabalham no limite é a mesma.',
   },
   {
     icon: 'upgrade' as const,
     title: 'Projeto pensado para expandir',
     description:
-      'Fonte, chassi e plataforma são escolhidos considerando o próximo passo, não apenas a necessidade de hoje.',
+      'Fonte, chassi, placa-mãe e refrigeração são escolhidos considerando o passo seguinte, não apenas a necessidade de hoje. Isso custa pouco na montagem inicial e é a diferença entre acrescentar uma placa quando a demanda crescer ou ter que trocar o equipamento inteiro.',
   },
   {
     icon: 'users' as const,
     title: 'Atendimento para empresas e instituições',
     description:
-      'Acompanhamos as exigências formais de compra de empresas, universidades e órgãos públicos.',
+      'Além do dimensionamento técnico, acompanhamos as exigências formais de cada tipo de compra: documentação para processos licitatórios, dados cadastrais para empenho e o que mais o seu setor de compras exigir. Informe o tipo de comprador no primeiro contato para que o atendimento já comece no formato certo.',
   },
   {
     icon: 'info' as const,
     title: 'Transparência sobre o que não sabemos',
     description:
-      'Não publicamos números de desempenho que não tenhamos medido. Quando uma informação depende de teste, dizemos isso.',
+      'Não publicamos número de desempenho que não tenhamos medido — nem tokens por segundo, nem tempo de renderização, nem compatibilidade com um modelo específico. Quando a resposta depende de teste, dizemos que depende de teste. É menos vendedor, e evita que você compre com base em uma promessa que ninguém verificou.',
   },
 ] as const
 
