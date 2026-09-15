@@ -5,7 +5,7 @@ import { approachCompare } from '@/data/process'
 type Column = {
   readonly title: string
   readonly subtitle: string
-  readonly items: readonly { readonly title: string; readonly description: string }[]
+  readonly items: readonly string[]
 }
 
 function CompareColumn({ column, variant }: { column: Column; variant: 'wrong' | 'right' }) {
@@ -15,34 +15,33 @@ function CompareColumn({ column, variant }: { column: Column; variant: 'wrong' |
     <div
       className={
         isRight
-          ? 'flex flex-col gap-6 rounded-2xl border border-brand-500/35 bg-brand-500/[0.06] p-6 md:p-8'
-          : 'flex flex-col gap-6 rounded-2xl border border-ink-700/70 bg-ink-880/50 p-6 md:p-8'
+          ? 'flex flex-col gap-5 rounded-2xl border border-brand-500/40 bg-brand-500/[0.07] p-6 md:p-7'
+          : 'flex flex-col gap-5 rounded-2xl border border-ink-700/70 bg-ink-880/50 p-6 md:p-7'
       }
     >
-      <div className="flex flex-col gap-1.5">
-        <h3 className={isRight ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-ink-200'}>
+      <div className="flex flex-col gap-1">
+        <h3 className={isRight ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-ink-200'}>
           {column.title}
         </h3>
-        <p className="text-sm leading-relaxed text-ink-400">{column.subtitle}</p>
+        <p className="text-sm text-ink-400">{column.subtitle}</p>
       </div>
 
-      <ul className="flex flex-col gap-5">
+      <ul className="flex flex-col gap-3">
         {column.items.map((item) => (
-          <li key={item.title} className="flex gap-3.5">
+          <li key={item} className="flex items-center gap-3">
             <span
               aria-hidden="true"
               className={
                 isRight
-                  ? 'mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-500/15 text-brand-300 ring-1 ring-brand-500/30 ring-inset'
-                  : 'mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-critical-500/10 text-critical-500 ring-1 ring-critical-500/25 ring-inset'
+                  ? 'inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-500 text-ink-950'
+                  : 'inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-ink-700 text-ink-400'
               }
             >
-              <Icon name={isRight ? 'check' : 'close'} className="size-3.5" />
+              <Icon name={isRight ? 'check' : 'close'} className="size-3" />
             </span>
-            <div className="flex flex-col gap-1.5">
-              <h4 className={isRight ? 'font-medium text-white' : 'font-medium text-ink-200'}>{item.title}</h4>
-              <p className="text-[0.9375rem] leading-relaxed text-ink-300">{item.description}</p>
-            </div>
+            <span className={isRight ? 'text-[0.9375rem] text-white' : 'text-[0.9375rem] text-ink-300'}>
+              {item}
+            </span>
           </li>
         ))}
       </ul>
@@ -51,9 +50,9 @@ function CompareColumn({ column, variant }: { column: Column; variant: 'wrong' |
 }
 
 /**
- * Contraste lado a lado entre comprar por ficha técnica e dimensionar pela
- * aplicação. A coluna da esquerda descreve uma prática de mercado — nenhum
- * concorrente é citado nem caracterizado.
+ * Contraste lado a lado, só com os títulos: a seção existe para ser escaneada
+ * em segundos, não lida. A coluna da esquerda descreve uma prática de mercado
+ * — nenhum concorrente é citado nem caracterizado.
  */
 export function ApproachCompare() {
   return (
@@ -64,13 +63,13 @@ export function ApproachCompare() {
           title={
             <>
               Duas formas de comprar a mesma máquina —{' '}
-              <span className="text-gradient">com resultados bem diferentes</span>
+              <span className="text-gradient">resultados bem diferentes</span>
             </>
           }
-          description="A diferença não está no catálogo de peças, que é praticamente o mesmo para todo mundo. Está na ordem das perguntas."
+          description="A diferença não está no catálogo de peças. Está na ordem das perguntas."
         />
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-2 lg:gap-5">
+        <div className="mt-11 grid gap-4 lg:grid-cols-2">
           <CompareColumn column={approachCompare.wrong} variant="wrong" />
           <CompareColumn column={approachCompare.right} variant="right" />
         </div>

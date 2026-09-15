@@ -3,10 +3,9 @@ import { Section, SectionHeader } from '@/components/ui/Section'
 import { painPoints } from '@/data/process'
 
 /**
- * Abre a página nomeando o problema antes de oferecer a solução.
- *
- * Os quatro itens são erros de dimensionamento explicados tecnicamente — sem
- * percentual, estudo ou estatística, que o briefing proíbe inventar.
+ * Nomeia o problema antes de oferecer a solução, em quatro blocos de leitura
+ * rápida. O ritmo vem da numeração e do ícone, não de parágrafo: quem rola a
+ * página precisa entender os quatro pontos em poucos segundos.
  */
 export function PainPoints() {
   return (
@@ -17,24 +16,31 @@ export function PainPoints() {
           eyebrow="Antes de escolher"
           title={
             <>
-              Quase todo projeto de IA que trava no hardware{' '}
-              <span className="text-critical-500">erra em um destes quatro pontos</span>
+              Quatro erros que <span className="text-gradient">custam caro</span> em projeto de IA
             </>
           }
-          description="Nenhum deles aparece na ficha técnica, e todos custam caro depois. É por isso que a conversa com a UPAR começa pela sua aplicação, e não pela lista de peças."
+          description="Nenhum deles aparece na ficha técnica."
         />
 
-        <ul className="mt-12 grid gap-4 md:grid-cols-2">
-          {painPoints.map((point) => (
+        <ul className="mt-11 grid gap-px overflow-hidden rounded-2xl border border-ink-700/70 bg-ink-700/70 sm:grid-cols-2 lg:grid-cols-4">
+          {painPoints.map((point, index) => (
             <li
               key={point.title}
-              className="flex flex-col gap-4 rounded-2xl border border-ink-700/70 bg-ink-880/60 p-6 md:p-7"
+              className="group flex flex-col gap-3.5 bg-ink-880 p-6 transition-colors duration-300 hover:bg-ink-850"
             >
-              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-critical-500/10 text-critical-500 ring-1 ring-critical-500/25 ring-inset">
-                <Icon name={point.icon} className="size-5" />
-              </span>
-              <h3 className="text-[1.125rem] leading-snug font-semibold text-white">{point.title}</h3>
-              <p className="text-[0.9375rem] leading-relaxed text-ink-300">{point.description}</p>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex size-9 items-center justify-center rounded-lg bg-brand-500/12 text-brand-300 ring-1 ring-brand-500/25 ring-inset transition-colors group-hover:bg-brand-500/20">
+                  <Icon name={point.icon} className="size-[1.15rem]" />
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="font-display text-2xl font-semibold text-ink-600 transition-colors group-hover:text-brand-500/60"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="text-[1.0625rem] leading-snug font-semibold text-white">{point.title}</h3>
+              <p className="text-sm leading-relaxed text-ink-300">{point.description}</p>
             </li>
           ))}
         </ul>

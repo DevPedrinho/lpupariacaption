@@ -20,11 +20,11 @@ export function FeaturedProducts({
           <SectionHeader
             eyebrow="Computadores em destaque"
             title="Configurações que resolvem os cenários mais comuns"
-            description="São pontos de partida testados em projetos reais. Qualquer uma delas pode ser ajustada à sua aplicação."
+            description="Pontos de partida. Qualquer uma é ajustada à sua aplicação."
           />
           <Link
             href="/catalogo"
-            className="inline-flex shrink-0 items-center gap-2 text-[0.9375rem] font-medium text-flux-300 transition-colors hover:text-flux-400"
+            className="inline-flex shrink-0 items-center gap-2 text-[0.9375rem] font-medium text-brand-300 transition-colors hover:text-brand-200"
           >
             Ver catálogo completo
             <Icon name="arrowRight" className="size-4" />
@@ -32,7 +32,7 @@ export function FeaturedProducts({
         </div>
 
         <div className="mt-11 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.slice(0, 6).map((product) => (
+          {products.slice(0, 3).map((product) => (
             <ProductCard key={product.id} product={product} applications={applications} />
           ))}
         </div>

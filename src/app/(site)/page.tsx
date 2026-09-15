@@ -5,10 +5,10 @@ import { faqSchema, organizationSchema, websiteSchema } from '@/lib/schema'
 import { Hero } from '@/components/home/Hero'
 import { PainPoints } from '@/components/home/PainPoints'
 import { ApproachCompare } from '@/components/home/ApproachCompare'
+import { ConsultingCta } from '@/components/home/ConsultingCta'
 import { ApplicationsGrid } from '@/components/home/ApplicationsGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
 import { ConsultingSteps } from '@/components/home/ConsultingSteps'
-import { LocalAiBenefits } from '@/components/home/LocalAiBenefits'
 import { CategoryTable } from '@/components/home/CategoryTable'
 import { Differentials } from '@/components/home/Differentials'
 import { Testimonials } from '@/components/home/Testimonials'
@@ -46,10 +46,10 @@ export default async function HomePage() {
       <Hero />
       <PainPoints />
       <ApproachCompare />
+      <ConsultingCta />
       <ApplicationsGrid applications={applications} />
       <FeaturedProducts products={highlighted} applications={appIndex} />
       <ConsultingSteps />
-      <LocalAiBenefits />
       <CategoryTable />
       <Differentials />
       <Testimonials testimonials={testimonials} />
