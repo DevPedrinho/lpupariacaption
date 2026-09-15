@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { MachineRender } from '@/components/site/MachineRender'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
-import { useCompare } from '@/components/site/CompareProvider'
 import { cn } from '@/lib/cn'
 import {
   availabilityLabel, formatCapacity, formFactorLabel, formatPrice, gpuSummary, storageSummary,
@@ -29,9 +28,6 @@ export function ProductCard({
   applications: Pick<Application, 'slug' | 'name'>[]
   className?: string
 }) {
-  const { isSelected, toggle, isFull } = useCompare()
-  const selected = isSelected(product.slug)
-  const disabled = !selected && isFull
   const appNames = product.applications
     .map((slug) => applications.find((a) => a.slug === slug)?.name)
     .filter(Boolean) as string[]
@@ -73,32 +69,6 @@ export function ProductCard({
           {product.isDemo && <Badge tone="demo">Dado demonstrativo</Badge>}
         </div>
       </div>
-
-      <button
-        type="button"
-        onClick={() => toggle(product.slug)}
-        disabled={disabled}
-        aria-pressed={selected}
-        title={
-          disabled
-            ? 'Você já selecionou três configurações para comparar'
-            : selected
-              ? 'Remover da comparação'
-              : 'Adicionar à comparação'
-        }
-        className={cn(
-          'absolute top-3.5 right-3.5 z-20 inline-flex size-9 items-center justify-center rounded-lg border transition-colors',
-          selected
-            ? 'border-brand-500 bg-brand-500 text-ink-950'
-            : 'border-ink-600/70 bg-ink-900/85 text-ink-300 hover:border-ink-500 hover:text-white',
-          disabled && 'cursor-not-allowed opacity-40 hover:border-ink-600/70 hover:text-ink-300',
-        )}
-      >
-        <Icon name={selected ? 'check' : 'compare'} className="size-4" />
-        <span className="sr-only">
-          {selected ? `Remover ${product.name} da comparação` : `Comparar ${product.name}`}
-        </span>
-      </button>
 
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex flex-col gap-1.5">

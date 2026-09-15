@@ -404,7 +404,7 @@ export default async function ProductPage({ params }: Params) {
             </div>
 
             <Link
-              href="/comparador"
+              href="/comparativo"
               className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-flux-300 transition-colors hover:text-flux-400"
             >
               Montar a sua própria comparação

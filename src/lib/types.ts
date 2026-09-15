@@ -214,7 +214,7 @@ export type LeadStatus =
   | 'venda_concluida'
   | 'perdido'
 
-export type LeadOrigin = 'diagnostico' | 'produto' | 'comparador' | 'contato' | 'consultoria' | 'catalogo'
+export type LeadOrigin = 'diagnostico' | 'produto' | 'comparativo' | 'contato' | 'consultoria' | 'catalogo'
 
 export interface DiagnosticAnswers {
   application?: string

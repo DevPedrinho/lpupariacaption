@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
-import { useCompare } from '@/components/site/CompareProvider'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/cn'
 import {
@@ -28,8 +27,6 @@ export function ProductBuyBox({
   product: Product
   applicationName?: string
 }) {
-  const { isSelected, toggle, isFull } = useCompare()
-  const selected = isSelected(product.slug)
 
   useEffect(() => {
     track('view_item', {
@@ -98,22 +95,13 @@ export function ProductBuyBox({
           </WhatsAppCta>
 
           <div className="flex flex-col gap-2.5 sm:flex-row">
-            <button
-              type="button"
-              onClick={() => toggle(product.slug)}
-              disabled={!selected && isFull}
-              aria-pressed={selected}
-              className={cn(
-                'inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border px-4 text-[0.9375rem] font-medium transition-colors',
-                selected
-                  ? 'border-brand-500 bg-brand-500/15 text-brand-200'
-                  : 'border-ink-600/70 bg-ink-800/60 text-ink-50 hover:border-ink-500',
-                !selected && isFull && 'cursor-not-allowed opacity-40',
-              )}
+            <Link
+              href="/comparativo"
+              className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-4 text-[0.9375rem] font-medium text-ink-50 transition-colors hover:border-ink-500"
             >
-              <Icon name={selected ? 'check' : 'compare'} className="size-4" />
-              {selected ? 'Na comparação' : 'Comparar'}
-            </button>
+              <Icon name="compare" className="size-4" />
+              Comparar com outro
+            </Link>
             <Link
               href="/encontre-sua-configuracao"
               className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-4 text-[0.9375rem] font-medium text-ink-50 transition-colors hover:border-ink-500"

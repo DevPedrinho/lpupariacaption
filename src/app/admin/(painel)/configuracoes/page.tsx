@@ -75,7 +75,7 @@ export default async function SettingsPage({
             </Row>
           </div>
           <p className="mt-4 text-xs leading-relaxed text-ink-500">
-            As mensagens das páginas de produto, do comparador e do diagnóstico são montadas automaticamente
+            As mensagens das páginas de produto, do comparativo e do diagnóstico são montadas automaticamente
             com o contexto da origem do clique.
           </p>
         </Panel>

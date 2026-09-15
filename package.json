@@ -2,7 +2,7 @@
   "name": "upar-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "UPAR AI \u2014 Computadores de alta performance para Intelig\u00eancia Artificial",
+  "description": "UPAR AI — Computadores de alta performance para Inteligência Artificial",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +12,7 @@
     "seed": "tsx scripts/seed-supabase.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "2.116.0",
     "next": "16.3.5",

@@ -9,13 +9,11 @@ import { Icon } from '@/components/ui/Icon'
 import { ButtonLink } from '@/components/ui/Button'
 import { Logo } from './Logo'
 import { WhatsAppCta } from './WhatsAppCta'
-import { useCompare } from './CompareProvider'
 
 export function Header() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { slugs } = useCompare()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -75,19 +73,6 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            {slugs.length > 0 && (
-              <Link
-                href="/comparador"
-                className="hidden items-center gap-1.5 rounded-lg border border-ink-600/70 px-3 py-2 text-sm text-ink-200 transition-colors hover:border-ink-500 hover:text-white md:inline-flex"
-              >
-                <Icon name="compare" className="size-4" />
-                Comparar
-                <span className="ml-0.5 inline-flex size-5 items-center justify-center rounded-full bg-brand-500 text-2xs font-semibold text-ink-950">
-                  {slugs.length}
-                </span>
-              </Link>
-            )}
-
             {/* Os invólucros controlam a visibilidade: aplicar `hidden` direto no
                 botão conflita com o `inline-flex` da sua classe base. */}
             <span className="hidden md:inline-flex">

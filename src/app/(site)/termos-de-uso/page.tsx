@@ -21,11 +21,11 @@ Ao navegar neste site você concorda com estas condições. Se não concordar, r
 
 ## Finalidade do site
 
-Este site apresenta configurações de computadores, workstations e servidores e oferece ferramentas de apoio à decisão, como o diagnóstico e o comparador. Ele não realiza vendas online: todo atendimento comercial acontece por meio de contato direto com a equipe da ${settings.companyName}.
+Este site apresenta configurações de computadores, workstations e servidores e oferece ferramentas de apoio à decisão, como o diagnóstico e o comparativo. Ele não realiza vendas online: todo atendimento comercial acontece por meio de contato direto com a equipe da ${settings.companyName}.
 
 ## Natureza das informações técnicas
 
-As configurações exibidas são pontos de partida e podem ser ajustadas. As indicações do diagnóstico e do comparador são orientativas e **precisam ser validadas por um especialista** antes de qualquer decisão de compra.
+As configurações exibidas são pontos de partida e podem ser ajustadas. As indicações do diagnóstico e do comparativo são orientativas e **precisam ser validadas por um especialista** antes de qualquer decisão de compra.
 
 Não publicamos medições de desempenho que não tenham sido realizadas e validadas pela nossa equipe técnica. Quando um número de desempenho aparece no site, ele vem acompanhado do contexto do teste.
 

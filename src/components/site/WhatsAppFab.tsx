@@ -6,13 +6,11 @@ import { track } from '@/lib/analytics'
 import { buildWhatsAppMessage, whatsappUrl } from '@/lib/whatsapp'
 import { Icon } from '@/components/ui/Icon'
 import { useSiteConfig } from './SiteConfig'
-import { useCompare } from './CompareProvider'
 
 /** Botão flutuante discreto, presente em todas as páginas públicas. */
 export function WhatsAppFab() {
   const settings = useSiteConfig()
   const pathname = usePathname()
-  const { entries } = useCompare()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -39,7 +37,6 @@ export function WhatsAppFab() {
         'text-sm font-medium text-white shadow-[0_12px_32px_-10px_rgb(0_0_0/0.65)] transition-all duration-300',
         'hover:bg-[#199247] md:right-6',
         // Sobe quando a bandeja de comparação está aberta, para não sobrepô-la.
-        entries.length > 0 ? 'bottom-24 md:bottom-26' : 'bottom-4 md:bottom-6',
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0',
       ].join(' ')}
     >

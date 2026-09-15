@@ -10,7 +10,7 @@ import { questions } from '@/lib/diagnostic'
 import { updateLead } from '../../actions'
 import type { Lead, LeadStatus } from '@/lib/types'
 
-const ORIGINS = ['diagnostico', 'produto', 'comparador', 'contato', 'consultoria', 'catalogo'] as const
+const ORIGINS = ['diagnostico', 'produto', 'comparativo', 'contato', 'consultoria', 'catalogo'] as const
 
 const control =
   'h-10 rounded-lg border border-ink-600/70 bg-ink-900/70 px-3 text-sm text-ink-50 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/35 focus:outline-none'
@@ -55,7 +55,7 @@ export default async function LeadsPage({
     <>
       <AdminHeader
         title="Leads"
-        description="Contatos captados pelo diagnóstico, pelas páginas de produto, pelo comparador e pelos formulários."
+        description="Contatos captados pelo diagnóstico, pelas páginas de produto, pelo comparativo e pelos formulários."
         actions={
           <a
             href={`/api/admin/leads/csv${csvQuery ? `?${csvQuery}` : ''}`}

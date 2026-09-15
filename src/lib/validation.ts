@@ -29,7 +29,7 @@ export const leadSchema = z.object({
   recommendedTier: z.enum(['essencial', 'avancado', 'profissional', 'extremo']).optional(),
   budgetRange: z.string().max(120).optional(),
   purchaseWindow: z.string().max(120).optional(),
-  origin: z.enum(['diagnostico', 'produto', 'comparador', 'contato', 'consultoria', 'catalogo']),
+  origin: z.enum(['diagnostico', 'produto', 'comparativo', 'contato', 'consultoria', 'catalogo']),
   originPath: z.string().max(300).optional(),
   utm: z.record(z.string().max(60), z.string().max(300)).optional(),
   message: z.string().trim().max(2000).optional(),

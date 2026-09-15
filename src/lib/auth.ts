@@ -75,21 +75,29 @@ async function key(): Promise<CryptoKey | null> {
   )
 }
 
-export async function createSessionToken(payload: Omit<Session, 'exp'>): Promise<string> {
+/**
+ * Assina qualquer carga com o mesmo segredo e acrescenta a expiração.
+ *
+ * A sessão do cliente (`customer-auth.ts`) usa esta mesma função, com cookie e
+ * tempo de vida próprios. O segredo é um só: se ele faltar, nem o painel nem a
+ * área do cliente abrem — as duas falham fechadas juntas.
+ */
+export async function signPayload<T extends object>(payload: T, ttlSeconds: number): Promise<string> {
   const signingKey = await key()
   if (!signingKey) {
     throw new Error(
       'ADMIN_SESSION_SECRET ausente ou muito curto. Defina uma chave de ao menos ' +
-        `${MIN_SECRET_LENGTH} caracteres para habilitar o painel administrativo.`,
+        `${MIN_SECRET_LENGTH} caracteres para habilitar as áreas autenticadas.`,
     )
   }
-  const session: Session = { ...payload, exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS }
-  const body = toBase64Url(new TextEncoder().encode(JSON.stringify(session)))
+  const withExpiry = { ...payload, exp: Math.floor(Date.now() / 1000) + ttlSeconds }
+  const body = toBase64Url(new TextEncoder().encode(JSON.stringify(withExpiry)))
   const signature = await crypto.subtle.sign('HMAC', signingKey, encode(body))
   return `${body}.${toBase64Url(new Uint8Array(signature))}`
 }
 
-export async function verifySessionToken(token: string | undefined): Promise<Session | null> {
+/** Verifica a assinatura e a validade. Retorna null em qualquer falha. */
+export async function verifyPayload<T extends { exp: number }>(token: string | undefined): Promise<T | null> {
   if (!token) return null
   const [body, signature] = token.split('.')
   if (!body || !signature) return null
@@ -99,20 +107,23 @@ export async function verifySessionToken(token: string | undefined): Promise<Ses
     // Sem segredo configurado nenhuma sessão é aceita: falha fechada.
     if (!signingKey) return null
 
-    const valid = await crypto.subtle.verify(
-      'HMAC',
-      signingKey,
-      fromBase64Url(signature),
-      encode(body),
-    )
+    const valid = await crypto.subtle.verify('HMAC', signingKey, fromBase64Url(signature), encode(body))
     if (!valid) return null
 
-    const session = JSON.parse(new TextDecoder().decode(fromBase64Url(body))) as Session
-    if (!session.exp || session.exp < Math.floor(Date.now() / 1000)) return null
-    return session
+    const parsed = JSON.parse(new TextDecoder().decode(fromBase64Url(body))) as T
+    if (!parsed.exp || parsed.exp < Math.floor(Date.now() / 1000)) return null
+    return parsed
   } catch {
     return null
   }
+}
+
+export async function createSessionToken(payload: Omit<Session, 'exp'>): Promise<string> {
+  return signPayload(payload, SESSION_TTL_SECONDS)
+}
+
+export async function verifySessionToken(token: string | undefined): Promise<Session | null> {
+  return verifyPayload<Session>(token)
 }
 
 export const SESSION_MAX_AGE = SESSION_TTL_SECONDS

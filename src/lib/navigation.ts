@@ -1,7 +1,7 @@
 export const mainNav = [
   { href: '/solucoes', label: 'Soluções' },
   { href: '/catalogo', label: 'Catálogo' },
-  { href: '/comparador', label: 'Comparador' },
+  { href: '/comparativo', label: 'Comparativo' },
   { href: '/consultoria', label: 'Consultoria' },
   { href: '/conteudos', label: 'Conteúdos' },
   { href: '/sobre', label: 'Sobre a UPAR' },
@@ -27,7 +27,7 @@ export const footerNav = [
       { href: '/catalogo?formFactor=workstation', label: 'Workstations' },
       { href: '/catalogo?formFactor=desktop', label: 'Desktops' },
       { href: '/catalogo?formFactor=server', label: 'Servidores' },
-      { href: '/comparador', label: 'Comparador' },
+      { href: '/comparativo', label: 'Comparativo' },
       { href: '/encontre-sua-configuracao', label: 'Encontre sua configuração' },
     ],
   },

@@ -44,7 +44,7 @@ export default async function AdminProductsPage({
       {products.length === 0 ? (
         <EmptyState
           title="Nenhum produto cadastrado"
-          description="Cadastre a primeira configuração para que ela apareça no catálogo, no comparador e no diagnóstico."
+          description="Cadastre a primeira configuração para que ela apareça no catálogo, no comparativo e no diagnóstico."
         />
       ) : (
         <TableWrapper>

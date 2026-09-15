@@ -5,8 +5,7 @@ export type WhatsAppContext =
   | { kind: 'header' }
   | { kind: 'catalogo'; filters?: string }
   | { kind: 'produto'; product: Pick<Product, 'name'>; application?: string }
-  | { kind: 'comparador'; productNames: string[] }
-  | { kind: 'comparativo-externo' }
+  | { kind: 'comparativo' }
   | { kind: 'diagnostico'; answers: DiagnosticAnswers; recommendation?: string }
   | { kind: 'aplicacao'; application: string }
   | { kind: 'consultoria' }
@@ -40,19 +39,7 @@ export function buildWhatsAppMessage(context: WhatsAppContext, fallbackGreeting:
         'Gostaria de validar essa configuração com um especialista.'
       )
     }
-    case 'comparador': {
-      const names = context.productNames.filter(Boolean)
-      if (names.length === 0) return fallbackGreeting
-      const list =
-        names.length === 1
-          ? names[0]
-          : `${names.slice(0, -1).join(', ')} e ${names[names.length - 1]}`
-      return (
-        `Olá! Comparei as configurações ${list} no site da UPAR AI. ` +
-        'Quero ajuda para identificar a melhor opção para minha aplicação.'
-      )
-    }
-    case 'comparativo-externo':
+    case 'comparativo':
       return (
         'Olá! Encontrei um computador em outro site e queria comparar com o que a UPAR entrega. ' +
         'Vou mandar o print aqui na conversa.'
