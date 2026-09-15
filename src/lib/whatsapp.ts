@@ -6,6 +6,7 @@ export type WhatsAppContext =
   | { kind: 'catalogo'; filters?: string }
   | { kind: 'produto'; product: Pick<Product, 'name'>; application?: string }
   | { kind: 'comparador'; productNames: string[] }
+  | { kind: 'comparativo-externo' }
   | { kind: 'diagnostico'; answers: DiagnosticAnswers; recommendation?: string }
   | { kind: 'aplicacao'; application: string }
   | { kind: 'consultoria' }
@@ -51,6 +52,11 @@ export function buildWhatsAppMessage(context: WhatsAppContext, fallbackGreeting:
         'Quero ajuda para identificar a melhor opção para minha aplicação.'
       )
     }
+    case 'comparativo-externo':
+      return (
+        'Olá! Encontrei um computador em outro site e queria comparar com o que a UPAR entrega. ' +
+        'Vou mandar o print aqui na conversa.'
+      )
     case 'diagnostico': {
       const lines = (Object.keys(DIAGNOSTIC_LABELS) as (keyof DiagnosticAnswers)[])
         .filter((key) => context.answers[key])
