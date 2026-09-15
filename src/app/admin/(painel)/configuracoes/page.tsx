@@ -134,6 +134,25 @@ export default async function SettingsPage({
             <Row id="heroSubtitle" label="Subtítulo" full>
               <textarea id="heroSubtitle" name="heroSubtitle" rows={2} defaultValue={settings.heroSubtitle} className={area} />
             </Row>
+            <Row id="consultantPhotoUrl" label="Foto do especialista (URL)" full>
+              <input
+                id="consultantPhotoUrl"
+                name="consultantPhotoUrl"
+                defaultValue={settings.consultantPhotoUrl}
+                placeholder="/equipe/nome.jpg ou URL do Supabase Storage"
+                className={input}
+              />
+              <p className="mt-1.5 text-2xs text-ink-400">
+                Aparece no convite de consultoria da home. Enquanto estiver vazio, a seção mostra a marca no
+                lugar da foto — nunca uma pessoa que não seja da equipe.
+              </p>
+            </Row>
+            <Row id="consultantName" label="Nome de quem aparece na foto">
+              <input id="consultantName" name="consultantName" defaultValue={settings.consultantName} className={input} />
+            </Row>
+            <Row id="consultantRole" label="Cargo de quem aparece na foto">
+              <input id="consultantRole" name="consultantRole" defaultValue={settings.consultantRole} className={input} />
+            </Row>
             <Row id="aboutHistory" label="História da empresa" full>
               <textarea id="aboutHistory" name="aboutHistory" rows={3} defaultValue={settings.aboutHistory} className={area} />
             </Row>

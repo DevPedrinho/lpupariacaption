@@ -38,6 +38,7 @@ O arquivo `UPAR_WEB_ASSETS` fechou dois itens que antes bloqueavam a publicaçã
 
 | # | Item | Observação |
 | --- | --- | --- |
+| 8b | **Foto de alguém da equipe** para o convite de consultoria da home | A seção existe e funciona; enquanto a foto não vier, ela mostra a marca no lugar. Cadastre em Painel → Configurações → "Foto do especialista (URL)", junto com nome e cargo. Aceita caminho local (`/equipe/nome.jpg`) ou URL do Supabase Storage. **Não** foi usada foto de banco de imagens nem pessoa gerada: o visitante entenderia como funcionário de verdade |
 | 8 | **Fotografias reais dos equipamentos e da estrutura física** | Hoje o site usa ilustrações vetoriais próprias, identificadas como “ilustração técnica”. O campo `images[].src` já aceita URL do Supabase Storage (bucket `produtos`) |
 | 9 | **Depoimentos e avaliações reais, com autorização de uso** | Os três depoimentos atuais aparecem com aviso visível de que são demonstrativos. **Não invente depoimentos** — a seção some sozinha se a lista ficar vazia |
 | 10 | **Números institucionais** (tempo de mercado, clientes atendidos, tamanho da equipe) | Deliberadamente ausentes da página “Sobre”. Serão exibidos assim que forem informados |

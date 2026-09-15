@@ -300,6 +300,14 @@ export interface SiteSettings {
   aboutStructure: string
   aboutExpertise: string
   warrantyPolicy: string
+  /**
+   * Convite de consultoria na home. Enquanto `consultantPhotoUrl` estiver
+   * vazio, a seção mostra a marca no lugar da foto — nunca uma pessoa que não
+   * seja da equipe.
+   */
+  consultantPhotoUrl?: string
+  consultantName?: string
+  consultantRole?: string
   seoTitle: string
   seoDescription: string
   ga4Id?: string

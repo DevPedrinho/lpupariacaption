@@ -439,6 +439,9 @@ export const defaultSettings: SiteSettings = {
     'O trabalho começa pela aplicação, não pela lista de peças. Entender quais modelos, programas e volumes estão envolvidos é o que permite entregar uma configuração proporcional à operação — sem sobra desnecessária e sem falta que trave o projeto.',
   warrantyPolicy:
     'As condições de garantia e de suporte são informadas na proposta comercial, de acordo com a configuração escolhida.',
+  consultantPhotoUrl: '',
+  consultantName: '',
+  consultantRole: '',
   seoTitle: 'UPAR AI — Computadores de alta performance para Inteligência Artificial',
   seoDescription:
     'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica gratuita para descobrir a configuração certa para a sua aplicação.',
@@ -451,6 +454,7 @@ export const defaultSettings: SiteSettings = {
     'Cores oficiais da marca (arquivo de identidade visual)',
     'Logotipo em vetor (SVG) nas versões clara e escura',
     'Fotografias reais dos equipamentos e da estrutura física',
+    'Foto de alguém da equipe para o convite de consultoria da home',
     'CNPJ, endereço completo, telefone e e-mail para exibição pública',
     'Condições reais de garantia e de suporte por categoria de produto',
     'Depoimentos e avaliações reais, com autorização de uso',

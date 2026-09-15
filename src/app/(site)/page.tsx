@@ -5,7 +5,7 @@ import { faqSchema, organizationSchema, websiteSchema } from '@/lib/schema'
 import { Hero } from '@/components/home/Hero'
 import { PainPoints } from '@/components/home/PainPoints'
 import { ApproachCompare } from '@/components/home/ApproachCompare'
-import { ConsultingCta } from '@/components/home/ConsultingCta'
+import { ConsultingInvite } from '@/components/home/ConsultingInvite'
 import { ApplicationsGrid } from '@/components/home/ApplicationsGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
 import { ConsultingSteps } from '@/components/home/ConsultingSteps'
@@ -45,8 +45,8 @@ export default async function HomePage() {
       <JsonLd data={[organizationSchema(settings), websiteSchema(settings), faqSchema(faqs)]} />
       <Hero />
       <PainPoints />
+      <ConsultingInvite />
       <ApproachCompare />
-      <ConsultingCta />
       <ApplicationsGrid applications={applications} />
       <FeaturedProducts products={highlighted} applications={appIndex} />
       <ConsultingSteps />
