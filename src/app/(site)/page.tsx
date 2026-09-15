@@ -3,6 +3,8 @@ import { getRepository } from '@/lib/repository'
 import { JsonLd } from '@/components/site/JsonLd'
 import { faqSchema, organizationSchema, websiteSchema } from '@/lib/schema'
 import { Hero } from '@/components/home/Hero'
+import { PainPoints } from '@/components/home/PainPoints'
+import { ApproachCompare } from '@/components/home/ApproachCompare'
 import { ApplicationsGrid } from '@/components/home/ApplicationsGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
 import { ConsultingSteps } from '@/components/home/ConsultingSteps'
@@ -11,6 +13,7 @@ import { CategoryTable } from '@/components/home/CategoryTable'
 import { Differentials } from '@/components/home/Differentials'
 import { Testimonials } from '@/components/home/Testimonials'
 import { FaqSection } from '@/components/home/FaqSection'
+import { HomeSummary } from '@/components/home/HomeSummary'
 import { FinalCta } from '@/components/home/FinalCta'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -41,6 +44,8 @@ export default async function HomePage() {
     <>
       <JsonLd data={[organizationSchema(settings), websiteSchema(settings), faqSchema(faqs)]} />
       <Hero />
+      <PainPoints />
+      <ApproachCompare />
       <ApplicationsGrid applications={applications} />
       <FeaturedProducts products={highlighted} applications={appIndex} />
       <ConsultingSteps />
@@ -48,6 +53,7 @@ export default async function HomePage() {
       <CategoryTable />
       <Differentials />
       <Testimonials testimonials={testimonials} />
+      <HomeSummary />
       <FaqSection faqs={faqs} />
       <FinalCta />
     </>

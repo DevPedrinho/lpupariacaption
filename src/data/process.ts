@@ -113,3 +113,137 @@ export const differentials = [
       'Não publicamos números de desempenho que não tenhamos medido. Quando uma informação depende de teste, dizemos isso.',
   },
 ] as const
+
+/**
+ * Seção de diagnóstico do problema na home.
+ *
+ * Cada item descreve um erro de dimensionamento verificável tecnicamente. Não
+ * há estatística, percentual ou estudo citado: o briefing proíbe número que a
+ * UPAR não tenha medido, e o argumento aqui é a explicação, não o dado.
+ */
+export const painPoints = [
+  {
+    icon: 'memory' as const,
+    title: 'VRAM insuficiente para o modelo',
+    description:
+      'É o erro mais caro e o menos visível na hora da compra. Se o modelo não cabe na memória da placa de vídeo, parte do processamento passa para a memória do sistema e o desempenho cai de forma perceptível — a máquina liga, abre tudo e mesmo assim não entrega o que se esperava dela. Placas vendidas sob o mesmo nome comercial podem trazer quantidades diferentes de VRAM.',
+  },
+  {
+    icon: 'chart' as const,
+    title: 'Capacidade que você paga e não usa',
+    description:
+      'O oposto acontece com a mesma frequência. Comprar a placa mais cara do catálogo sem saber o que vai rodar imobiliza dinheiro em capacidade ociosa — dinheiro que faria mais diferença em memória, em armazenamento rápido ou em uma segunda máquina para a equipe.',
+  },
+  {
+    icon: 'layers' as const,
+    title: 'Gargalo no componente errado',
+    description:
+      'Uma placa de vídeo forte presa a um processador, a uma quantidade de memória ou a um armazenamento que não a acompanham trabalha abaixo do que poderia. O desempenho de uma máquina de IA é definido pelo conjunto, não pela peça mais cara da lista.',
+  },
+  {
+    icon: 'upgrade' as const,
+    title: 'Nenhum caminho de expansão',
+    description:
+      'Um equipamento sem espaço físico, fonte ou placa-mãe preparados para crescer obriga a trocar tudo quando a demanda aumentar. Planejar a expansão no momento da compra custa pouco; descobrir que ela não existe custa o equipamento inteiro.',
+  },
+] as const
+
+/**
+ * Contraste entre comprar por ficha técnica e dimensionar pela aplicação.
+ *
+ * O lado esquerdo descreve uma prática de mercado, não um concorrente — não há
+ * marca citada nem afirmação sobre terceiros.
+ */
+export const approachCompare = {
+  wrong: {
+    title: 'Comprar pela ficha técnica',
+    subtitle: 'O caminho mais comum, e o que mais gera arrependimento.',
+    items: [
+      {
+        title: 'A conversa começa pela peça',
+        description:
+          'O primeiro assunto é qual placa de vídeo cabe no orçamento. A aplicação que vai rodar na máquina entra depois — quando entra.',
+      },
+      {
+        title: 'O maior número vence',
+        description:
+          'A escolha recai sobre o componente com a especificação mais alta da lista, sem verificar se é ali que está o seu gargalo.',
+      },
+      {
+        title: 'Ninguém pergunta o que você vai executar',
+        description:
+          'Sem saber os modelos, os programas e o volume de trabalho, não há como dimensionar. O que sobra é palpite embalado como recomendação.',
+      },
+      {
+        title: 'A expansão fica para depois',
+        description:
+          'O equipamento é fechado no limite exato do que foi pedido. Quando a demanda cresce, a única resposta possível é comprar outro.',
+      },
+    ],
+  },
+  right: {
+    title: 'Dimensionar pela aplicação',
+    subtitle: 'Como a UPAR trabalha, antes de qualquer proposta.',
+    items: [
+      {
+        title: 'A conversa começa pelo seu trabalho',
+        description:
+          'Quais modelos, quais programas, quantas pessoas e com que frequência. É essa lista que determina a configuração — não o contrário.',
+      },
+      {
+        title: 'A VRAM é definida pelo modelo',
+        description:
+          'O tamanho do modelo que você pretende executar define a memória de vídeo necessária. Esse número vem antes da marca e antes do preço.',
+      },
+      {
+        title: 'O conjunto é equilibrado',
+        description:
+          'Processador, memória, armazenamento e refrigeração são escolhidos para acompanhar a placa, não para constar bem na ficha técnica.',
+      },
+      {
+        title: 'A expansão entra no projeto',
+        description:
+          'Cada configuração informa o que pode crescer depois: memória, armazenamento e, quando o chassi e a fonte permitem, placas adicionais.',
+      },
+    ],
+  },
+} as const
+
+/**
+ * Bloco "Resumindo", logo antes das perguntas frequentes.
+ *
+ * Só recapitula o que já foi afirmado acima na página. Nenhum item promete
+ * prazo, resultado ou número.
+ */
+export const homeSummary = [
+  {
+    icon: 'search' as const,
+    title: 'O que a UPAR faz',
+    items: [
+      'Dimensiona computadores e workstations a partir da sua aplicação',
+      'Explica o papel de VRAM, processador, memória e armazenamento no seu caso',
+      'Monta, testa sob carga e entrega configurado',
+      'Atende empresas, universidades, órgãos públicos e profissionais autônomos',
+    ],
+  },
+  {
+    icon: 'layers' as const,
+    title: 'Como funciona',
+    items: [
+      'Você responde o diagnóstico ou chama no WhatsApp',
+      'Um especialista entende o que precisa ser executado',
+      'A configuração é dimensionada e apresentada com a justificativa de cada escolha',
+      'Ajustes antes de fechar são normais e esperados',
+    ],
+  },
+  {
+    icon: 'shield' as const,
+    title: 'O que você recebe',
+    items: [
+      'Uma configuração proporcional à operação, sem sobra e sem falta',
+      'A explicação técnica por trás de cada componente escolhido',
+      'Documentação para processos de compra institucionais',
+      'Suporte da mesma equipe que dimensionou e montou a máquina',
+    ],
+  },
+] as const
