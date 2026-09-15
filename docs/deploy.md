@@ -169,3 +169,39 @@ Comprovação local (os dois comandos que a Vercel executa):
 curl -sSL -o src.tgz https://codeload.github.com/DevPedrinho/lpupariacaption/tar.gz/refs/heads/claude/practical-bell-ko7hcb
 tar xzf src.tgz --strip-components=1 && npm ci && npm run build
 ```
+
+## Módulo de comparativos: o que precisa ser ligado
+
+O módulo já está no ar, mas depende de três configurações que não estão no
+repositório.
+
+| O quê | Onde | Sem isso |
+| --- | --- | --- |
+| `SUPABASE_SERVICE_ROLE_KEY` | Vercel → Environment Variables | O módulo inteiro fica indisponível: não grava cadastro, comparativo nem mensagem |
+| `ADMIN_SESSION_SECRET` | Vercel → Environment Variables | Ninguém entra — nem cliente nem equipe. As duas sessões usam o mesmo segredo |
+| **Desligar a confirmação por e-mail** | Supabase → Authentication → Providers → Email → *Confirm email* | O cadastro cria o usuário, mas ele não consegue entrar até confirmar, e o plano gratuito quase não envia e-mail |
+
+Opcional, e é o que liga a análise automática:
+
+| `ANTHROPIC_API_KEY` | Vercel → Environment Variables | Sem ela o rascunho aparece como "indisponível" e o vendedor escreve a resposta do zero. Todo o resto funciona igual |
+
+### Como o módulo funciona
+
+1. O cliente cria conta (nome, e-mail, WhatsApp, senha) e envia a configuração
+   que encontrou — print, texto colado, ou os dois.
+2. A IA lê o que veio, cruza com o catálogo real e grava um rascunho de
+   resposta em `comparison_drafts`.
+3. O rascunho **não é visível ao cliente**. A política de RLS dessa tabela é
+   `is_active_admin()` para toda operação.
+4. No painel, em *Comparativos*, o vendedor vê o print, o texto, o WhatsApp do
+   cliente e o rascunho. Edita o que quiser e envia — o que sai é o que estiver
+   na caixa no momento do envio.
+5. A resposta vira mensagem na conversa, que o cliente acompanha na própria
+   página. O contador no menu do painel mostra quantos aguardam.
+
+### Custo da IA
+
+Cada análise é uma chamada paga à API da Anthropic, com o catálogo e as imagens
+no contexto. O modelo usado é `claude-opus-5`. O botão "Gerar de novo" dispara
+uma nova cobrança — use quando o cliente mandar informação nova, não para
+tentar uma redação diferente.

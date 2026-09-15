@@ -134,16 +134,17 @@ export type Capability =
   | 'dashboard'
   | 'produtos'
   | 'leads'
+  | 'comparativos'
   | 'conteudos'
   | 'configuracoes'
   | 'usuarios'
   | 'logs'
 
 const ROLE_CAPABILITIES: Record<AdminRole, Capability[]> = {
-  administrador: ['dashboard', 'produtos', 'leads', 'conteudos', 'configuracoes', 'usuarios', 'logs'],
-  gestor_comercial: ['dashboard', 'produtos', 'leads', 'logs'],
+  administrador: ['dashboard', 'produtos', 'leads', 'comparativos', 'conteudos', 'configuracoes', 'usuarios', 'logs'],
+  gestor_comercial: ['dashboard', 'produtos', 'leads', 'comparativos', 'logs'],
   editor_conteudo: ['dashboard', 'conteudos', 'produtos'],
-  consultor_vendas: ['dashboard', 'leads'],
+  consultor_vendas: ['dashboard', 'leads', 'comparativos'],
 }
 
 export const ROLE_LABEL: Record<AdminRole, string> = {

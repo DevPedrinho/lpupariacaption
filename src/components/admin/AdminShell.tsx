@@ -38,7 +38,15 @@ export function AdminShell({
             )}
           >
             <Icon name={item.icon} className="size-4 shrink-0" />
-            {item.label}
+            <span className="flex-1">{item.label}</span>
+            {item.badge ? (
+              <span
+                aria-label={`${item.badge} aguardando`}
+                className="inline-flex min-w-5 items-center justify-center rounded-full bg-brand-500 px-1.5 text-2xs font-semibold text-ink-950"
+              >
+                {item.badge}
+              </span>
+            ) : null}
           </Link>
         )
       })}
