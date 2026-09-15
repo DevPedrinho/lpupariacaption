@@ -30,7 +30,7 @@ export function Hero() {
         className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[42rem] w-[72rem] -translate-x-1/2 rounded-full opacity-60 blur-3xl animate-slow-pulse"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(31,107,255,0.32), rgba(53,216,240,0.14) 42%, transparent 70%)',
+            'radial-gradient(ellipse at center, rgba(55,219,154,0.32), rgba(130,208,228,0.14) 42%, transparent 70%)',
         }}
       />
       <div
@@ -80,7 +80,7 @@ export function Hero() {
             aria-hidden="true"
             className="absolute inset-8 -z-10 rounded-full opacity-70 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, rgba(31,107,255,0.38), rgba(53,216,240,0.12) 55%, transparent 72%)',
+              background: 'radial-gradient(circle, rgba(55,219,154,0.38), rgba(130,208,228,0.12) 55%, transparent 72%)',
             }}
           />
           <div className="mx-auto h-[24rem] w-[19rem] animate-rise sm:h-[30rem] sm:w-[24rem] lg:h-[34rem] lg:w-[27rem]">

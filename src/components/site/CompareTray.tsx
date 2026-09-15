@@ -56,7 +56,7 @@ export function CompareTray() {
           </button>
           <Link
             href="/comparador"
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-500 px-4 text-sm font-medium text-white transition-colors hover:bg-brand-400"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-500 px-4 text-sm font-medium text-ink-950 transition-colors hover:bg-brand-400"
           >
             <Icon name="compare" className="size-4" />
             Comparar {entries.length === 1 ? 'configuração' : `as ${entries.length} configurações`}

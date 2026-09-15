@@ -3,57 +3,84 @@
 /* ============================================================================
    UPAR AI — DESIGN SYSTEM
    ----------------------------------------------------------------------------
-   ATENÇÃO (dados reais pendentes): as cores de marca abaixo são PROVISÓRIAS.
-   Não foi possível acessar upartech.com.br a partir deste ambiente para extrair
-   a paleta oficial. Para aplicar a identidade real da UPAR, basta substituir os
-   valores do bloco "MARCA" — todo o site consome apenas estes tokens.
+   Cores extraídas do pacote oficial de identidade da UPAR (UPAR_WEB_ASSETS):
+   o verde vem dos próprios arquivos vetoriais do logotipo (#37DB9A), e as
+   paletas secundárias, de contraste e monocromática vêm da página "CORES,
+   IMPRESSO E DIGITAL" do guia de utilização da marca.
+
+   Duas observações de quem aplicou:
+
+   - O guia usa #47977A como âncora impressa. Sobre o fundo quase preto do site
+     ele fica escuro demais para texto e para elemento interativo, então o tom
+     de interface é o verde do logotipo (#37DB9A) e o #47977A entra como
+     `brand-deep`, para preenchimento e borda.
+   - As tipografias do guia (GAMERIA e Nimala UI) não são fontes web e a
+     GAMERIA é um display de games, que destoa do público deste site. Ver a
+     nota em TIPOGRAFIA, mais abaixo.
    ========================================================================== */
 
 @theme {
-  /* ---------- MARCA (provisória — substituir pelas cores oficiais) ---------- */
-  --color-brand-50:  #EAF1FF;
-  --color-brand-100: #D3E2FF;
-  --color-brand-200: #A9C5FF;
-  --color-brand-300: #7BA4FF;
-  --color-brand-400: #4B84FF;
-  --color-brand-500: #1F6BFF;
-  --color-brand-600: #1350D6;
-  --color-brand-700: #0E3CA3;
-  --color-brand-800: #0B2C75;
-  --color-brand-900: #081D4D;
+  /* ---------- MARCA (oficial — pacote de identidade UPAR) ---------- */
+  /* Verde do logotipo. É a cor de interface: link, botão, foco, destaque. */
+  --color-brand-50:  #E8FBF3;
+  --color-brand-100: #C7F6E3;
+  --color-brand-200: #99EFCC;
+  --color-brand-300: #67E6B5;
+  --color-brand-400: #48DFA4;
+  --color-brand-500: #37DB9A;
+  --color-brand-600: #23B880;
+  --color-brand-700: #1A9366;
+  --color-brand-800: #147453;
+  --color-brand-900: #0F5A41;
 
-  /* Acento de dados / IA */
-  --color-flux-300: #7BEBFA;
-  --color-flux-400: #35D8F0;
-  --color-flux-500: #14BCD8;
-  --color-flux-600: #0C93AC;
+  /* Âncora impressa do guia. Preenchimento e borda, não texto sobre escuro. */
+  --color-brand-deep: #47977A;
 
-  /* Acento secundário, uso pontual (IA local, destaques) */
-  --color-neural-400: #9B8CFA;
-  --color-neural-500: #7C5CF5;
-  --color-neural-600: #6035D9;
+  /* Secundária análoga do guia (#82D0E4). Dados, medição, apoio. */
+  --color-flux-300: #A9E1EF;
+  --color-flux-400: #82D0E4;
+  --color-flux-500: #56BAD4;
+  --color-flux-600: #3795B0;
 
-  /* ---------- NEUTROS ---------- */
-  --color-ink-950: #05070E;
-  --color-ink-900: #090D18;
-  --color-ink-880: #0B1120;
-  --color-ink-850: #0E1526;
-  --color-ink-800: #121B2F;
-  --color-ink-700: #1A2540;
-  --color-ink-600: #273455;
-  --color-ink-500: #3A4A70;
-  --color-ink-400: #5B6E95;
-  --color-ink-300: #8698B8;
-  --color-ink-200: #B4C1D6;
-  --color-ink-100: #D8E0EC;
-  --color-ink-50:  #EEF2F8;
+  /* Contraste azul do guia (#005C97). Uso pontual. */
+  --color-neural-400: #4F9BC9;
+  --color-neural-500: #207CB0;
+  --color-neural-600: #005C97;
+
+  /* ---------- NEUTROS ----------
+     Do ink-500 ao ink-100 são as "graduações monocromáticas" do guia. Os tons
+     mais escuros estendem a mesma família até o quase-preto do site. */
+  --color-ink-950: #06090C;
+  --color-ink-900: #0A0F14;
+  --color-ink-880: #0D141A;
+  --color-ink-850: #111A22;
+  --color-ink-800: #16212B;
+  --color-ink-700: #1E2C38;
+  --color-ink-600: #2A3B49;
+  --color-ink-500: #374752;
+  /* Passo interpolado entre os oficiais #526B7B e #8BA5B6: o #526B7B puro dá
+     3,56:1 sobre o fundo do site e este token carrega texto (rótulos e
+     legendas), então precisa passar em contraste. */
+  --color-ink-400: #6A8494;
+  --color-ink-300: #8BA5B6;
+  --color-ink-200: #A8BCC8;
+  --color-ink-100: #C5D2DB;
+  --color-ink-50:  #EDF2F5;
 
   /* Semânticos */
   --color-positive-500: #21B573;
-  --color-caution-500:  #E0A21A;
+  --color-caution-500:  #FDB412;
   --color-critical-500: #E0483F;
 
-  /* ---------- TIPOGRAFIA ---------- */
+  /* ---------- TIPOGRAFIA ----------
+     O guia da marca especifica GAMERIA (peças de impacto) e Nimala UI (todo o
+     resto). Nenhuma das duas é fonte web licenciada para distribuição, e a
+     GAMERIA é um display de games — a linha de IA fala com empresa,
+     universidade e órgão público, onde ela destoaria.
+
+     Ficam como substitutas Sora (títulos) e Inter (texto), ambas humanistas e
+     de peso parecido com a Nimala UI. Se a UPAR tiver licença web das fontes
+     originais, trocar aqui resolve: nada mais no site nomeia fonte. */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
@@ -72,7 +99,7 @@
   /* ---------- ELEVAÇÃO ---------- */
   --shadow-soft: 0 1px 2px rgb(5 7 14 / 0.14), 0 8px 24px -12px rgb(5 7 14 / 0.5);
   --shadow-lift: 0 2px 4px rgb(5 7 14 / 0.16), 0 20px 44px -20px rgb(5 7 14 / 0.65);
-  --shadow-glow: 0 0 0 1px rgb(31 107 255 / 0.28), 0 18px 60px -24px rgb(31 107 255 / 0.55);
+  --shadow-glow: 0 0 0 1px rgb(55 219 154 / 0.28), 0 18px 60px -24px rgb(55 219 154 / 0.5);
 
   /* ---------- MOVIMENTO ---------- */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);

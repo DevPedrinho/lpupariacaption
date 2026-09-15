@@ -23,7 +23,7 @@ export function FinalCta({
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-48 left-1/2 -z-10 h-[34rem] w-[64rem] -translate-x-1/2 rounded-full blur-3xl"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(31,107,255,0.3), rgba(53,216,240,0.1) 45%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(55,219,154,0.3), rgba(130,208,228,0.1) 45%, transparent 70%)',
         }}
       />
 

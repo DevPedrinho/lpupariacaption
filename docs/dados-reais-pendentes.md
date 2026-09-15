@@ -9,12 +9,30 @@ painel administrativo e é editável em **Configurações**.
 | # | Item | Onde entra | Como cadastrar |
 | --- | --- | --- | --- |
 | 1 | **Número oficial do WhatsApp comercial** | Todos os CTAs do site | Painel → Configurações → WhatsApp. Hoje está `5585000000000` (placeholder) |
-| 2 | **Cores oficiais da marca** | Todo o design system | `src/styles/globals.css`, bloco “MARCA”. A paleta atual é provisória: não foi possível acessar `upartech.com.br` a partir do ambiente de desenvolvimento para extrair as cores oficiais |
-| 3 | **Logotipo em vetor (SVG)**, versões clara e escura | Cabeçalho, rodapé, painel, favicon | Substituir `src/components/site/Logo.tsx` e `src/app/icon.svg` |
 | 4 | **CNPJ, endereço, telefone e e-mail públicos** | Rodapé, contato, dados estruturados | Painel → Configurações → Dados da empresa |
 | 5 | **Catálogo real de produtos** | Catálogo, comparador, diagnóstico | Painel → Produtos. As 9 configurações atuais são demonstrativas |
 | 6 | **Condições reais de garantia e suporte** | Páginas de produto e institucional | Painel → Configurações (política geral) e por produto |
 | 7 | **Revisão jurídica** da Política de Privacidade e dos Termos de Uso | Páginas institucionais | Textos preliminares em `src/app/(site)/politica-de-privacidade` e `termos-de-uso` |
+
+## Resolvido com o pacote de identidade
+
+O arquivo `UPAR_WEB_ASSETS` fechou dois itens que antes bloqueavam a publicação:
+
+- **Cores oficiais** — o verde `#37DB9A` saiu dos próprios vetores do logotipo, e as
+  paletas secundária, de contraste e monocromática, da página “CORES, IMPRESSO E
+  DIGITAL” do guia. Estão aplicadas em `src/styles/globals.css`.
+- **Logotipo em vetor** — `public/marca/upar.svg` (fundo claro) e
+  `public/marca/upar-negativo.svg` (fundo escuro, usado no site). O favicon em
+  `src/app/icon.svg` reproduz o círculo com triângulo da marca.
+
+### O que o pacote levantou de novo
+
+| Item | Situação |
+| --- | --- |
+| **Tipografia GAMERIA e Nimala UI** | O guia as especifica, mas nenhuma é fonte web licenciada para distribuição. Além disso a GAMERIA é um display de games, que destoa do público deste site. Estão substituídas por Sora e Inter. Se a UPAR tiver licença web das originais, a troca é em um único lugar (`globals.css`, bloco TIPOGRAFIA) |
+| **Assinatura própria para a linha de IA** | O “AI” ao lado do logotipo é texto acrescentado por este site, não faz parte da marca. Se existir uma assinatura oficial para a linha, ela substitui esse trecho em `src/components/site/Logo.tsx` |
+| **Telefone e e-mail que aparecem no guia** | O guia traz um celular/WhatsApp e um e-mail pessoais, ligados à operação de games. **Não foram publicados no site**: é preciso confirmar qual é o canal comercial da linha de IA antes de expor qualquer contato |
+| **Aderência ao posicionamento** | O pacote é a identidade da operação de games e varejo (Game Club, e-Esports). A linha de IA fala com empresa, universidade e órgão público. O núcleo da marca foi aplicado; os elementos de games (mascote, escudo, fardamento) ficaram de fora deliberadamente |
 
 ## Importantes, mas não bloqueantes
 

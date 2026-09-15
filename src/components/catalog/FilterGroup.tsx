@@ -35,7 +35,7 @@ export function FilterGroup({
         <span className="flex items-center gap-2 text-sm font-medium text-ink-100">
           {title}
           {selected.length > 0 && (
-            <span className="inline-flex size-5 items-center justify-center rounded-full bg-brand-500 text-2xs font-semibold text-white">
+            <span className="inline-flex size-5 items-center justify-center rounded-full bg-brand-500 text-2xs font-semibold text-ink-950">
               {selected.length}
             </span>
           )}

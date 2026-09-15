@@ -89,7 +89,7 @@ export function ProductCard({
         className={cn(
           'absolute top-3.5 right-3.5 z-20 inline-flex size-9 items-center justify-center rounded-lg border transition-colors',
           selected
-            ? 'border-brand-500 bg-brand-500 text-white'
+            ? 'border-brand-500 bg-brand-500 text-ink-950'
             : 'border-ink-600/70 bg-ink-900/85 text-ink-300 hover:border-ink-500 hover:text-white',
           disabled && 'cursor-not-allowed opacity-40 hover:border-ink-600/70 hover:text-ink-300',
         )}

@@ -26,7 +26,7 @@ export default async function LoginPage({
         aria-hidden="true"
         className="pointer-events-none fixed -top-40 left-1/2 -z-10 h-[32rem] w-[52rem] -translate-x-1/2 rounded-full blur-3xl"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(31,107,255,0.24), transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(55,219,154,0.24), transparent 70%)',
         }}
       />
 

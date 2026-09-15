@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Link
             href="/catalogo"
-            className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-500 px-5 text-[0.9375rem] font-medium text-white transition-colors hover:bg-brand-400"
+            className="inline-flex h-12 items-center justify-center rounded-lg bg-brand-500 px-5 text-[0.9375rem] font-medium text-ink-950 transition-colors hover:bg-brand-400"
           >
             Ver o catálogo
           </Link>

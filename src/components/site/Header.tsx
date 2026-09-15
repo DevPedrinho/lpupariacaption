@@ -39,7 +39,7 @@ export function Header() {
     <>
       <a
         href="#conteudo"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium focus:text-ink-950"
       >
         Ir para o conteúdo
       </a>
@@ -82,7 +82,7 @@ export function Header() {
               >
                 <Icon name="compare" className="size-4" />
                 Comparar
-                <span className="ml-0.5 inline-flex size-5 items-center justify-center rounded-full bg-brand-500 text-2xs font-semibold text-white">
+                <span className="ml-0.5 inline-flex size-5 items-center justify-center rounded-full bg-brand-500 text-2xs font-semibold text-ink-950">
                   {slugs.length}
                 </span>
               </Link>

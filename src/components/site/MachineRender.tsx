@@ -27,19 +27,19 @@ function Defs({ id }: { id: string }) {
       <linearGradient id={`${id}-glass`} x1="0" y1="0" x2="0.7" y2="1">
         <stop offset="0%" stopColor="#5C7FC4" stopOpacity="0.22" />
         <stop offset="45%" stopColor="#22D8F0" stopOpacity="0.06" />
-        <stop offset="100%" stopColor="#1F6BFF" stopOpacity="0.14" />
+        <stop offset="100%" stopColor="#37DB9A" stopOpacity="0.14" />
       </linearGradient>
       <linearGradient id={`${id}-gpu`} x1="0" y1="0" x2="1" y2="0">
         <stop offset="0%" stopColor="#16203A" />
         <stop offset="100%" stopColor="#22314F" />
       </linearGradient>
       <linearGradient id={`${id}-accent`} x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#1F6BFF" />
-        <stop offset="100%" stopColor="#35D8F0" />
+        <stop offset="0%" stopColor="#37DB9A" />
+        <stop offset="100%" stopColor="#82D0E4" />
       </linearGradient>
       <radialGradient id={`${id}-bloom`} cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0%" stopColor="#1F6BFF" stopOpacity="0.55" />
-        <stop offset="100%" stopColor="#1F6BFF" stopOpacity="0" />
+        <stop offset="0%" stopColor="#37DB9A" stopOpacity="0.55" />
+        <stop offset="100%" stopColor="#37DB9A" stopOpacity="0" />
       </radialGradient>
       <filter id={`${id}-soft`} x="-40%" y="-40%" width="180%" height="180%">
         <feGaussianBlur stdDeviation="7" />
