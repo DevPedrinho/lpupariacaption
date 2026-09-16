@@ -205,3 +205,46 @@ Cada análise é uma chamada paga à API da Anthropic, com o catálogo e as imag
 no contexto. O modelo usado é `claude-opus-5`. O botão "Gerar de novo" dispara
 uma nova cobrança — use quando o cliente mandar informação nova, não para
 tentar uma redação diferente.
+
+## Conta de administrador
+
+Criada direto no banco em 16/09/2026, com o perfil de administrador já ligado.
+Conferido na criação: e-mail confirmado, hash da senha batendo, identidade de
+provedor `email` presente e `admin_users.auth_uid` apontando para a conta.
+
+- Login: `pedrogmr13@gmail.com`
+- Senha: **temporária**, entregue uma única vez pelo canal da conversa. Trocar
+  no primeiro acesso em Supabase → Authentication → Users → ⋯ → *Reset password*.
+
+Os outros três perfis (`comercial@`, `conteudo@`, `consultor@`) continuam no
+`admin_users` sem conta no Auth — ninguém entra com eles.
+
+### Como criar mais uma conta de equipe
+
+O painel ainda não cria usuário (a tela de Usuários é só leitura). O caminho
+curto é o dashboard: Supabase → Authentication → Users → *Add user*, marcando
+*Auto Confirm User*. Depois, ligar o perfil ao usuário criado:
+
+```sql
+update public.admin_users
+   set auth_uid = (select id from auth.users where email = 'pessoa@empresa.com'),
+       active = true
+ where email = 'pessoa@empresa.com';
+```
+
+Sem esse `auth_uid`, a senha é aceita mas o painel recusa a entrada — é o
+`admin_users` que define o papel, não o Auth.
+
+### O que ainda impede o login em produção
+
+O `/admin/login` verifica a senha no Supabase Auth e, em seguida, lê o papel em
+`admin_users` usando a chave de serviço. Então o login só funciona com as duas
+variáveis definidas na Vercel:
+
+| Variável | Onde obter |
+| --- | --- |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API Keys → `service_role`. É um JWT longo começando com `eyJ` |
+| `ADMIN_SESSION_SECRET` | Qualquer string de 32+ caracteres. Assina o cookie de sessão |
+
+Sem a primeira, o login responde "Este usuário não tem acesso ao painel" mesmo
+com a senha certa. Sem a segunda, a sessão não é assinada e ninguém entra.
