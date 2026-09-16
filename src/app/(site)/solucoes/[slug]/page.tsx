@@ -87,7 +87,7 @@ export default async function SolutionPage({ params }: Params) {
               Para quem é indicada
             </h2>
             <ul className="mt-5 flex flex-col gap-3">
-              {application.whoFor.map((item) => (
+              {application.whoFor.slice(0, 3).map((item) => (
                 <li key={item} className="flex gap-2.5 text-[0.9375rem] leading-relaxed text-ink-200">
                   <Icon name="check" className="mt-1 size-4 shrink-0 text-flux-400" />
                   {item}
@@ -116,7 +116,7 @@ export default async function SolutionPage({ params }: Params) {
               Principais desafios de hardware
             </h2>
             <ul className="mt-5 flex flex-col gap-3">
-              {application.challenges.map((challenge) => (
+              {application.challenges.slice(0, 2).map((challenge) => (
                 <li key={challenge.title} className="rounded-xl border border-ink-700/70 bg-ink-880/40 p-5">
                   <h3 className="text-[1.0625rem] font-medium text-white">{challenge.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-ink-300">{challenge.description}</p>
@@ -132,11 +132,11 @@ export default async function SolutionPage({ params }: Params) {
           <SectionHeader
             eyebrow="Prioridades técnicas"
             title="Onde o investimento faz mais diferença nesta aplicação"
-            description="O peso de cada componente muda conforme o uso. As barras abaixo mostram a importância relativa dentro deste cenário específico."
+            description="O peso de cada componente muda conforme o uso."
           />
 
           <ul className="mt-10 flex flex-col gap-4">
-            {application.components.map((component) => (
+            {application.components.slice(0, 3).map((component) => (
               <li
                 key={component.component}
                 className="grid gap-3 rounded-xl border border-ink-700/70 bg-ink-880/50 p-5 md:grid-cols-[13rem_1fr] md:items-start md:gap-6"
@@ -176,7 +176,7 @@ export default async function SolutionPage({ params }: Params) {
               description="Pontos de partida do catálogo. Todos podem ser ajustados à sua realidade."
             />
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {products.map((product) => (
+              {products.slice(0, 2).map((product) => (
                 <ProductCard key={product.id} product={product} applications={appIndex} />
               ))}
             </div>
@@ -192,7 +192,7 @@ export default async function SolutionPage({ params }: Params) {
             description="Um bom projeto considera o próximo passo. Veja o que costuma ser ampliado nesta aplicação."
           />
           <ul className="flex flex-col gap-3">
-            {application.expansion.map((item) => (
+            {application.expansion.slice(0, 3).map((item) => (
               <li
                 key={item}
                 className="flex gap-3 rounded-xl border border-ink-700/70 bg-ink-880/50 px-5 py-4 text-[0.9375rem] text-ink-200"

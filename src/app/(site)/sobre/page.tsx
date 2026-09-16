@@ -52,7 +52,7 @@ export default async function AboutPage() {
       <PageHero
         eyebrow="Sobre a UPAR"
         title="Especialização em alta performance, aplicada à inteligência artificial"
-        description="A UPAR construiu sua experiência montando computadores para trabalho pesado e executando upgrades em máquinas exigentes. A chegada da IA às operações do dia a dia ampliou o escopo — e manteve a mesma especialidade: dimensionar o equipamento certo para cada uso."
+        description="A UPAR construiu sua experiência montando computadores para trabalho pesado e executando upgrades em máquinas exigentes."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Sobre a UPAR' }]}
       />
 

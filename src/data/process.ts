@@ -7,7 +7,7 @@ export const consultingSteps = [
   {
     title: 'Levantamento dos softwares e modelos',
     description:
-      'Mapeamos os programas, plataformas e modelos envolvidos. É essa lista que define onde o investimento faz diferença real.',
+      'Mapeamos os programas, plataformas e modelos envolvidos.',
   },
   {
     title: 'Dimensionamento técnico',
@@ -22,7 +22,7 @@ export const consultingSteps = [
   {
     title: 'Validação da proposta',
     description:
-      'Apresentamos a configuração explicando o porquê de cada escolha. Ajustes nesta etapa são normais e bem-vindos.',
+      'Apresentamos a configuração explicando o porquê de cada escolha.',
   },
   {
     title: 'Montagem e testes',
@@ -46,25 +46,25 @@ export const differentials = [
     icon: 'brain' as const,
     title: 'A conversa começa pela aplicação',
     description:
-      'Antes de falar de peças, entendemos o que você precisa executar: quais modelos, quais programas, quantas pessoas vão usar e com que frequência. É essa lista que transforma uma recomendação em dimensionamento.',
+      'Antes de falar de peças, entendemos o que você precisa executar: quais modelos, quais programas, quantas pessoas vão usar e com que frequência.',
   },
   {
     icon: 'shield' as const,
     title: 'Quem monta é quem atende',
     description:
-      'A mesma equipe dimensiona, monta, testa sob carga e atende depois da entrega. Quem atende tem o histórico da configuração e sabe por que cada componente foi escolhido.',
+      'A mesma equipe dimensiona, monta, testa sob carga e atende depois da entrega.',
   },
   {
     icon: 'cpu' as const,
     title: 'Especialistas em alta performance',
     description:
-      'Computadores de trabalho pesado e upgrades são a origem da UPAR. O que mudou com a inteligência artificial foi o tipo de pergunta que chega, não a especialidade em dimensionar máquinas que trabalham no limite.',
+      'Computadores de trabalho pesado e upgrades são a origem da UPAR.',
   },
   {
     icon: 'upgrade' as const,
     title: 'Projetado para expandir',
     description:
-      'Fonte, chassi, placa-mãe e refrigeração são escolhidos considerando o passo seguinte. É a diferença entre acrescentar uma placa quando a demanda crescer ou trocar o equipamento inteiro.',
+      'Fonte, chassi, placa-mãe e refrigeração são escolhidos considerando o passo seguinte.',
   },
   {
     icon: 'users' as const,
@@ -76,7 +76,7 @@ export const differentials = [
     icon: 'info' as const,
     title: 'Não publicamos número que não medimos',
     description:
-      'Nem tokens por segundo, nem tempo de renderização, nem compatibilidade com um modelo específico. Quando a resposta depende de teste, dizemos que depende de teste.',
+      'Nem tokens por segundo, nem tempo de renderização, nem compatibilidade com um modelo específico.',
   },
 ] as const
 

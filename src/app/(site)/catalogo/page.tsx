@@ -29,7 +29,7 @@ export default async function CatalogPage() {
       <PageHero
         eyebrow="Catálogo"
         title="Configurações prontas para começar a conversa"
-        description="Estas são composições que atendem os cenários mais comuns. Todas podem ser ajustadas — use os filtros para chegar perto do que você precisa e valide o restante com um especialista."
+        description="Estas são composições que atendem os cenários mais comuns."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Catálogo' }]}
       />
 
@@ -41,7 +41,7 @@ export default async function CatalogPage() {
 
       <FinalCta
         title="Não encontrou exatamente o que precisa?"
-        description="A maior parte das máquinas que a UPAR entrega é montada sob medida. Descreva a sua aplicação e montamos a configuração a partir dela."
+        description="A maior parte das máquinas que a UPAR entrega é montada sob medida."
         context={{ kind: 'catalogo' }}
       />
     </>

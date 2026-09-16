@@ -1,0 +1,10 @@
+Coloque aqui a foto do consultor que aparece no convite de consultoria da home.
+
+Nome do arquivo: consultor.jpg
+Formato: retrato, de preferência 900x1200 ou maior, com a pessoa centralizada.
+
+Enquanto o arquivo não existir, a seção mostra a marca no lugar da foto — não
+quebra e não exibe imagem vazia.
+
+Para trocar o caminho, o nome ou o cargo sem mexer em código:
+Painel → Configurações → Foto do especialista (URL).

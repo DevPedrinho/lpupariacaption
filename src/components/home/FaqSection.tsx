@@ -18,7 +18,7 @@ export function FaqSection({ faqs, tone = 'dark' }: { faqs: Faq[]; tone?: 'dark'
           />
           <Accordion
             tone={tone}
-            items={faqs.map((faq) => ({ id: faq.id, question: faq.question, answer: faq.answer }))}
+            items={faqs.slice(0, 3).map((faq) => ({ id: faq.id, question: faq.question, answer: faq.answer }))}
           />
         </div>
       </div>

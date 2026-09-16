@@ -46,7 +46,7 @@ const CAP: Record<string, Capability> = {
     icon: 'brain',
     title: 'Sustentar modelos de linguagem maiores',
     description:
-      'A folga de VRAM amplia o tamanho de modelo e de contexto viáveis. O dimensionamento exato é validado com um especialista a partir dos modelos que você pretende usar.',
+      'A folga de VRAM amplia o tamanho de modelo e de contexto viáveis.',
   },
   imagem: {
     icon: 'image',
@@ -109,7 +109,7 @@ export const products: Product[] = [
     performanceTier: 'essencial',
     tagline: 'A porta de entrada consistente para trabalhar com IA localmente.',
     summary:
-      'Configuração pensada para quem está começando a rodar IA na própria máquina sem abrir mão de estabilidade. Entrega 16 GB de VRAM — o suficiente para modelos de porte médio, geração de imagens e um ambiente de desenvolvimento confortável — em um equipamento que já nasce preparado para receber ampliação de memória e armazenamento.',
+      'Configuração pensada para quem está começando a rodar IA na própria máquina sem abrir mão de estabilidade.',
     applications: ['desenvolvimento-de-software', 'geracao-de-imagens', 'ciencia-de-dados', 'llms-locais'],
     clientProfile:
       'Desenvolvedores, analistas e pequenos times que querem sair da nuvem e começar a executar modelos localmente.',
@@ -162,7 +162,7 @@ export const products: Product[] = [
     performanceTier: 'avancado',
     tagline: 'O equilíbrio entre VRAM, núcleos e memória para uso profissional diário.',
     summary:
-      'Configuração para quem já trabalha com IA todos os dias e precisa de folga em todas as frentes. Combina 24 GB de VRAM com 16 núcleos de processamento e 96 GB de memória, atendendo geração de conteúdo, modelos locais e análise de dados no mesmo equipamento — com espaço para uma segunda placa de vídeo quando a demanda crescer.',
+      'Configuração para quem já trabalha com IA todos os dias e precisa de folga em todas as frentes.',
     applications: ['llms-locais', 'geracao-de-imagens', 'ciencia-de-dados', 'machine-learning', 'desenvolvimento-de-software'],
     clientProfile:
       'Profissionais e times pequenos que usam IA como ferramenta central de trabalho, não como experimento.',
@@ -264,7 +264,7 @@ export const products: Product[] = [
     performanceTier: 'avancado',
     tagline: 'Duas placas de vídeo para quem precisa de VRAM total, não de uma placa maior.',
     summary:
-      'Configuração de duas placas que soma 48 GB de memória de vídeo, pensada para grupos que compartilham o mesmo equipamento ou para fluxos que executam mais de um modelo ao mesmo tempo. Os 192 GB de memória do sistema sustentam vários usuários e processos em paralelo.',
+      'Configuração de duas placas que soma 48 GB de memória de vídeo, pensada para grupos que compartilham o mesmo equipamento ou para fluxos que executam mais de um modelo ao mesmo tempo.',
     applications: ['llms-locais', 'machine-learning', 'pesquisa-academica', 'automacao-empresarial'],
     clientProfile: 'Laboratórios, grupos de pesquisa e times que dividem uma mesma máquina entre várias pessoas.',
     cpu: { model: 'AMD Ryzen 9 9950X', cores: 16, threads: 32 },
@@ -314,7 +314,7 @@ export const products: Product[] = [
     performanceTier: 'profissional',
     tagline: '48 GB em uma única placa profissional, com memória do sistema com correção de erro.',
     summary:
-      'Plataforma profissional com processador de 24 núcleos, memória com correção de erro e uma placa de vídeo de 48 GB. Indicada para cargas críticas em que a integridade dos dados e a estabilidade em execuções longas importam tanto quanto o desempenho.',
+      'Plataforma profissional com processador de 24 núcleos, memória com correção de erro e uma placa de vídeo de 48 GB.',
     applications: ['deep-learning', 'llms-locais', 'renderizacao-3d', 'engenharia-simulacoes', 'pesquisa-academica'],
     clientProfile:
       'Times de engenharia, P&D e produção que rodam cargas longas e não podem conviver com instabilidade.',
@@ -364,7 +364,7 @@ export const products: Product[] = [
     performanceTier: 'profissional',
     tagline: 'Render, simulação e pós-produção com 48 GB de VRAM distribuídos em duas placas.',
     summary:
-      'Configuração construída para pipelines visuais pesados: duas placas de vídeo permitem renderizar em uma enquanto a outra sustenta a viewport ou um fluxo generativo. Os 24 núcleos atendem simulação, baking e codificação sem disputar recursos com a GPU.',
+      'Configuração construída para pipelines visuais pesados: duas placas de vídeo permitem renderizar em uma enquanto a outra sustenta a viewport ou um fluxo generativo.',
     applications: ['renderizacao-3d', 'geracao-de-video', 'engenharia-simulacoes', 'geracao-de-imagens'],
     clientProfile: 'Estúdios de arquitetura, visualização e pós-produção com prazos apertados.',
     cpu: { model: 'Intel Xeon w7-2495X', cores: 24, threads: 48 },
@@ -414,7 +414,7 @@ export const products: Product[] = [
     performanceTier: 'extremo',
     tagline: 'Quatro placas profissionais e 192 GB de VRAM em um único equipamento de mesa.',
     summary:
-      'A configuração mais densa da linha de workstations. Quatro placas de 48 GB somam 192 GB de memória de vídeo, viabilizando modelos de grande porte e treinamentos que normalmente exigiriam ir para a nuvem. O projeto térmico e elétrico é dimensionado especificamente para essa densidade.',
+      'A configuração mais densa da linha de workstations. Quatro placas de 48 GB somam 192 GB de memória de vídeo, viabilizando modelos de grande porte e treinamentos que normalmente exigiriam ir para a nuvem.',
     applications: ['deep-learning', 'llms-locais', 'servidores-ia', 'pesquisa-academica', 'machine-learning'],
     clientProfile:
       'Centros de pesquisa e empresas que precisam de capacidade de nuvem dentro da própria estrutura.',
@@ -465,7 +465,7 @@ export const products: Product[] = [
     performanceTier: 'extremo',
     tagline: 'IA como serviço interno: do rack para toda a empresa.',
     summary:
-      'Servidor em formato de rack para organizações que precisam oferecer IA a vários times ao mesmo tempo, mantendo os dados na própria infraestrutura. Quatro aceleradores, 512 GB de memória e rede de alta velocidade sustentam acesso simultâneo com previsibilidade.',
+      'Servidor em formato de rack para organizações que precisam oferecer IA a vários times ao mesmo tempo, mantendo os dados na própria infraestrutura.',
     applications: ['servidores-ia', 'automacao-empresarial', 'llms-locais', 'deep-learning'],
     clientProfile:
       'Empresas com uso corporativo de IA, área de TI estruturada e exigência de dados em infraestrutura própria.',
@@ -516,7 +516,7 @@ export const products: Product[] = [
     performanceTier: 'essencial',
     tagline: 'Formato reduzido para ambientes onde o espaço é limitado.',
     summary:
-      'Versão compacta para escritórios, consultórios e laboratórios com pouco espaço em bancada. Mantém 16 GB de VRAM e memória suficiente para modelos locais e automações, em um volume bem menor que o de uma torre convencional.',
+      'Versão compacta para escritórios, consultórios e laboratórios com pouco espaço em bancada.',
     applications: ['automacao-empresarial', 'llms-locais', 'desenvolvimento-de-software'],
     clientProfile: 'Escritórios e operações que precisam de IA local sem espaço para um equipamento grande.',
     cpu: { model: 'AMD Ryzen 7 9700X', cores: 8, threads: 16 },

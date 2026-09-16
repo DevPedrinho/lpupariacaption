@@ -7,7 +7,7 @@ import { MachineRender } from '@/components/site/MachineRender'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { cn } from '@/lib/cn'
 import {
-  availabilityLabel, formatCapacity, formFactorLabel, formatPrice, gpuSummary, storageSummary,
+  availabilityLabel, formatCapacity, formFactorLabel, formatPrice, gpuSummary,
   tierLabel, vramSummary,
 } from '@/lib/format'
 import type { Application, Product } from '@/lib/types'
@@ -33,11 +33,9 @@ export function ProductCard({
     .filter(Boolean) as string[]
 
   const specs: { label: string; value: string }[] = [
-    { label: 'Processador', value: `${product.cpu.model} · ${product.cpu.cores}C/${product.cpu.threads}T` },
     { label: 'Placa de vídeo', value: gpuSummary(product) },
     { label: 'VRAM', value: vramSummary(product) },
     { label: 'Memória', value: `${formatCapacity(product.ram.capacityGb)} ${product.ram.type}` },
-    { label: 'Armazenamento', value: storageSummary(product) },
   ]
 
   return (

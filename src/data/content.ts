@@ -52,7 +52,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 't-1',
     quote:
-      'Chegamos com uma ideia vaga do que precisávamos. A equipe perguntou quais modelos pretendíamos usar e quantas pessoas iriam acessar, e só depois montou a proposta. Mudou a configuração que tínhamos em mente — para melhor.',
+      'Chegamos com uma ideia vaga do que precisávamos.',
     author: 'Nome do cliente',
     role: 'Cargo',
     organization: 'Organização',
@@ -63,7 +63,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 't-2',
     quote:
-      'O que pesou na decisão foi a explicação clara sobre VRAM. Entendemos por que uma placa mais cara não resolveria o nosso caso e por que outra configuração fazia mais sentido.',
+      'O que pesou na decisão foi a explicação clara sobre VRAM.',
     author: 'Nome do cliente',
     role: 'Cargo',
     organization: 'Organização',
@@ -74,7 +74,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 't-3',
     quote:
-      'Precisávamos de documentação técnica detalhada para o processo de compra. Recebemos tudo organizado e no formato que o setor exigia.',
+      'Precisávamos de documentação técnica detalhada para o processo de compra.',
     author: 'Nome do cliente',
     role: 'Cargo',
     organization: 'Organização',
@@ -91,7 +91,7 @@ export const faqs: Faq[] = [
     id: 'f-1',
     question: 'Como sei qual configuração atende a minha necessidade?',
     answer:
-      'O caminho mais rápido é o diagnóstico "Encontre sua configuração": são dez perguntas curtas sobre a sua aplicação, os programas que você usa e o volume de trabalho. O resultado indica uma categoria e até três equipamentos compatíveis. Essa indicação é um ponto de partida — um especialista valida a escolha antes de qualquer proposta.',
+      'O caminho mais rápido é o diagnóstico "Encontre sua configuração": são dez perguntas curtas sobre a sua aplicação, os programas que você usa e o volume de trabalho.',
     scope: 'home',
     order: 1,
     status: 'published',
@@ -100,7 +100,7 @@ export const faqs: Faq[] = [
     id: 'f-2',
     question: 'Por que a VRAM é tão importante para inteligência artificial?',
     answer:
-      'A VRAM é a memória da placa de vídeo, e é nela que o modelo precisa caber para funcionar com fluidez. Se o modelo não cabe, parte do processamento passa para a memória do sistema e o desempenho cai de forma perceptível. Por isso, em projetos de IA, a quantidade de VRAM costuma ser mais determinante do que a velocidade bruta da placa.',
+      'A VRAM é a memória da placa de vídeo, e é nela que o modelo precisa caber para funcionar com fluidez.',
     scope: 'home',
     order: 2,
     status: 'published',
@@ -109,7 +109,7 @@ export const faqs: Faq[] = [
     id: 'f-3',
     question: 'Faz sentido rodar IA localmente em vez de usar a nuvem?',
     answer:
-      'Depende do seu uso. Executar localmente costuma fazer sentido quando o volume é constante, quando os dados não podem sair da sua infraestrutura ou quando a previsibilidade de custo importa. A nuvem continua sendo uma boa escolha para picos esporádicos e experimentos curtos. Muitas empresas trabalham com as duas coisas, e a consultoria ajuda a definir esse equilíbrio.',
+      'Depende do seu uso. Executar localmente costuma fazer sentido quando o volume é constante, quando os dados não podem sair da sua infraestrutura ou quando a previsibilidade de custo importa.',
     scope: 'home',
     order: 3,
     status: 'published',
@@ -118,7 +118,7 @@ export const faqs: Faq[] = [
     id: 'f-4',
     question: 'Consigo ampliar o equipamento depois?',
     answer:
-      'Sim, e isso faz parte do dimensionamento. Cada configuração informa o que pode ser ampliado — memória, armazenamento e, quando o chassi e a fonte permitem, placas de vídeo adicionais. Planejar a expansão desde o início evita ter que trocar o equipamento inteiro quando a demanda crescer.',
+      'Sim, e isso faz parte do dimensionamento. Cada configuração informa o que pode ser ampliado — memória, armazenamento e, quando o chassi e a fonte permitem, placas de vídeo adicionais.',
     scope: 'home',
     order: 4,
     status: 'published',
@@ -127,7 +127,7 @@ export const faqs: Faq[] = [
     id: 'f-5',
     question: 'Vocês atendem empresas, universidades e órgãos públicos?',
     answer:
-      'Sim. Além do dimensionamento técnico, a UPAR acompanha as exigências formais de cada tipo de compra, incluindo a documentação necessária para processos institucionais. Informe o tipo de comprador no diagnóstico ou diretamente no WhatsApp para que o atendimento já comece adequado ao seu processo.',
+      'Sim. Além do dimensionamento técnico, a UPAR acompanha as exigências formais de cada tipo de compra, incluindo a documentação necessária para processos institucionais.',
     scope: 'home',
     order: 5,
     status: 'published',
@@ -136,7 +136,7 @@ export const faqs: Faq[] = [
     id: 'f-6',
     question: 'A configuração pode ser personalizada?',
     answer:
-      'Sim. As configurações apresentadas no catálogo são pontos de partida. A composição final é definida a partir da sua aplicação — é comum ajustar memória, armazenamento ou a própria placa de vídeo depois de entender o que você pretende executar.',
+      'Sim. As configurações apresentadas no catálogo são pontos de partida.',
     scope: 'produto',
     order: 6,
     status: 'published',
@@ -145,7 +145,7 @@ export const faqs: Faq[] = [
     id: 'f-7',
     question: 'Quanto tempo leva desde o primeiro contato até a entrega?',
     answer:
-      'O prazo varia conforme a configuração e a disponibilidade dos componentes. Como cada projeto é dimensionado sob medida, o prazo é informado na proposta, depois que a configuração estiver definida.',
+      'O prazo varia conforme a configuração e a disponibilidade dos componentes.',
     scope: 'consultoria',
     order: 7,
     status: 'published',
@@ -154,7 +154,7 @@ export const faqs: Faq[] = [
     id: 'f-8',
     question: 'Quais são as condições de garantia e suporte?',
     answer:
-      'As condições de garantia e de suporte são informadas pela equipe comercial na proposta. Fale com um especialista pelo WhatsApp para receber as condições aplicáveis à configuração que você está avaliando.',
+      'As condições de garantia e de suporte são informadas pela equipe comercial na proposta.',
     scope: 'geral',
     order: 8,
     status: 'published',
@@ -169,7 +169,7 @@ export const articles: Article[] = [
     title: 'Quanta VRAM você realmente precisa para trabalhar com IA',
     category: 'Guia',
     excerpt:
-      'A memória da placa de vídeo é o fator que mais limita projetos de inteligência artificial. Entenda como ela funciona e como estimar o que o seu caso exige.',
+      'A memória da placa de vídeo é o fator que mais limita projetos de inteligência artificial.',
     readingMinutes: 7,
     author: 'Equipe UPAR',
     publishedAt: '2026-08-12',
@@ -336,7 +336,7 @@ Respostas objetivas a essas perguntas encurtam o projeto e evitam investimento m
     title: 'Como comparar placas de vídeo para IA sem cair em armadilhas',
     category: 'Comparativo',
     excerpt:
-      'Número de núcleos, geração e memória contam histórias diferentes. Saiba o que olhar primeiro ao comparar placas.',
+      'Número de núcleos, geração e memória contam histórias diferentes.',
     readingMinutes: 7,
     author: 'Equipe UPAR',
     publishedAt: '2026-06-05',
@@ -432,14 +432,14 @@ export const defaultSettings: SiteSettings = {
     'Workstations e computadores de alta performance dimensionados para modelos de IA, geração de conteúdo, ciência de dados, visão computacional e processamento local.',
   heroBadge: 'Consultoria técnica antes da configuração',
   aboutHistory:
-    'A UPAR nasceu da especialização em computadores de alta performance e upgrades, atendendo quem precisa de máquinas dimensionadas para trabalho pesado. Com a chegada da inteligência artificial às operações do dia a dia, essa mesma especialização passou a responder a um novo tipo de pergunta: qual equipamento sustenta o modelo que a minha empresa precisa executar.',
+    'A UPAR nasceu da especialização em computadores de alta performance e upgrades, atendendo quem precisa de máquinas dimensionadas para trabalho pesado.',
   aboutStructure:
-    'A montagem, os testes e o suporte são feitos pela mesma equipe que dimensiona a configuração. Quem atende conhece a máquina que saiu da bancada.',
+    'A montagem, os testes e o suporte são feitos pela mesma equipe que dimensiona a configuração.',
   aboutExpertise:
-    'O trabalho começa pela aplicação, não pela lista de peças. Entender quais modelos, programas e volumes estão envolvidos é o que permite entregar uma configuração proporcional à operação — sem sobra desnecessária e sem falta que trave o projeto.',
+    'O trabalho começa pela aplicação, não pela lista de peças.',
   warrantyPolicy:
     'As condições de garantia e de suporte são informadas na proposta comercial, de acordo com a configuração escolhida.',
-  consultantPhotoUrl: '',
+  consultantPhotoUrl: '/equipe/consultor.jpg',
   consultantName: '',
   consultantRole: '',
   seoTitle: 'UPAR AI — Computadores de alta performance para Inteligência Artificial',

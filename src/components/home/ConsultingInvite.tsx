@@ -4,6 +4,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Section } from '@/components/ui/Section'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
+import { useState } from 'react'
 import { useSiteConfig } from '@/components/site/SiteConfig'
 
 /**
@@ -53,7 +54,11 @@ function BrandPanel() {
 
 export function ConsultingInvite() {
   const settings = useSiteConfig()
-  const photo = settings.consultantPhotoUrl?.trim()
+  // Se o arquivo apontado não existir, cai para a marca em vez de mostrar
+  // imagem quebrada — o caminho pode ser cadastrado antes de o arquivo subir.
+  const [falhou, setFalhou] = useState(false)
+  const configurada = settings.consultantPhotoUrl?.trim()
+  const photo = falhou ? '' : configurada
 
   return (
     <Section id="consultoria-gratuita">
@@ -78,6 +83,7 @@ export function ConsultingInvite() {
                       ? `${settings.consultantName}, da equipe da UPAR`
                       : 'Especialista da equipe da UPAR'
                   }
+                  onError={() => setFalhou(true)}
                   className="aspect-4/5 w-full rounded-2xl object-cover sm:aspect-square lg:aspect-4/5"
                 />
               ) : (

@@ -67,7 +67,6 @@ export default async function ProductPage({ params }: Params) {
     .map((relatedSlug) => allProducts.find((item) => item.slug === relatedSlug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item))
 
-  const comparison = [product, ...related].slice(0, 3)
   const validatedBenchmarks = product.benchmarks.filter((benchmark) => benchmark.validated)
 
   const fullSpecs: { group: string; rows: { label: string; value: string }[] }[] = [
@@ -174,11 +173,11 @@ export default async function ProductPage({ params }: Params) {
           <SectionHeader
             eyebrow="Entenda esta máquina"
             title="O que cada componente faz — e por que ele está aqui"
-            description="Não é preciso dominar hardware para tomar uma boa decisão. Abaixo, o papel de cada peça desta configuração explicado em linguagem direta."
+            description="Não é preciso dominar hardware para tomar uma boa decisão."
           />
 
           <ul className="mt-11 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {product.explainers.map((explainer) => (
+            {product.explainers.slice(0, 3).map((explainer) => (
               <li
                 key={explainer.title}
                 className="flex flex-col gap-3 rounded-xl border border-ink-700/70 bg-ink-880/60 p-6"
@@ -203,11 +202,11 @@ export default async function ProductPage({ params }: Params) {
           <SectionHeader
             eyebrow="Aplicações práticas"
             title="O que este computador consegue fazer?"
-            description="Cenários de uso compatíveis com esta configuração. A viabilidade de um modelo ou software específico é sempre confirmada por um especialista antes da compra."
+            description="Cenários de uso compatíveis com esta configuração."
           />
 
           <ul className="mt-11 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {product.capabilities.map((capability) => (
+            {product.capabilities.slice(0, 3).map((capability) => (
               <li
                 key={capability.title}
                 className="flex flex-col gap-3 rounded-xl border border-ink-700/70 bg-linear-to-br from-ink-880 to-ink-900 p-6"
@@ -352,75 +351,13 @@ export default async function ProductPage({ params }: Params) {
       </Section>
 
       {/* ------------------- Comparação com outras configurações ----------------- */}
-      {comparison.length > 1 && (
-        <Section id="comparacao" tone="raised">
-          <div className="container-page">
-            <SectionHeader
-              eyebrow="Comparação"
-              title="Como esta configuração se posiciona"
-              description="Diferenças em relação a configurações próximas. Nenhuma delas é melhor em tudo — a escolha depende da sua aplicação."
-            />
-
-            <div className="mt-9 overflow-x-auto rounded-xl border border-ink-700/70">
-              <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
-                <caption className="sr-only">Comparação entre {product.name} e configurações próximas</caption>
-                <thead>
-                  <tr className="bg-ink-850">
-                    <th scope="col" className="px-5 py-4 font-semibold text-white">Configuração</th>
-                    {comparison.map((item) => (
-                      <th key={item.id} scope="col" className="px-5 py-4 font-semibold text-white">
-                        {item.slug === product.slug ? (
-                          <span className="flex items-center gap-2">
-                            {item.name}
-                            <Badge tone="brand">Esta página</Badge>
-                          </span>
-                        ) : (
-                          <Link href={`/produtos/${item.slug}`} className="transition-colors hover:text-flux-300">
-                            {item.name}
-                          </Link>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-ink-700/60">
-                  {[
-                    { label: 'Placa de vídeo', get: (p: typeof product) => gpuSummary(p) },
-                    { label: 'VRAM total', get: (p: typeof product) => formatCapacity(totalVramGb(p)) },
-                    { label: 'Processador', get: (p: typeof product) => `${p.cpu.model} (${p.cpu.cores}C)` },
-                    { label: 'Memória', get: (p: typeof product) => `${formatCapacity(p.ram.capacityGb)} ${p.ram.type}` },
-                    { label: 'Armazenamento', get: (p: typeof product) => storageSummary(p) },
-                    { label: 'Nível', get: (p: typeof product) => tierLabel[p.performanceTier] },
-                  ].map((row) => (
-                    <tr key={row.label}>
-                      <th scope="row" className="px-5 py-4 font-medium text-ink-300">{row.label}</th>
-                      {comparison.map((item) => (
-                        <td key={item.id} className="px-5 py-4 text-ink-100">{row.get(item)}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <Link
-              href="/comparativo"
-              className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-flux-300 transition-colors hover:text-flux-400"
-            >
-              Montar a sua própria comparação
-              <Icon name="arrowRight" className="size-4" />
-            </Link>
-          </div>
-        </Section>
-      )}
-
       {/* -------------------------- Produtos relacionados ------------------------ */}
       {related.length > 0 && (
         <Section id="relacionados">
           <div className="container-page">
             <SectionHeader eyebrow="Também vale avaliar" title="Configurações relacionadas" />
             <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((item) => (
+              {related.slice(0, 2).map((item) => (
                 <ProductCard key={item.id} product={item} applications={appIndex} />
               ))}
             </div>

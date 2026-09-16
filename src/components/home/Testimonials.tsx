@@ -24,7 +24,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
         )}
 
         <ul className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((item) => (
+          {testimonials.slice(0, 2).map((item) => (
             <li
               key={item.id}
               className="flex flex-col gap-4 rounded-xl border border-ink-700/70 bg-ink-880/60 p-6"

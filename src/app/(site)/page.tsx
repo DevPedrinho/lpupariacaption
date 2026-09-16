@@ -8,12 +8,9 @@ import { ApproachCompare } from '@/components/home/ApproachCompare'
 import { ConsultingInvite } from '@/components/home/ConsultingInvite'
 import { ApplicationsGrid } from '@/components/home/ApplicationsGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
-import { ConsultingSteps } from '@/components/home/ConsultingSteps'
-import { CategoryTable } from '@/components/home/CategoryTable'
 import { Differentials } from '@/components/home/Differentials'
 import { Testimonials } from '@/components/home/Testimonials'
 import { FaqSection } from '@/components/home/FaqSection'
-import { HomeSummary } from '@/components/home/HomeSummary'
 import { FinalCta } from '@/components/home/FinalCta'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,11 +46,8 @@ export default async function HomePage() {
       <ApproachCompare />
       <ApplicationsGrid applications={applications} />
       <FeaturedProducts products={highlighted} applications={appIndex} />
-      <ConsultingSteps />
-      <CategoryTable />
       <Differentials />
       <Testimonials testimonials={testimonials} />
-      <HomeSummary />
       <FaqSection faqs={faqs} />
       <FinalCta />
     </>

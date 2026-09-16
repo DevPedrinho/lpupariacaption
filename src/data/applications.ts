@@ -11,7 +11,7 @@ export const applications: Application[] = [
     icon: 'brain',
     short: 'Rodar assistentes, copilotos e modelos de linguagem dentro da sua própria infraestrutura.',
     intro:
-      'Executar um modelo de linguagem localmente significa manter prompts, documentos e respostas dentro da sua rede. O que define se isso é viável não é a velocidade bruta da máquina, e sim a quantidade de memória da placa de vídeo: o modelo precisa caber na VRAM para responder com fluidez.',
+      'Executar um modelo de linguagem localmente significa manter prompts, documentos e respostas dentro da sua rede.',
     whoFor: [
       'Empresas que querem um assistente interno treinado no próprio conteúdo',
       'Times jurídicos, financeiros e de saúde com restrição de envio de dados para fora',
@@ -22,17 +22,17 @@ export const applications: Application[] = [
       {
         title: 'O modelo precisa caber na VRAM',
         description:
-          'Quando o modelo não cabe na memória da placa de vídeo, parte do processamento vai para a memória do sistema e a resposta fica lenta. Dimensionar VRAM é a decisão mais importante do projeto.',
+          'Quando o modelo não cabe na memória da placa de vídeo, parte do processamento vai para a memória do sistema e a resposta fica lenta.',
       },
       {
         title: 'Contexto longo consome memória extra',
         description:
-          'Além do modelo, o histórico da conversa e os documentos anexados ocupam VRAM. Trabalhar com contextos extensos exige folga além do tamanho do modelo.',
+          'Além do modelo, o histórico da conversa e os documentos anexados ocupam VRAM.',
       },
       {
         title: 'Vários usuários ao mesmo tempo',
         description:
-          'Atender uma equipe inteira é diferente de atender uma pessoa. O número de requisições simultâneas influencia a escolha entre uma GPU maior ou múltiplas GPUs.',
+          'Atender uma equipe inteira é diferente de atender uma pessoa.',
       },
     ],
     components: [
@@ -60,7 +60,7 @@ export const applications: Application[] = [
     icon: 'chart',
     short: 'Treinar, validar e colocar modelos em produção com ciclos de experimentação mais curtos.',
     intro:
-      'Em machine learning o gargalo raramente está em um único componente. O tempo total de trabalho é a soma de preparar dados, treinar e avaliar. Uma máquina bem dimensionada encurta esse ciclo e permite testar mais hipóteses no mesmo prazo.',
+      'Em machine learning o gargalo raramente está em um único componente.',
     whoFor: [
       'Times de dados que hoje esperam horas por um treinamento',
       'Startups que precisam iterar rápido antes de escalar na nuvem',
@@ -70,7 +70,7 @@ export const applications: Application[] = [
       {
         title: 'Preparação de dados é trabalho de CPU e memória',
         description:
-          'Limpeza, junções e engenharia de atributos acontecem antes da GPU entrar em ação. Pouca RAM transforma essa etapa em um gargalo silencioso.',
+          'Limpeza, junções e engenharia de atributos acontecem antes da GPU entrar em ação.',
       },
       {
         title: 'Experimentação exige repetição',
@@ -80,7 +80,7 @@ export const applications: Application[] = [
       {
         title: 'Conjuntos de dados crescem rápido',
         description:
-          'O volume que hoje cabe no disco local pode dobrar no próximo trimestre. Planejar espaço e velocidade de leitura evita retrabalho.',
+          'O volume que hoje cabe no disco local pode dobrar no próximo trimestre.',
       },
     ],
     components: [
@@ -108,7 +108,7 @@ export const applications: Application[] = [
     icon: 'layers',
     short: 'Treinar e ajustar redes neurais profundas com estabilidade para longas execuções.',
     intro:
-      'Treinamento de redes profundas é uma carga contínua e pesada. Além da capacidade de cálculo, a máquina precisa sustentar horas ou dias de operação sem oscilação térmica — refrigeração e fonte deixam de ser detalhe e passam a ser parte do projeto.',
+      'Treinamento de redes profundas é uma carga contínua e pesada.',
     whoFor: [
       'Laboratórios e centros de pesquisa',
       'Times que fazem ajuste fino de modelos abertos',
@@ -156,7 +156,7 @@ export const applications: Application[] = [
     icon: 'chart',
     short: 'Processar grandes volumes, rodar consultas pesadas e sustentar análises em memória.',
     intro:
-      'Análise de dados é uma carga dominada por CPU, memória e velocidade de disco. Muitos profissionais compram uma placa de vídeo cara e continuam esperando, porque o gargalo real estava em outro lugar.',
+      'Análise de dados é uma carga dominada por CPU, memória e velocidade de disco.',
     whoFor: [
       'Analistas e cientistas de dados',
       'Áreas de BI que processam bases extensas localmente',
@@ -171,7 +171,7 @@ export const applications: Application[] = [
       {
         title: 'Operações que não usam GPU',
         description:
-          'Boa parte das bibliotecas de análise depende de núcleos de CPU. Aqui, quantidade e eficiência dos núcleos importam mais que a placa de vídeo.',
+          'Boa parte das bibliotecas de análise depende de núcleos de CPU.',
       },
       {
         title: 'Leitura e escrita constantes',
@@ -203,7 +203,7 @@ export const applications: Application[] = [
     icon: 'image',
     short: 'Produzir imagens em escala, com controle criativo e sem depender de créditos externos.',
     intro:
-      'Geração de imagens é uma carga intensa e repetitiva de GPU. Para uso profissional, o que muda o dia a dia é conseguir gerar várias variações em resolução alta sem esbarrar no limite de memória da placa.',
+      'Geração de imagens é uma carga intensa e repetitiva de GPU.',
     whoFor: [
       'Agências e estúdios de criação',
       'E-commerces que produzem catálogo visual em volume',
@@ -249,7 +249,7 @@ export const applications: Application[] = [
     icon: 'video',
     short: 'Unir edição profissional, efeitos e geração de vídeo por IA na mesma máquina.',
     intro:
-      'Produção de vídeo combina duas cargas diferentes: a edição em tempo real, que depende de armazenamento rápido e memória, e a geração por IA, que depende fortemente da placa de vídeo. Uma máquina bem planejada atende as duas sem comprometer nenhuma.',
+      'Produção de vídeo combina duas cargas diferentes: a edição em tempo real, que depende de armazenamento rápido e memória, e a geração por IA, que depende fortemente da placa de vídeo.',
     whoFor: [
       'Produtoras e estúdios de pós-produção',
       'Criadores que trabalham com material em alta resolução',
@@ -294,7 +294,7 @@ export const applications: Application[] = [
     icon: 'eye',
     short: 'Detecção, inspeção e análise de imagem em tempo real, do treinamento à operação.',
     intro:
-      'Projetos de visão computacional têm duas fases com necessidades distintas: treinar o modelo com um conjunto de imagens e depois executá-lo sobre câmeras ou lotes de arquivos. A máquina precisa atender bem as duas, especialmente quando há múltiplas fontes simultâneas.',
+      'Projetos de visão computacional têm duas fases com necessidades distintas: treinar o modelo com um conjunto de imagens e depois executá-lo sobre câmeras ou lotes de arquivos.',
     whoFor: [
       'Indústrias com inspeção visual e controle de qualidade',
       'Integradores de segurança e monitoramento',
@@ -339,7 +339,7 @@ export const applications: Application[] = [
     icon: 'bolt',
     short: 'Agentes, integrações e automações rodando de forma contínua na estrutura da empresa.',
     intro:
-      'Automação com IA costuma começar pequena e crescer rápido. O equipamento precisa suportar execução contínua, várias integrações simultâneas e crescimento sem exigir uma nova compra em poucos meses.',
+      'Automação com IA costuma começar pequena e crescer rápido.',
     whoFor: [
       'Agências de automação e integradores',
       'Empresas com processos internos apoiados por agentes',
@@ -384,7 +384,7 @@ export const applications: Application[] = [
     icon: 'cube',
     short: 'Modelagem fluida e renderização final sem disputar recursos com o restante do projeto.',
     intro:
-      'Em renderização, a placa de vídeo determina o tempo de cálculo e a VRAM determina o tamanho da cena que cabe na memória. Cenas com muita geometria e texturas em alta resolução são limitadas primeiro pela memória, não pela velocidade.',
+      'Em renderização, a placa de vídeo determina o tempo de cálculo e a VRAM determina o tamanho da cena que cabe na memória.',
     whoFor: [
       'Estúdios de arquitetura e visualização',
       'Designers de produto e times de engenharia',
@@ -427,7 +427,7 @@ export const applications: Application[] = [
     icon: 'flask',
     short: 'CAD, CAE e simulações numéricas com estabilidade para projetos extensos.',
     intro:
-      'Simulações de engenharia costumam depender fortemente de núcleos de CPU e de memória, com a GPU atuando na visualização e em solvers específicos. O dimensionamento correto depende do software utilizado e do tipo de análise.',
+      'Simulações de engenharia costumam depender fortemente de núcleos de CPU e de memória, com a GPU atuando na visualização e em solvers específicos.',
     whoFor: [
       'Escritórios de engenharia e projetos industriais',
       'Times de P&D com análise estrutural, térmica ou de fluidos',
@@ -437,7 +437,7 @@ export const applications: Application[] = [
       {
         title: 'Cada software tem seu gargalo',
         description:
-          'Alguns solvers escalam com núcleos, outros com frequência, outros com GPU. Escolher sem conhecer o software leva a investimento mal aplicado.',
+          'Alguns solvers escalam com núcleos, outros com frequência, outros com GPU.',
       },
       {
         title: 'Malhas refinadas consomem memória',
@@ -468,7 +468,7 @@ export const applications: Application[] = [
     icon: 'code',
     short: 'Ambientes locais, contêineres e assistentes de código rodando sem travar o fluxo.',
     intro:
-      'O desenvolvimento moderno mantém muitas coisas abertas ao mesmo tempo: editor, contêineres, bancos, testes e, cada vez mais, um modelo de IA assistindo o código. A folga de memória costuma ser o que separa uma máquina confortável de uma máquina irritante.',
+      'O desenvolvimento moderno mantém muitas coisas abertas ao mesmo tempo: editor, contêineres, bancos, testes e, cada vez mais, um modelo de IA assistindo o código.',
     whoFor: [
       'Times de engenharia de software',
       'Desenvolvedores que rodam modelos de código localmente',
@@ -509,7 +509,7 @@ export const applications: Application[] = [
     icon: 'flask',
     short: 'Laboratórios e grupos de pesquisa com equipamento compartilhado e documentação para compra.',
     intro:
-      'Projetos acadêmicos têm uma particularidade: além do dimensionamento técnico, existe um processo de compra com exigências formais. A UPAR acompanha as duas frentes — a definição da configuração e a documentação necessária para o processo.',
+      'Projetos acadêmicos têm uma particularidade: além do dimensionamento técnico, existe um processo de compra com exigências formais.',
     whoFor: [
       'Universidades e institutos federais',
       'Grupos de pesquisa com verba de projeto',
@@ -554,7 +554,7 @@ export const applications: Application[] = [
     icon: 'server',
     short: 'Infraestrutura compartilhada para atender times inteiros com IA na rede da empresa.',
     intro:
-      'Quando a IA deixa de ser um experimento e passa a ser serviço interno, o equipamento sai da mesa e vai para o rack. O projeto passa a envolver energia, refrigeração, rede e acesso compartilhado — e é aí que o dimensionamento precisa ser mais criterioso.',
+      'Quando a IA deixa de ser um experimento e passa a ser serviço interno, o equipamento sai da mesa e vai para o rack.',
     whoFor: [
       'Empresas com times usando IA de forma simultânea',
       'Organizações com exigência de dados em infraestrutura própria',

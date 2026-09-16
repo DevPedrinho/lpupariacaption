@@ -39,7 +39,7 @@ export default async function ConsultingPage() {
       <PageHero
         eyebrow="Consultoria UPAR"
         title="Converse com quem entende sua aplicação"
-        description="A configuração certa não sai de uma tabela de preços. Ela sai de uma conversa sobre o que você precisa executar, com quais ferramentas e em qual volume."
+        description="A configuração certa não sai de uma tabela de preços."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Consultoria' }]}
         actions={
           <>
@@ -58,7 +58,7 @@ export default async function ConsultingPage() {
           <SectionHeader
             eyebrow="O processo"
             title="Sete etapas, do primeiro contato ao acompanhamento"
-            description="Nenhuma delas depende de você entender de hardware. O trabalho técnico é nosso; o que precisamos de você é o contexto da sua operação."
+            description="Nenhuma delas depende de você entender de hardware."
           />
 
           <ol className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">

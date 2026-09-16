@@ -31,7 +31,7 @@ export default async function SolutionsPage() {
       <PageHero
         eyebrow="Soluções por aplicação"
         title="O hardware certo depende do que você precisa executar"
-        description="Cada aplicação carrega o computador de um jeito diferente. Escolha a sua para entender quais componentes realmente importam, quais são os desafios comuns e quais configurações atendem."
+        description="Cada aplicação carrega o computador de um jeito diferente."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Soluções' }]}
       />
 
@@ -78,7 +78,7 @@ export default async function SolutionsPage() {
             align="center"
             eyebrow="Não encontrou a sua aplicação?"
             title="A lista acima cobre os casos mais comuns, não todos"
-            description="Se o seu uso é específico, a conversa direta resolve mais rápido do que qualquer página. Descreva o que você precisa executar."
+            description="Se o seu uso é específico, a conversa direta resolve mais rápido do que qualquer página."
           />
         </div>
       </Section>

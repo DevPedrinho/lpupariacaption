@@ -13,7 +13,7 @@ export function ConsultingSteps() {
               tone="light"
               eyebrow="Como funciona"
               title="A consultoria acontece antes da proposta, não depois"
-              description="Nenhuma configuração é sugerida sem entender o que você precisa executar. O processo é curto, objetivo e não gera compromisso."
+              description="Nenhuma configuração é sugerida sem entender o que você precisa executar."
             />
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/encontre-sua-configuracao" variant="light" size="md">
@@ -27,7 +27,7 @@ export function ConsultingSteps() {
           </div>
 
           <ol className="relative flex flex-col gap-6 border-l border-ink-200 pl-8">
-            {consultingSteps.map((step, index) => (
+            {consultingSteps.slice(0, 4).map((step, index) => (
               <li key={step.title} className="relative">
                 <span
                   aria-hidden="true"
