@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
+import { Icon } from '@/components/ui/Icon'
 
 export function AdminHeader({
   title,
@@ -85,5 +86,27 @@ export function EmptyState({ title, description }: { title: string; description:
       <p className="text-base font-medium text-white">{title}</p>
       <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-400">{description}</p>
     </div>
+  )
+}
+
+/**
+ * Aviso de leitura parcial. Recebe os rótulos que `carregar()` devolveu em
+ * `falhas`; sem falhas, não renderiza nada.
+ */
+export function AvisoCarregamento({ falhas, className }: { falhas: string[]; className?: string }) {
+  if (falhas.length === 0) return null
+  return (
+    <Panel className={cn('border-critical-500/30 bg-critical-500/[0.06]', className)}>
+      <div className="flex items-start gap-3">
+        <Icon name="info" className="mt-0.5 size-5 shrink-0 text-critical-500" />
+        <div>
+          <h2 className="text-base font-semibold text-white">Nem tudo carregou: {falhas.join(', ')}</h2>
+          <p className="mt-1.5 text-sm leading-relaxed text-ink-300">
+            O que falta aparece vazio até a leitura voltar. Costuma ser a chave de serviço do Supabase
+            (SUPABASE_SERVICE_ROLE_KEY) ausente ou incorreta na Vercel, ou o projeto do banco pausado.
+          </p>
+        </div>
+      </div>
+    </Panel>
   )
 }

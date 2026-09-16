@@ -12,6 +12,22 @@ import type { ProductQuery, Repository } from './types'
  * `payload jsonb`; as colunas escalares existem para filtro e ordenação.
  * Ver `supabase/migrations/0001_init.sql`.
  */
+/**
+ * Converte a falha do Supabase em um `Error` de verdade antes de propagar.
+ *
+ * O cliente devolve um objeto simples, e `throw` de objeto simples não é
+ * tratado pelas barreiras de erro do React: em vez de cair no `error.tsx` da
+ * área, a requisição cai na página de erro global do Next, que não mostra
+ * mensagem nenhuma. Com um `Error` nomeado, a barreira assume e a causa
+ * aparece na tela.
+ */
+function falha(operacao: string, error: { message?: string; code?: string; hint?: string }): never {
+  const detalhe = [error?.message, error?.hint].filter(Boolean).join(' — ')
+  const erro = new Error(`Supabase falhou em ${operacao}: ${detalhe || 'erro desconhecido'}`)
+  erro.name = 'SupabaseError'
+  throw erro
+}
+
 export class SupabaseRepository implements Repository {
   readonly kind = 'supabase' as const
 
@@ -29,13 +45,13 @@ export class SupabaseRepository implements Repository {
     if (query.featured) q = q.eq('featured', true)
     if (query.application) q = q.contains('applications', [query.application])
     const { data, error } = await q
-    if (error) throw error
+    if (error) falha('listProducts', error)
     return (data ?? []).map((row) => row.payload as Product)
   }
 
   async getProduct(slug: string): Promise<Product | null> {
     const { data, error } = await this.read().from('products').select('payload').eq('slug', slug).maybeSingle()
-    if (error) throw error
+    if (error) falha('getProduct', error)
     return (data?.payload as Product) ?? null
   }
 
@@ -66,26 +82,26 @@ export class SupabaseRepository implements Repository {
         },
         { onConflict: 'id' },
       )
-    if (error) throw error
+    if (error) falha('upsertProduct', error)
     return next
   }
 
   async deleteProduct(id: string): Promise<void> {
     const { error } = await this.write().from('products').delete().eq('id', id)
-    if (error) throw error
+    if (error) falha('deleteProduct', error)
   }
 
   async listApplications(includeDrafts = false): Promise<Application[]> {
     let q = this.read().from('applications').select('payload').order('display_order')
     if (!includeDrafts) q = q.eq('status', 'published')
     const { data, error } = await q
-    if (error) throw error
+    if (error) falha('listApplications', error)
     return (data ?? []).map((row) => row.payload as Application)
   }
 
   async getApplication(slug: string): Promise<Application | null> {
     const { data, error } = await this.read().from('applications').select('payload').eq('slug', slug).maybeSingle()
-    if (error) throw error
+    if (error) falha('getApplication', error)
     return (data?.payload as Application) ?? null
   }
 
@@ -93,13 +109,13 @@ export class SupabaseRepository implements Repository {
     let q = this.read().from('articles').select('payload').order('published_at', { ascending: false })
     if (!includeDrafts) q = q.eq('status', 'published')
     const { data, error } = await q
-    if (error) throw error
+    if (error) falha('listArticles', error)
     return (data ?? []).map((row) => row.payload as Article)
   }
 
   async getArticle(slug: string): Promise<Article | null> {
     const { data, error } = await this.read().from('articles').select('payload').eq('slug', slug).maybeSingle()
-    if (error) throw error
+    if (error) falha('getArticle', error)
     return (data?.payload as Article) ?? null
   }
 
@@ -116,7 +132,7 @@ export class SupabaseRepository implements Repository {
         },
         { onConflict: 'slug' },
       )
-    if (error) throw error
+    if (error) falha('upsertArticle', error)
     return article
   }
 
@@ -124,7 +140,7 @@ export class SupabaseRepository implements Repository {
     let q = this.read().from('testimonials').select('payload')
     if (!includeDrafts) q = q.eq('status', 'published')
     const { data, error } = await q
-    if (error) throw error
+    if (error) falha('listTestimonials', error)
     return (data ?? []).map((row) => row.payload as Testimonial)
   }
 
@@ -132,7 +148,7 @@ export class SupabaseRepository implements Repository {
     let q = this.read().from('faqs').select('payload').eq('status', 'published').order('display_order')
     if (scope) q = q.eq('scope', scope)
     const { data, error } = await q
-    if (error) throw error
+    if (error) falha('listFaqs', error)
     return (data ?? []).map((row) => row.payload as Faq)
   }
 
@@ -141,7 +157,7 @@ export class SupabaseRepository implements Repository {
       .from('leads')
       .select('payload')
       .order('created_at', { ascending: false })
-    if (error) throw error
+    if (error) falha('listLeads', error)
     return (data ?? []).map((row) => row.payload as Lead)
   }
 
@@ -163,14 +179,14 @@ export class SupabaseRepository implements Repository {
       application: lead.application ?? null,
       payload: lead,
     })
-    if (error) throw error
+    if (error) falha('createLead', error)
     return lead
   }
 
   async updateLead(id: string, patch: Partial<Lead>): Promise<Lead | null> {
     const client = this.write()
     const { data, error } = await client.from('leads').select('payload').eq('id', id).maybeSingle()
-    if (error) throw error
+    if (error) falha('updateLead', error)
     if (!data) return null
     const current = data.payload as Lead
     const next: Lead = { ...current, ...patch, id: current.id, createdAt: current.createdAt }
@@ -184,7 +200,7 @@ export class SupabaseRepository implements Repository {
 
   async getSettings(): Promise<SiteSettings> {
     const { data, error } = await this.read().from('site_settings').select('payload').eq('id', 1).maybeSingle()
-    if (error) throw error
+    if (error) falha('getSettings', error)
     return { ...defaultSettings, ...((data?.payload as Partial<SiteSettings>) ?? {}) }
   }
 
@@ -194,13 +210,13 @@ export class SupabaseRepository implements Repository {
     const { error } = await this.write()
       .from('site_settings')
       .upsert({ id: 1, payload: next }, { onConflict: 'id' })
-    if (error) throw error
+    if (error) falha('updateSettings', error)
     return next
   }
 
   async listUsers(): Promise<AdminUser[]> {
     const { data, error } = await this.write().from('admin_users').select('payload')
-    if (error) throw error
+    if (error) falha('listUsers', error)
     return (data ?? []).map((row) => row.payload as AdminUser)
   }
 
@@ -210,7 +226,7 @@ export class SupabaseRepository implements Repository {
       .select('payload')
       .order('at', { ascending: false })
       .limit(limit)
-    if (error) throw error
+    if (error) falha('listAuditLogs', error)
     return (data ?? []).map((row) => row.payload as AuditLog)
   }
 

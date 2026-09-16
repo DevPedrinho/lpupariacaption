@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { AdminHeader, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { carregar } from '@/lib/admin-carregar'
+import { AdminHeader, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -30,7 +31,12 @@ export default async function LeadsPage({
   const session = await requireSession('leads')
   const params = await searchParams
   const repo = getRepository()
-  const [all, users] = await Promise.all([repo.listLeads(), repo.listUsers()])
+  const { dados, falhas } = await carregar(
+    { all: repo.listLeads(), users: repo.listUsers() },
+    { all: [], users: [] },
+    { all: 'Leads', users: 'Equipe' },
+  )
+  const { all, users } = dados
 
   const filtered = all.filter((lead) => {
     if (params.status && lead.status !== params.status) return false
@@ -66,6 +72,8 @@ export default async function LeadsPage({
           </a>
         }
       />
+
+      <AvisoCarregamento falhas={falhas} className="mb-5" />
 
       <Panel className="mb-5">
         <form method="get" className="flex flex-col gap-3 sm:flex-row sm:items-end">

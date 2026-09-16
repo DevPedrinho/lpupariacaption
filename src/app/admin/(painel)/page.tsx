@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { can } from '@/lib/auth'
 import { getRepository } from '@/lib/repository'
-import { AdminHeader, EmptyState, Panel, Stat, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { carregar } from '@/lib/admin-carregar'
+import { defaultSettings } from '@/data/content'
+import { AdminHeader, AvisoCarregamento, EmptyState, Panel, Stat, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { formatDateTime, leadStatusLabel, leadStatusOrder } from '@/lib/format'
@@ -11,13 +13,18 @@ export default async function DashboardPage() {
   const session = await requireSession('dashboard')
   const repo = getRepository()
 
-  const [leads, products, articles, settings, logs] = await Promise.all([
-    can(session.role, 'leads') ? repo.listLeads() : Promise.resolve([]),
-    repo.listProducts({ includeDrafts: true }),
-    repo.listArticles(true),
-    repo.getSettings(),
-    can(session.role, 'logs') ? repo.listAuditLogs(6) : Promise.resolve([]),
-  ])
+  const { dados, falhas } = await carregar(
+    {
+      leads: can(session.role, 'leads') ? repo.listLeads() : Promise.resolve([]),
+      products: repo.listProducts({ includeDrafts: true }),
+      articles: repo.listArticles(true),
+      settings: repo.getSettings(),
+      logs: can(session.role, 'logs') ? repo.listAuditLogs(6) : Promise.resolve([]),
+    },
+    { leads: [], products: [], articles: [], settings: defaultSettings, logs: [] },
+    { leads: 'Leads', products: 'Produtos', articles: 'Conteúdos', settings: 'Configurações', logs: 'Registros' },
+  )
+  const { leads, products, articles, settings, logs } = dados
 
   const now = Date.now()
   const last30 = leads.filter((lead) => now - new Date(lead.createdAt).getTime() < 30 * 864e5)
@@ -35,6 +42,8 @@ export default async function DashboardPage() {
         title={`Olá, ${session.name.split(' ')[0]}`}
         description="Resumo da operação comercial e do conteúdo publicado."
       />
+
+      <AvisoCarregamento falhas={falhas} className="mb-5" />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {can(session.role, 'leads') && (

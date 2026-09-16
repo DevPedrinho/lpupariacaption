@@ -1,6 +1,8 @@
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { AdminHeader, Panel } from '@/components/admin/ui'
+import { carregar } from '@/lib/admin-carregar'
+import { defaultSettings } from '@/data/content'
+import { AdminHeader, AvisoCarregamento, Panel } from '@/components/admin/ui'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { saveSettings } from '../../actions'
@@ -41,7 +43,12 @@ export default async function SettingsPage({
 }) {
   await requireSession('configuracoes')
   const { salvo } = await searchParams
-  const settings = await getRepository().getSettings()
+  const { dados, falhas } = await carregar(
+    { settings: getRepository().getSettings() },
+    { settings: defaultSettings },
+    { settings: 'Configurações' },
+  )
+  const { settings } = dados
 
   return (
     <>
@@ -49,6 +56,8 @@ export default async function SettingsPage({
         title="Configurações"
         description="Dados de contato, textos da home, política de garantia, SEO e ferramentas de mensuração."
       />
+
+      <AvisoCarregamento falhas={falhas} className="mb-5" />
 
       {salvo && (
         <Panel className="mb-5 border-positive-500/30 bg-positive-500/8">

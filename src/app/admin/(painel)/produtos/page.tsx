@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { AdminHeader, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { carregar } from '@/lib/admin-carregar'
+import { AdminHeader, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { availabilityLabel, formatCapacity, formatPrice, formFactorLabel, gpuSummary, tierLabel, totalVramGb } from '@/lib/format'
@@ -14,7 +15,12 @@ export default async function AdminProductsPage({
 }) {
   await requireSession('produtos')
   const { salvo } = await searchParams
-  const products = await getRepository().listProducts({ includeDrafts: true })
+  const { dados, falhas } = await carregar(
+    { products: getRepository().listProducts({ includeDrafts: true }) },
+    { products: [] },
+    { products: 'Produtos' },
+  )
+  const { products } = dados
 
   return (
     <>
@@ -31,6 +37,8 @@ export default async function AdminProductsPage({
           </Link>
         }
       />
+
+      <AvisoCarregamento falhas={falhas} className="mb-5" />
 
       {salvo && (
         <Panel className="mb-5 border-positive-500/30 bg-positive-500/8">
