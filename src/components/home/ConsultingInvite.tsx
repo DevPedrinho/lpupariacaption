@@ -4,7 +4,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Section } from '@/components/ui/Section'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSiteConfig } from '@/components/site/SiteConfig'
 
 /**
@@ -54,10 +54,27 @@ function BrandPanel() {
 
 export function ConsultingInvite() {
   const settings = useSiteConfig()
-  // Se o arquivo apontado não existir, cai para a marca em vez de mostrar
-  // imagem quebrada — o caminho pode ser cadastrado antes de o arquivo subir.
-  const [falhou, setFalhou] = useState(false)
   const configurada = settings.consultantPhotoUrl?.trim()
+
+  /*
+   * Se o arquivo apontado não existir, mostramos a marca em vez do ícone de
+   * imagem quebrada — o caminho pode ser cadastrado antes de o arquivo subir.
+   *
+   * O `onError` sozinho não resolve: o HTML vem do servidor, então a imagem
+   * costuma falhar antes de o React hidratar, e o evento se perde. Por isso a
+   * verificação no primeiro render também olha o estado do elemento, que é o
+   * que sobra depois de o erro já ter acontecido.
+   */
+  const [falhou, setFalhou] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const img = imgRef.current
+    // `complete` com largura zero é exatamente o retrato de um carregamento
+    // que terminou em erro.
+    if (img && img.complete && img.naturalWidth === 0) setFalhou(true)
+  }, [configurada])
+
   const photo = falhou ? '' : configurada
 
   return (
@@ -77,6 +94,7 @@ export function ConsultingInvite() {
             <figure className="m-0 flex flex-col gap-3">
               {photo ? (
                 <img
+                  ref={imgRef}
                   src={photo}
                   alt={
                     settings.consultantName
