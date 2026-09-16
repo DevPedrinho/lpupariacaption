@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
-import { Icon } from '@/components/ui/Icon'
+import { Icon, type IconName } from '@/components/ui/Icon'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/cn'
@@ -37,16 +37,19 @@ export function ProductBuyBox({
     })
   }, [product.name, product.slug, product.performanceTier, product.formFactor])
 
-  const quickSpecs = [
-    { label: 'Processador', value: `${product.cpu.model} · ${product.cpu.cores}C/${product.cpu.threads}T` },
-    { label: 'Placa de vídeo', value: gpuSummary(product) },
-    { label: 'VRAM', value: vramSummary(product), emphasis: true },
-    { label: 'Memória RAM', value: `${formatCapacity(product.ram.capacityGb)} ${product.ram.type}` },
-    { label: 'Armazenamento', value: storageSummary(product) },
+  /*
+   * Quatro números, não uma ficha. O detalhe fica nas seções abaixo; aqui é o
+   * que decide compra de IA num olhar: placa, VRAM, memória e disco.
+   */
+  const resumo: { icon: IconName; label: string; value: string; destaque?: boolean }[] = [
+    { icon: 'gpu', label: 'Placa de vídeo', value: gpuSummary(product) },
+    { icon: 'memory', label: 'VRAM', value: vramSummary(product), destaque: true },
+    { icon: 'cpu', label: 'Memória RAM', value: `${formatCapacity(product.ram.capacityGb)} ${product.ram.type}` },
+    { icon: 'storage', label: 'Armazenamento', value: storageSummary(product) },
   ]
 
   return (
-    <div className="flex min-w-0 flex-col gap-6">
+    <div className="flex min-w-0 flex-col gap-5">
       <div className="flex flex-wrap items-center gap-2">
         <Badge tone="brand">{tierLabel[product.performanceTier]}</Badge>
         <Badge tone="neutral">{formFactorLabel[product.formFactor]}</Badge>
@@ -54,21 +57,27 @@ export function ProductBuyBox({
         {product.customizable && <Badge tone="flux">Personalizável</Badge>}
       </div>
 
-      <div>
-        <p className="text-[1.0625rem] leading-relaxed text-ink-200">{product.tagline}</p>
-        <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-300">{product.summary}</p>
-      </div>
+      <p className="text-[1.125rem] leading-relaxed text-ink-100">{product.tagline}</p>
 
-      <dl className="flex flex-col gap-2.5 rounded-xl border border-ink-700/70 bg-ink-880/60 p-5 text-sm">
-        {quickSpecs.map((spec) => (
-          <div key={spec.label} className="flex items-baseline justify-between gap-4">
-            <dt className="shrink-0 text-ink-400">{spec.label}</dt>
-            <dd className={cn('text-right', spec.emphasis ? 'font-medium text-flux-300' : 'text-ink-100')}>
-              {spec.value}
-            </dd>
-          </div>
+      <ul className="grid grid-cols-2 gap-2.5">
+        {resumo.map((item) => (
+          <li
+            key={item.label}
+            className={cn(
+              'flex flex-col gap-1.5 rounded-xl border p-4',
+              item.destaque ? 'border-brand-500/35 bg-brand-500/8' : 'border-ink-700/70 bg-ink-880/60',
+            )}
+          >
+            <span className="flex items-center gap-2 text-xs text-ink-400">
+              <Icon name={item.icon} className={cn('size-4', item.destaque ? 'text-brand-300' : 'text-flux-400')} />
+              {item.label}
+            </span>
+            <span className={cn('text-[0.9375rem] leading-snug font-medium', item.destaque ? 'text-brand-200' : 'text-white')}>
+              {item.value}
+            </span>
+          </li>
         ))}
-      </dl>
+      </ul>
 
       <div className="flex flex-col gap-4 rounded-xl border border-ink-700/70 bg-linear-to-br from-ink-880 to-ink-900 p-5">
         <div>

@@ -52,15 +52,27 @@ export function ProductCard({
           aria-hidden="true"
           className="absolute inset-0 -z-10 opacity-45 grid-mesh [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]"
         />
-        <div className="px-6 py-5">
-          <div className="mx-auto h-44 w-36 transition-transform duration-500 group-hover:scale-[1.035]">
-            <MachineRender
-              variant={product.images[0]?.render ?? 'tower-glass'}
-              gpuCount={product.gpu.quantity}
-              compact
+        {product.images[0]?.src ? (
+          <div className="aspect-4/3 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={product.images[0].src}
+              alt={product.images[0].alt}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
           </div>
-        </div>
+        ) : (
+          <div className="px-6 py-5">
+            <div className="mx-auto h-44 w-36 transition-transform duration-500 group-hover:scale-[1.035]">
+              <MachineRender
+                variant={product.images[0]?.render ?? 'tower-glass'}
+                gpuCount={product.gpu.quantity}
+                compact
+              />
+            </div>
+          </div>
+        )}
 
         <div className="absolute top-3.5 left-3.5 flex flex-col items-start gap-1.5">
           <Badge tone="brand">{tierLabel[product.performanceTier]}</Badge>

@@ -148,12 +148,52 @@ export default async function ProductPage({ params }: Params) {
         ]}
       />
 
-      <Section className="pt-12 pb-14 md:pt-14">
-        <div className="container-page grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+      <Section className="pt-10 pb-12 md:pt-12">
+        <div className="container-page grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-12">
           <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
             <ProductGallery images={product.images} gpuCount={product.gpu.quantity} productName={product.name} />
           </div>
           <ProductBuyBox product={product} applicationName={primaryApplication} />
+        </div>
+      </Section>
+
+      {/* ------------------------------- Resumo ---------------------------------- */}
+      <Section id="resumo" tone="raised" className="py-12 md:py-14">
+        <div className="container-page grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+          <div>
+            <p className="text-2xs font-semibold tracking-[0.14em] text-brand-300 uppercase">Em resumo</p>
+            <p className="mt-3 text-[1.0625rem] leading-relaxed text-ink-200">{product.summary}</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div>
+              <p className="text-2xs font-semibold tracking-[0.14em] text-ink-400 uppercase">Para quem é</p>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-200">{product.clientProfile}</p>
+            </div>
+            {productApps.length > 0 && (
+              <div>
+                <p className="text-2xs font-semibold tracking-[0.14em] text-ink-400 uppercase">Aplicações</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {productApps.slice(0, 4).map((application) => (
+                    <li key={application.slug}>
+                      <Link
+                        href={`/solucoes/${application.slug}`}
+                        className="inline-flex rounded-full border border-ink-600/70 px-3 py-1 text-sm text-ink-100 transition-colors hover:border-brand-500/50 hover:text-white"
+                      >
+                        {application.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <a
+              href="#configuracao"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-flux-300 hover:text-flux-400"
+            >
+              Ver a configuração completa
+              <Icon name="chevronDown" className="size-4" />
+            </a>
+          </div>
         </div>
       </Section>
 
@@ -168,7 +208,7 @@ export default async function ProductPage({ params }: Params) {
       )}
 
       {/* -------------------------- Entenda esta máquina ------------------------- */}
-      <Section id="entenda" tone="raised">
+      <Section id="entenda">
         <div className="container-page">
           <SectionHeader
             eyebrow="Entenda esta máquina"

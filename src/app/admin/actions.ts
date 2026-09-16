@@ -6,6 +6,7 @@ import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { mensagemDeGravacao } from '@/lib/repository/erro'
 import { buildExplainers } from '@/data/product-helpers'
+import { TAMANHO_MAXIMO, TIPOS_ACEITOS, uploadDisponivel, uploadProductImage } from '@/lib/product-images'
 import {
   DEFAULT_DIAGNOSTIC_QUESTIONS,
   OPTION_COUNT,
@@ -14,7 +15,7 @@ import {
   validateQuestions,
 } from '@/lib/diagnostic'
 import type {
-  Article, DiagnosticQuestion, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
+  Article, DiagnosticQuestion, ProductImage, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
   PublishStatus, SiteSettings, StorageDrive,
 } from '@/lib/types'
 
@@ -395,6 +396,108 @@ async function restaurarFormularioDoDiagnostico(): Promise<void> {
   redirect('/admin/formulario?salvo=1')
 }
 
+/* ---------------------------- Imagens do produto --------------------------- */
+
+async function produtoOuNada(id: string) {
+  const repo = getRepository()
+  const product = (await repo.listProducts({ includeDrafts: true })).find((item) => item.id === id)
+  return { repo, product }
+}
+
+/**
+ * Aceita arquivos (campo `files`, vários) e/ou uma URL (`url`). A legenda
+ * (`alt`) vale para todos os arquivos do envio; quem quiser uma por foto
+ * manda uma por vez. Fotos entram depois das existentes; a capa é a primeira.
+ */
+async function adicionarImagensDoProduto(formData: FormData): Promise<void> {
+  const session = await requireSession('produtos')
+  const id = text(formData, 'id')
+  const { repo, product } = await produtoOuNada(id)
+  if (!product) return
+
+  const alt = text(formData, 'alt') || `Foto de ${product.name}`
+  const novas: ProductImage[] = []
+  const recusadas: string[] = []
+
+  const url = text(formData, 'url')
+  if (url) {
+    if (/^https?:\/\//i.test(url)) novas.push({ render: 'tower-glass', alt, src: url })
+    else recusadas.push('a URL precisa começar com http:// ou https://')
+  }
+
+  const arquivos = formData.getAll('files').filter((f): f is File => f instanceof File && f.size > 0)
+  if (arquivos.length > 0 && !uploadDisponivel) {
+    recusadas.push('envio de arquivo precisa da SUPABASE_SERVICE_ROLE_KEY; use o campo de URL')
+  } else {
+    for (const arquivo of arquivos.slice(0, 10)) {
+      if (!TIPOS_ACEITOS.includes(arquivo.type)) {
+        recusadas.push(`${arquivo.name}: use JPG, PNG, WebP ou AVIF`)
+        continue
+      }
+      if (arquivo.size > TAMANHO_MAXIMO) {
+        recusadas.push(`${arquivo.name}: acima de 8 MB`)
+        continue
+      }
+      const src = await uploadProductImage(product.id, arquivo)
+      if (src) novas.push({ render: 'tower-glass', alt, src })
+      else recusadas.push(`${arquivo.name}: o envio falhou`)
+    }
+  }
+
+  if (novas.length > 0) {
+    await repo.upsertProduct({ ...product, images: [...product.images, ...novas], updatedAt: new Date().toISOString() })
+    await repo.log({
+      actor: session.email,
+      action: 'produto.imagens.adicionadas',
+      entity: `produto:${product.slug}`,
+      detail: `${novas.length} imagem(ns)`,
+    })
+    revalidatePath(`/produtos/${product.slug}`)
+    revalidatePath('/catalogo')
+    revalidatePath('/')
+  }
+
+  if (recusadas.length > 0) {
+    redirect(`/admin/produtos/${id}?erro=${encodeURIComponent(recusadas.join('; '))}`)
+  }
+  redirect(`/admin/produtos/${id}?salvo=imagens`)
+}
+
+async function removerImagemDoProduto(formData: FormData): Promise<void> {
+  const session = await requireSession('produtos')
+  const id = text(formData, 'id')
+  const index = number(formData, 'index', -1)
+  const { repo, product } = await produtoOuNada(id)
+  if (!product || index < 0 || index >= product.images.length) return
+
+  const images = product.images.filter((_, i) => i !== index)
+  // Um produto sem imagem nenhuma perde o render do catálogo; deixa a ilustração.
+  if (images.length === 0) images.push({ render: 'tower-glass', alt: product.name })
+
+  await repo.upsertProduct({ ...product, images, updatedAt: new Date().toISOString() })
+  await repo.log({ actor: session.email, action: 'produto.imagem.removida', entity: `produto:${product.slug}` })
+  revalidatePath(`/produtos/${product.slug}`)
+  revalidatePath('/catalogo')
+  revalidatePath('/')
+  redirect(`/admin/produtos/${id}?salvo=imagens`)
+}
+
+async function definirCapaDoProduto(formData: FormData): Promise<void> {
+  const session = await requireSession('produtos')
+  const id = text(formData, 'id')
+  const index = number(formData, 'index', -1)
+  const { repo, product } = await produtoOuNada(id)
+  if (!product || index <= 0 || index >= product.images.length) return
+
+  const images = [product.images[index], ...product.images.filter((_, i) => i !== index)]
+  await repo.upsertProduct({ ...product, images, updatedAt: new Date().toISOString() })
+  await repo.log({ actor: session.email, action: 'produto.capa.definida', entity: `produto:${product.slug}` })
+  revalidatePath(`/produtos/${product.slug}`)
+  revalidatePath('/catalogo')
+  revalidatePath('/')
+  redirect(`/admin/produtos/${id}?salvo=imagens`)
+}
+
 /* ------------------------- Actions expostas aos forms ------------------------- */
 
 export async function updateLead(formData: FormData): Promise<void> {
@@ -423,4 +526,13 @@ export async function saveDiagnosticForm(formData: FormData): Promise<void> {
 }
 export async function restoreDiagnosticForm(): Promise<void> {
   return gravando('/admin/formulario', () => restaurarFormularioDoDiagnostico())
+}
+export async function addProductImages(formData: FormData): Promise<void> {
+  return gravando(`/admin/produtos/${text(formData, 'id')}`, () => adicionarImagensDoProduto(formData))
+}
+export async function removeProductImage(formData: FormData): Promise<void> {
+  return gravando(`/admin/produtos/${text(formData, 'id')}`, () => removerImagemDoProduto(formData))
+}
+export async function setProductCover(formData: FormData): Promise<void> {
+  return gravando(`/admin/produtos/${text(formData, 'id')}`, () => definirCapaDoProduto(formData))
 }
