@@ -110,3 +110,19 @@ export function AvisoCarregamento({ falhas, className }: { falhas: string[]; cla
     </Panel>
   )
 }
+
+/** Aviso de gravação recusada. Recebe o `?erro=` que as actions devolvem. */
+export function AvisoGravacao({ erro, className }: { erro?: string; className?: string }) {
+  if (!erro) return null
+  return (
+    <Panel className={cn('border-critical-500/30 bg-critical-500/[0.06]', className)}>
+      <div className="flex items-start gap-3">
+        <Icon name="info" className="mt-0.5 size-5 shrink-0 text-critical-500" />
+        <div>
+          <h2 className="text-base font-semibold text-white">Não foi possível salvar</h2>
+          <p className="mt-1.5 text-sm leading-relaxed break-words text-ink-300">{erro}</p>
+        </div>
+      </div>
+    </Panel>
+  )
+}

@@ -2,7 +2,7 @@ import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { carregar } from '@/lib/admin-carregar'
 import { defaultSettings } from '@/data/content'
-import { AdminHeader, AvisoCarregamento, Panel } from '@/components/admin/ui'
+import { AdminHeader, AvisoGravacao, AvisoCarregamento, Panel } from '@/components/admin/ui'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { saveSettings } from '../../actions'
@@ -39,10 +39,10 @@ function Row({
 export default async function SettingsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ salvo?: string }>
+  searchParams: Promise<{ salvo?: string; erro?: string }>
 }) {
   await requireSession('configuracoes')
-  const { salvo } = await searchParams
+  const { salvo, erro } = await searchParams
   const { dados, falhas } = await carregar(
     { settings: getRepository().getSettings() },
     { settings: defaultSettings },
@@ -58,6 +58,7 @@ export default async function SettingsPage({
       />
 
       <AvisoCarregamento falhas={falhas} className="mb-5" />
+      <AvisoGravacao erro={erro} className="mb-5" />
 
       {salvo && (
         <Panel className="mb-5 border-positive-500/30 bg-positive-500/8">

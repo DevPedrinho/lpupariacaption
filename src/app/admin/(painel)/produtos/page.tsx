@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { carregar } from '@/lib/admin-carregar'
-import { AdminHeader, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { AdminHeader, AvisoGravacao, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { availabilityLabel, formatCapacity, formatPrice, formFactorLabel, gpuSummary, tierLabel, totalVramGb } from '@/lib/format'
@@ -11,10 +11,10 @@ import { duplicateProduct, removeProduct, toggleProductStatus } from '../../acti
 export default async function AdminProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ salvo?: string }>
+  searchParams: Promise<{ salvo?: string; erro?: string }>
 }) {
   await requireSession('produtos')
-  const { salvo } = await searchParams
+  const { salvo, erro } = await searchParams
   const { dados, falhas } = await carregar(
     { products: getRepository().listProducts({ includeDrafts: true }) },
     { products: [] },
@@ -39,6 +39,7 @@ export default async function AdminProductsPage({
       />
 
       <AvisoCarregamento falhas={falhas} className="mb-5" />
+      <AvisoGravacao erro={erro} className="mb-5" />
 
       {salvo && (
         <Panel className="mb-5 border-positive-500/30 bg-positive-500/8">

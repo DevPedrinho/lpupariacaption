@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { AdminHeader, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { AdminHeader, AvisoGravacao, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Icon } from '@/components/ui/Icon'
 import { formatDate } from '@/lib/format'
@@ -9,10 +9,10 @@ import { formatDate } from '@/lib/format'
 export default async function AdminArticlesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ salvo?: string }>
+  searchParams: Promise<{ salvo?: string; erro?: string }>
 }) {
   await requireSession('conteudos')
-  const { salvo } = await searchParams
+  const { salvo, erro } = await searchParams
   const repo = getRepository()
   const [articles, faqs, testimonials] = await Promise.all([
     repo.listArticles(true),
@@ -35,6 +35,8 @@ export default async function AdminArticlesPage({
           </Link>
         }
       />
+
+      <AvisoGravacao erro={erro} className="mb-5" />
 
       {salvo && (
         <Panel className="mb-5 border-positive-500/30 bg-positive-500/8">

@@ -38,50 +38,33 @@ correto: nenhum acesso é liberado por engano.
 
 ## Vercel
 
-### O que já foi publicado desta sessão
-
-Dois projetos foram criados e receberam um deploy de produção:
+### Projetos na Vercel
 
 | Projeto | O que é | Endereço |
 | --- | --- | --- |
-| `upar-ai` | a aplicação Next.js completa | `upar-ai-pedros-projects-8bfe3549.vercel.app` |
+| `upar-ai` | a aplicação Next.js completa (produção) | `upar-ai.vercel.app` e `upar-ai-pedros-projects-8bfe3549.vercel.app` |
+| `lpupariacaption` | **cópia** da aplicação, criada pela importação do repositório | `lpupariacaption.vercel.app` |
 | `upar-ai-demo` | página estática de apresentação (`static-demo/`) | `upar-ai-demo-pedros-projects-8bfe3549.vercel.app` |
 
-O token desta sessão consegue **criar** deploys, mas recebe `403` ao ler
-qualquer coisa do escopo `pedros-projects-8bfe3549` (status, logs de build,
-lista de projetos). O resultado dos dois deploys, portanto, **não foi
-verificado** — confira no painel da Vercel.
+### Deploy automático (já ativo)
 
-### Como o deploy foi feito (e por que é provisório)
+`upar-ai` e `lpupariacaption` estão **ligados ao repositório**
+`DevPedrinho/lpupariacaption`: cada push na branch `claude/practical-bell-ko7hcb`
+gera um deploy de produção nos dois, sem nenhum passo manual. Isso foi
+confirmado pela API da Vercel — todos os commits da branch aparecem como
+deploys com `githubCommitSha`.
 
-A conexão desta sessão não permite ligar o projeto ao repositório pelo Git.
-Como contorno, o deploy sobe apenas o `package.json` e busca o código-fonte no
-próprio GitHub durante o build, usando um comando de instalação customizado:
+Consequências práticas:
 
-```
-curl -sSL -o src.tgz https://codeload.github.com/DevPedrinho/lpupariacaption/tar.gz/refs/heads/claude/practical-bell-ko7hcb \
-  && tar xzf src.tgz --strip-components=1 && rm -f src.tgz && npm ci --no-audit --no-fund
-```
-
-Isso funciona porque o repositório é público. Mas tem duas limitações:
-
-- **não há deploy automático a cada push** — é preciso disparar manualmente;
-- o comando aponta para uma branch fixa, então ele ignora qualquer outra
-  referência que a Vercel venha a passar.
-
-> **Ao importar o repositório pelo Git (recomendado), apague esse comando** em
-> *Settings → Build & Development Settings → Install Command*. Se ele ficar,
-> continuará sobrescrevendo o checkout pela branch fixa e o deploy deixará de
-> refletir o que foi enviado.
-
-### Importação definitiva pelo painel
-
-1. Acesse **https://vercel.com/new** e importe `DevPedrinho/lpupariacaption`.
-2. Framework: **Next.js** (detectado automaticamente). Nenhum ajuste de build é
-   necessário — sem *root directory*, sem comando customizado.
-3. Branch de produção: `claude/practical-bell-ko7hcb` (ou faça o merge na branch
-   padrão antes de importar).
-4. Configure as variáveis de ambiente abaixo **antes do primeiro deploy**.
+- **Não é preciso disparar deploy à mão.** O contorno antigo (subir só o
+  `package.json` com um `build` que baixa o código do GitHub) continua
+  funcionando, mas só produz um deploy duplicado do mesmo commit.
+- **As variáveis de ambiente valem por projeto.** `SUPABASE_SERVICE_ROLE_KEY`
+  e `ADMIN_SESSION_SECRET` estão em `upar-ai`; `lpupariacaption` não as tem,
+  então o painel não funciona por lá. Ou apague `lpupariacaption` (é o mais
+  simples) ou copie as variáveis para ele.
+- Quando a branch de trabalho mudar, ajuste *Settings → Git → Production
+  Branch* nos projetos.
 
 ### Variáveis de ambiente
 
@@ -235,16 +218,21 @@ update public.admin_users
 Sem esse `auth_uid`, a senha é aceita mas o painel recusa a entrada — é o
 `admin_users` que define o papel, não o Auth.
 
-### O que ainda impede o login em produção
+### O que o painel precisa em produção
 
-O `/admin/login` verifica a senha no Supabase Auth e, em seguida, lê o papel em
-`admin_users` usando a chave de serviço. Então o login só funciona com as duas
-variáveis definidas na Vercel:
+O `/admin/login` verifica a senha no Supabase Auth e lê o papel em
+`admin_users`. Entrar já funciona; **gravar** (configurações, produtos,
+conteúdos, leads) depende da chave de serviço:
 
 | Variável | Onde obter |
 | --- | --- |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API Keys → `service_role`. É um JWT longo começando com `eyJ` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API Keys → `service_role`. É um JWT longo começando com `eyJ`. Cole a chave, não o caminho do painel |
 | `ADMIN_SESSION_SECRET` | Qualquer string de 32+ caracteres. Assina o cookie de sessão |
 
-Sem a primeira, o login responde "Este usuário não tem acesso ao painel" mesmo
-com a senha certa. Sem a segunda, a sessão não é assinada e ninguém entra.
+Sem a primeira, o painel abre com o aviso "Nem tudo carregou" e cada tentativa
+de salvar volta com "O banco recusou a gravação (política RLS)". O log da
+Vercel mostra `[supabase] SUPABASE_SERVICE_ROLE_KEY ausente ou inválida`. Sem a
+segunda, a sessão não é assinada e ninguém entra.
+
+Depois de trocar uma variável, é preciso **redeploy**: o valor só entra no
+próximo build.

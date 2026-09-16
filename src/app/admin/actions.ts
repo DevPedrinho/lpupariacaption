@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
+import { mensagemDeGravacao } from '@/lib/repository/erro'
 import { buildExplainers } from '@/data/product-helpers'
 import type {
   Article, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
@@ -34,9 +35,31 @@ function slugify(value: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
+/*
+ * Toda gravação do painel passa por aqui.
+ *
+ * Sem a chave de serviço do Supabase, o RLS recusa a escrita — e uma action
+ * que lança vira a página genérica de erro do servidor, sem dizer o motivo.
+ * Aqui a recusa volta para a tela de origem como aviso legível.
+ *
+ * O `redirect` do Next funciona lançando; não é erro do Supabase, então
+ * passa reto. Qualquer outro erro também sobe: não é para esconder defeito.
+ */
+async function gravando(destino: string, operacao: () => Promise<void>): Promise<void> {
+  let mensagem: string | null = null
+  try {
+    await operacao()
+  } catch (erro) {
+    mensagem = mensagemDeGravacao(erro)
+    if (!mensagem) throw erro
+    console.error('[painel] gravação recusada:', erro)
+  }
+  if (mensagem) redirect(`${destino}?erro=${encodeURIComponent(mensagem)}`)
+}
+
 /* --------------------------------- Leads ---------------------------------- */
 
-export async function updateLead(formData: FormData): Promise<void> {
+async function atualizarLead(formData: FormData): Promise<void> {
   const session = await requireSession('leads')
   const id = text(formData, 'id')
   const status = text(formData, 'status') as LeadStatus
@@ -78,7 +101,7 @@ function parseStorage(formData: FormData): StorageDrive[] {
   return drives
 }
 
-export async function saveProduct(formData: FormData): Promise<void> {
+async function salvarProduto(formData: FormData): Promise<void> {
   const session = await requireSession('produtos')
   const repo = getRepository()
 
@@ -159,7 +182,7 @@ export async function saveProduct(formData: FormData): Promise<void> {
   redirect('/admin/produtos?salvo=1')
 }
 
-export async function duplicateProduct(formData: FormData): Promise<void> {
+async function duplicarProduto(formData: FormData): Promise<void> {
   const session = await requireSession('produtos')
   const repo = getRepository()
   const id = text(formData, 'id')
@@ -187,7 +210,7 @@ export async function duplicateProduct(formData: FormData): Promise<void> {
   revalidatePath('/admin/produtos')
 }
 
-export async function toggleProductStatus(formData: FormData): Promise<void> {
+async function alternarStatusDoProduto(formData: FormData): Promise<void> {
   const session = await requireSession('produtos')
   const repo = getRepository()
   const id = text(formData, 'id')
@@ -206,7 +229,7 @@ export async function toggleProductStatus(formData: FormData): Promise<void> {
   revalidatePath('/catalogo')
 }
 
-export async function removeProduct(formData: FormData): Promise<void> {
+async function removerProduto(formData: FormData): Promise<void> {
   const session = await requireSession('produtos')
   const repo = getRepository()
   const id = text(formData, 'id')
@@ -224,7 +247,7 @@ export async function removeProduct(formData: FormData): Promise<void> {
 
 /* ------------------------------- Conteúdos -------------------------------- */
 
-export async function saveArticle(formData: FormData): Promise<void> {
+async function salvarArtigo(formData: FormData): Promise<void> {
   const session = await requireSession('conteudos')
   const repo = getRepository()
 
@@ -262,7 +285,7 @@ export async function saveArticle(formData: FormData): Promise<void> {
 
 /* ------------------------------ Configurações ------------------------------ */
 
-export async function saveSettings(formData: FormData): Promise<void> {
+async function salvarConfiguracoes(formData: FormData): Promise<void> {
   const session = await requireSession('configuracoes')
   const repo = getRepository()
 
@@ -310,4 +333,28 @@ export async function saveSettings(formData: FormData): Promise<void> {
 
   revalidatePath('/', 'layout')
   redirect('/admin/configuracoes?salvo=1')
+}
+
+/* ------------------------- Actions expostas aos forms ------------------------- */
+
+export async function updateLead(formData: FormData): Promise<void> {
+  return gravando('/admin/leads', () => atualizarLead(formData))
+}
+export async function saveProduct(formData: FormData): Promise<void> {
+  return gravando('/admin/produtos', () => salvarProduto(formData))
+}
+export async function duplicateProduct(formData: FormData): Promise<void> {
+  return gravando('/admin/produtos', () => duplicarProduto(formData))
+}
+export async function toggleProductStatus(formData: FormData): Promise<void> {
+  return gravando('/admin/produtos', () => alternarStatusDoProduto(formData))
+}
+export async function removeProduct(formData: FormData): Promise<void> {
+  return gravando('/admin/produtos', () => removerProduto(formData))
+}
+export async function saveArticle(formData: FormData): Promise<void> {
+  return gravando('/admin/conteudos', () => salvarArtigo(formData))
+}
+export async function saveSettings(formData: FormData): Promise<void> {
+  return gravando('/admin/configuracoes', () => salvarConfiguracoes(formData))
 }

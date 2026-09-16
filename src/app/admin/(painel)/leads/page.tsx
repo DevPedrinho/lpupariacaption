@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { carregar } from '@/lib/admin-carregar'
-import { AdminHeader, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
+import { AdminHeader, AvisoGravacao, AvisoCarregamento, EmptyState, Panel, TableWrapper, Td, Th } from '@/components/admin/ui'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -26,10 +26,12 @@ function statusTone(status: LeadStatus) {
 export default async function LeadsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; origem?: string; busca?: string; lead?: string }>
+  searchParams: Promise<{ status?: string; origem?: string; busca?: string; lead?: string; erro?: string }>
 }) {
   const session = await requireSession('leads')
   const params = await searchParams
+  // `erro` é aviso de uma gravação recusada; não deve viajar nos links de filtro.
+  const { erro, ...filtros } = params
   const repo = getRepository()
   const { dados, falhas } = await carregar(
     { all: repo.listLeads(), users: repo.listUsers() },
@@ -74,6 +76,7 @@ export default async function LeadsPage({
       />
 
       <AvisoCarregamento falhas={falhas} className="mb-5" />
+      <AvisoGravacao erro={erro} className="mb-5" />
 
       <Panel className="mb-5">
         <form method="get" className="flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -143,7 +146,7 @@ export default async function LeadsPage({
                   <tr key={lead.id} className={lead.id === params.lead ? 'bg-brand-500/8' : undefined}>
                     <Td>
                       <Link
-                        href={`/admin/leads?${new URLSearchParams({ ...params, lead: lead.id } as Record<string, string>).toString()}`}
+                        href={`/admin/leads?${new URLSearchParams({ ...filtros, lead: lead.id }).toString()}`}
                         className="font-medium text-white hover:text-flux-300"
                       >
                         {lead.name}

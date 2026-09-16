@@ -1,3 +1,4 @@
+import { SupabaseError } from './erro'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getAdminClient, getPublicClient } from '@/lib/supabase/server'
 import { hasServiceRole } from '@/lib/supabase/config'
@@ -22,10 +23,7 @@ import type { ProductQuery, Repository } from './types'
  * aparece na tela.
  */
 function falha(operacao: string, error: { message?: string; code?: string; hint?: string }): never {
-  const detalhe = [error?.message, error?.hint].filter(Boolean).join(' — ')
-  const erro = new Error(`Supabase falhou em ${operacao}: ${detalhe || 'erro desconhecido'}`)
-  erro.name = 'SupabaseError'
-  throw erro
+  throw new SupabaseError(operacao, error)
 }
 
 export class SupabaseRepository implements Repository {
