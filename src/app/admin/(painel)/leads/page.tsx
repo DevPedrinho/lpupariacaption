@@ -7,7 +7,6 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { formatDateTime, leadStatusLabel, leadStatusOrder } from '@/lib/format'
-import { questions } from '@/lib/diagnostic'
 import { updateLead } from '../../actions'
 import type { Lead, LeadStatus } from '@/lib/types'
 
@@ -237,11 +236,11 @@ function LeadDetail({ lead, consultants }: { lead: Lead; consultants: string[] }
         <div className="mt-5 border-t border-ink-700/60 pt-5">
           <h3 className="text-sm font-medium text-white">Respostas do diagnóstico</h3>
           <dl className="mt-3 flex flex-col gap-2.5">
-            {questions.map((question) =>
-              lead.diagnostic?.[question.key] ? (
-                <div key={question.key}>
-                  <dt className="text-xs text-ink-400">{question.title}</dt>
-                  <dd className="text-sm text-ink-100">{lead.diagnostic[question.key]}</dd>
+            {Object.entries(lead.diagnostic).map(([pergunta, resposta]) =>
+              resposta ? (
+                <div key={pergunta}>
+                  <dt className="text-xs text-ink-400">{pergunta}</dt>
+                  <dd className="text-sm text-ink-100">{resposta}</dd>
                 </div>
               ) : null,
             )}

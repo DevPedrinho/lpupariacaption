@@ -2,7 +2,7 @@ import { getSession } from '@/lib/admin-session'
 import { can } from '@/lib/auth'
 import { getRepository } from '@/lib/repository'
 import { leadStatusLabel } from '@/lib/format'
-import { questions } from '@/lib/diagnostic'
+import { normalizeQuestions } from '@/lib/diagnostic'
 
 export const runtime = 'nodejs'
 
@@ -35,6 +35,9 @@ export async function GET(request: Request) {
     return true
   })
 
+  // Colunas do diagnóstico seguem o template atual; respostas de perguntas
+  // que já mudaram continuam no lead, só não ganham coluna própria.
+  const questions = normalizeQuestions((await repo.getSettings()).diagnosticQuestions)
   const diagnosticColumns = questions.map((question) => question.title)
   const header = [
     'ID', 'Data', 'Nome', 'Empresa', 'Telefone', 'E-mail', 'Cidade', 'Estado',
@@ -64,7 +67,7 @@ export async function GET(request: Request) {
     leadStatusLabel[lead.status],
     lead.owner,
     lead.notes,
-    ...questions.map((question) => lead.diagnostic?.[question.key] ?? ''),
+    ...questions.map((question) => lead.diagnostic?.[question.title] ?? ''),
   ])
 
   // BOM para o Excel reconhecer acentuação corretamente.

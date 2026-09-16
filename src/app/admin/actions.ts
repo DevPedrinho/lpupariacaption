@@ -6,8 +6,15 @@ import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { mensagemDeGravacao } from '@/lib/repository/erro'
 import { buildExplainers } from '@/data/product-helpers'
+import {
+  DEFAULT_DIAGNOSTIC_QUESTIONS,
+  OPTION_COUNT,
+  QUESTION_COUNT,
+  normalizeQuestions,
+  validateQuestions,
+} from '@/lib/diagnostic'
 import type {
-  Article, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
+  Article, DiagnosticQuestion, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
   PublishStatus, SiteSettings, StorageDrive,
 } from '@/lib/types'
 
@@ -335,6 +342,59 @@ async function salvarConfiguracoes(formData: FormData): Promise<void> {
   redirect('/admin/configuracoes?salvo=1')
 }
 
+/* ------------------------- Formulário do diagnóstico ----------------------- */
+
+/**
+ * Lê os campos `q{i}.title`, `q{i}.help`, `q{i}.o{j}.label`, `q{i}.o{j}.weight`
+ * e `q{i}.allowOther` do form. Um problema de preenchimento volta para a tela
+ * como aviso, não como página de erro.
+ */
+async function salvarFormularioDoDiagnostico(formData: FormData): Promise<void> {
+  const session = await requireSession('configuracoes')
+
+  const questions: DiagnosticQuestion[] = Array.from({ length: QUESTION_COUNT }, (_, i) => ({
+    title: text(formData, `q${i}.title`),
+    help: text(formData, `q${i}.help`) || undefined,
+    options: Array.from({ length: OPTION_COUNT }, (_, j) => ({
+      label: text(formData, `q${i}.o${j}.label`),
+      weight: (['0', '1', '2'].includes(text(formData, `q${i}.o${j}.weight`))
+        ? Number(text(formData, `q${i}.o${j}.weight`))
+        : 0) as 0 | 1 | 2,
+    })),
+    allowOther: formData.get(`q${i}.allowOther`) === 'on',
+  }))
+
+  const problemas = validateQuestions(questions)
+  if (problemas.length > 0) {
+    redirect(`/admin/formulario?erro=${encodeURIComponent(problemas.join(' '))}`)
+  }
+
+  const repo = getRepository()
+  await repo.updateSettings({ diagnosticQuestions: normalizeQuestions(questions) })
+  await repo.log({
+    actor: session.email,
+    action: 'formulario.atualizado',
+    entity: 'diagnostico',
+    detail: questions.map((q) => q.title).join(' · '),
+  })
+
+  revalidatePath('/encontre-sua-configuracao')
+  redirect('/admin/formulario?salvo=1')
+}
+
+async function restaurarFormularioDoDiagnostico(): Promise<void> {
+  const session = await requireSession('configuracoes')
+  const repo = getRepository()
+  await repo.updateSettings({ diagnosticQuestions: DEFAULT_DIAGNOSTIC_QUESTIONS })
+  await repo.log({
+    actor: session.email,
+    action: 'formulario.restaurado',
+    entity: 'diagnostico',
+  })
+  revalidatePath('/encontre-sua-configuracao')
+  redirect('/admin/formulario?salvo=1')
+}
+
 /* ------------------------- Actions expostas aos forms ------------------------- */
 
 export async function updateLead(formData: FormData): Promise<void> {
@@ -357,4 +417,10 @@ export async function saveArticle(formData: FormData): Promise<void> {
 }
 export async function saveSettings(formData: FormData): Promise<void> {
   return gravando('/admin/configuracoes', () => salvarConfiguracoes(formData))
+}
+export async function saveDiagnosticForm(formData: FormData): Promise<void> {
+  return gravando('/admin/formulario', () => salvarFormularioDoDiagnostico(formData))
+}
+export async function restoreDiagnosticForm(): Promise<void> {
+  return gravando('/admin/formulario', () => restaurarFormularioDoDiagnostico())
 }

@@ -12,19 +12,11 @@ export const leadSchema = z.object({
   application: z.string().trim().max(120).optional(),
   productSlug: z.string().trim().max(160).optional(),
   comparedSlugs: z.array(z.string().max(160)).max(3).optional(),
+  // Título da pergunta -> resposta. As perguntas são editáveis, então o
+  // formato é livre; o tamanho é o limite.
   diagnostic: z
-    .object({
-      application: z.string().max(200).optional(),
-      tools: z.string().max(600).optional(),
-      localExecution: z.string().max(200).optional(),
-      workloadType: z.string().max(200).optional(),
-      users: z.string().max(200).optional(),
-      dataVolume: z.string().max(200).optional(),
-      budget: z.string().max(200).optional(),
-      expansion: z.string().max(200).optional(),
-      deadline: z.string().max(200).optional(),
-      buyerType: z.string().max(200).optional(),
-    })
+    .record(z.string().max(200), z.string().max(600))
+    .refine((value) => Object.keys(value).length <= 12, { message: 'Diagnóstico com respostas demais' })
     .optional(),
   recommendedTier: z.enum(['essencial', 'avancado', 'profissional', 'extremo']).optional(),
   budgetRange: z.string().max(120).optional(),

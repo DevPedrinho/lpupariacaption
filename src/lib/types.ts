@@ -216,17 +216,27 @@ export type LeadStatus =
 
 export type LeadOrigin = 'diagnostico' | 'produto' | 'comparativo' | 'contato' | 'consultoria' | 'catalogo'
 
-export interface DiagnosticAnswers {
-  application?: string
-  tools?: string
-  localExecution?: string
-  workloadType?: string
-  users?: string
-  dataVolume?: string
-  budget?: string
-  expansion?: string
-  deadline?: string
-  buyerType?: string
+/**
+ * Respostas do diagnóstico, indexadas pelo título da pergunta.
+ *
+ * O título, e não um código, porque as perguntas são editáveis no painel: um
+ * lead antigo continua legível mesmo depois de a pergunta mudar ou sumir.
+ */
+export type DiagnosticAnswers = Record<string, string>
+
+export interface DiagnosticOption {
+  label: string
+  /** Quanto esta escolha puxa a indicação para uma categoria maior (0 a 2). */
+  weight: 0 | 1 | 2
+}
+
+export interface DiagnosticQuestion {
+  title: string
+  help?: string
+  /** Sempre quatro. A quinta escolha, "Outro", é a `allowOther`. */
+  options: DiagnosticOption[]
+  /** Mostra "Outro" com um campo livre para o cliente escrever. */
+  allowOther: boolean
 }
 
 export interface Lead {
@@ -316,4 +326,6 @@ export interface SiteSettings {
   googleAdsId?: string
   /** Campos que ainda aguardam informação real da UPAR. */
   pendingRealData: string[]
+  /** Template do diagnóstico "Encontre sua configuração", editável no painel. */
+  diagnosticQuestions: DiagnosticQuestion[]
 }

@@ -4,15 +4,15 @@ import Link from 'next/link'
 import { useMemo, useRef, useState } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Button, ButtonLink } from '@/components/ui/Button'
-import { Checkbox, Field, Input, Textarea } from '@/components/ui/Field'
+import { Checkbox, Field, Input } from '@/components/ui/Field'
 import { Icon } from '@/components/ui/Icon'
 import { ProductCard } from '@/components/catalog/ProductCard'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { track, readUtm } from '@/lib/analytics'
 import { cn } from '@/lib/cn'
-import { TIER_SUMMARY, budgetToRange, questions, recommendProducts, recommendTier } from '@/lib/diagnostic'
+import { OUTRO_LABEL, TIER_SUMMARY, recommendProducts, recommendTier } from '@/lib/diagnostic'
 import { tierLabel } from '@/lib/format'
-import type { Application, DiagnosticAnswers, PerformanceTier, Product } from '@/lib/types'
+import type { Application, DiagnosticAnswers, DiagnosticQuestion, PerformanceTier, Product } from '@/lib/types'
 
 type Contact = {
   name: string
@@ -31,12 +31,21 @@ const emptyContact: Contact = {
 export function DiagnosticWizard({
   products,
   applications,
+  questions,
 }: {
   products: Product[]
   applications: Application[]
+  /** Template editável no painel: cinco perguntas, quatro opções e "Outro". */
+  questions: DiagnosticQuestion[]
 }) {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<DiagnosticAnswers>({})
+  /*
+   * "Outro" é uma escolha com campo livre. Guardamos separado quais perguntas
+   * estão em "Outro" porque a resposta em si é o texto digitado — e um texto
+   * vazio ainda precisa manter o botão marcado enquanto a pessoa escreve.
+   */
+  const [outros, setOutros] = useState<Record<string, boolean>>({})
   const [contact, setContact] = useState<Contact>(emptyContact)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitting, setSubmitting] = useState(false)
@@ -48,15 +57,11 @@ export function DiagnosticWizard({
   const totalSteps = questions.length + 1
   const appIndex = useMemo(() => applications.map(({ slug, name }) => ({ slug, name })), [applications])
 
-  const tier: PerformanceTier = useMemo(() => recommendTier(answers), [answers])
-  const recommended = useMemo(
-    () => recommendProducts(products, answers, tier),
-    [products, answers, tier],
-  )
+  const tier: PerformanceTier = useMemo(() => recommendTier(questions, answers), [questions, answers])
+  const recommended = useMemo(() => recommendProducts(products, tier), [products, tier])
 
-  const applicationLabel = answers.application
-    ? (applications.find((app) => app.slug === answers.application)?.name ?? answers.application)
-    : undefined
+  // A primeira pergunta do template é a aplicação; é o que o lead mostra no painel.
+  const applicationLabel = questions[0] ? answers[questions[0].title]?.trim() || undefined : undefined
 
   const scrollToTop = () => {
     topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -69,9 +74,20 @@ export function DiagnosticWizard({
     }
   }
 
-  const setAnswer = (key: keyof DiagnosticAnswers, value: string) => {
+  const chooseOption = (title: string, label: string) => {
     begin()
-    setAnswers((current) => ({ ...current, [key]: value }))
+    setOutros((current) => ({ ...current, [title]: false }))
+    setAnswers((current) => ({ ...current, [title]: label }))
+  }
+
+  const chooseOther = (title: string) => {
+    begin()
+    setOutros((current) => ({ ...current, [title]: true }))
+    setAnswers((current) => ({ ...current, [title]: '' }))
+  }
+
+  const typeOther = (title: string, value: string) => {
+    setAnswers((current) => ({ ...current, [title]: value }))
   }
 
   const goNext = () => {
@@ -108,10 +124,12 @@ export function DiagnosticWizard({
         body: JSON.stringify({
           ...contact,
           application: applicationLabel,
-          diagnostic: answers,
+          diagnostic: Object.fromEntries(
+            Object.entries(answers)
+              .map(([title, answer]) => [title, answer.trim()])
+              .filter(([, answer]) => answer),
+          ),
           recommendedTier: tier,
-          budgetRange: budgetToRange(answers),
-          purchaseWindow: answers.deadline,
           productSlug: recommended[0]?.slug,
           origin: 'diagnostico',
           originPath: window.location.pathname,
@@ -200,12 +218,10 @@ export function DiagnosticWizard({
           <h3 className="text-base font-semibold text-white">Resumo das suas respostas</h3>
           <dl className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
             {questions.map((question) =>
-              answers[question.key] ? (
-                <div key={question.key}>
+              answers[question.title]?.trim() ? (
+                <div key={question.title}>
                   <dt className="text-xs text-ink-400">{question.title}</dt>
-                  <dd className="mt-0.5 text-sm text-ink-100">
-                    {question.key === 'application' ? applicationLabel : answers[question.key]}
-                  </dd>
+                  <dd className="mt-0.5 text-sm text-ink-100">{answers[question.title]}</dd>
                 </div>
               ) : null,
             )}
@@ -230,7 +246,8 @@ export function DiagnosticWizard({
   /* --------------------------------- Wizard ---------------------------------- */
   const isContactStep = step === questions.length
   const question = questions[step]
-  const answered = isContactStep || Boolean(answers[question.key]) || question.optional
+  const emOutro = !isContactStep && Boolean(outros[question.title])
+  const answered = isContactStep || Boolean(answers[question.title]?.trim())
 
   return (
     <div ref={topRef} className="container-page scroll-mt-28 pb-20">
@@ -390,48 +407,43 @@ export function DiagnosticWizard({
               {question.help && <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-300">{question.help}</p>}
 
               <div className="mt-7">
-                {question.kind === 'application' && (
-                  <ul className="grid gap-2.5 sm:grid-cols-2">
-                    {applications.map((application) => (
-                      <li key={application.slug}>
-                        <OptionButton
-                          selected={answers.application === application.slug}
-                          label={application.name}
-                          description={application.short}
-                          onSelect={() => setAnswer('application', application.slug)}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {question.kind === 'single' && (
-                  <ul className="grid gap-2.5 sm:grid-cols-2">
-                    {question.options?.map((option) => (
-                      <li key={option.value}>
-                        <OptionButton
-                          selected={answers[question.key] === option.value}
-                          label={option.label}
-                          description={option.description}
-                          onSelect={() => setAnswer(question.key, option.value)}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {question.kind === 'text' && (
-                  <Field label="Programas, plataformas ou modelos">
-                    {(props) => (
-                      <Textarea
-                        {...props}
-                        value={answers[question.key] ?? ''}
-                        onChange={(event) => setAnswer(question.key, event.target.value)}
-                        placeholder={question.placeholder}
-                        rows={4}
+                <ul className="grid gap-2.5 sm:grid-cols-2">
+                  {question.options.map((option) => (
+                    <li key={option.label}>
+                      <OptionButton
+                        selected={!emOutro && answers[question.title] === option.label}
+                        label={option.label}
+                        onSelect={() => chooseOption(question.title, option.label)}
                       />
-                    )}
-                  </Field>
+                    </li>
+                  ))}
+                  {question.allowOther && (
+                    <li>
+                      <OptionButton
+                        selected={emOutro}
+                        label={OUTRO_LABEL}
+                        description="Escreva a sua resposta"
+                        onSelect={() => chooseOther(question.title)}
+                      />
+                    </li>
+                  )}
+                </ul>
+
+                {emOutro && (
+                  <div className="mt-4">
+                    <Field label="Qual?" required>
+                      {(props) => (
+                        <Input
+                          {...props}
+                          autoFocus
+                          value={answers[question.title] ?? ''}
+                          onChange={(event) => typeOther(question.title, event.target.value)}
+                          maxLength={200}
+                          placeholder="Conte em poucas palavras"
+                        />
+                      )}
+                    </Field>
+                  </div>
                 )}
               </div>
 
@@ -448,15 +460,6 @@ export function DiagnosticWizard({
                 </Button>
 
                 <div className="flex items-center gap-3">
-                  {question.optional && !answers[question.key] && (
-                    <button
-                      type="button"
-                      onClick={goNext}
-                      className="text-sm text-ink-400 transition-colors hover:text-ink-200"
-                    >
-                      Pular
-                    </button>
-                  )}
                   <Button type="button" size="lg" onClick={goNext} disabled={!answered}>
                     Continuar
                     <Icon name="arrowRight" />

@@ -10,19 +10,6 @@ export type WhatsAppContext =
   | { kind: 'aplicacao'; application: string }
   | { kind: 'consultoria' }
 
-const DIAGNOSTIC_LABELS: Record<keyof DiagnosticAnswers, string> = {
-  application: 'Aplicação principal',
-  tools: 'Programas, plataformas ou modelos',
-  localExecution: 'Execução local',
-  workloadType: 'Treinar, ajustar ou executar',
-  users: 'Pessoas que vão utilizar',
-  dataVolume: 'Volume de dados',
-  budget: 'Faixa de investimento',
-  expansion: 'Expansão futura',
-  deadline: 'Prazo necessário',
-  buyerType: 'Perfil do comprador',
-}
-
 /**
  * A mensagem muda conforme a origem do clique, para que o especialista já
  * receba a conversa com contexto.
@@ -45,9 +32,9 @@ export function buildWhatsAppMessage(context: WhatsAppContext, fallbackGreeting:
         'Vou mandar o print aqui na conversa.'
       )
     case 'diagnostico': {
-      const lines = (Object.keys(DIAGNOSTIC_LABELS) as (keyof DiagnosticAnswers)[])
-        .filter((key) => context.answers[key])
-        .map((key) => `• ${DIAGNOSTIC_LABELS[key]}: ${context.answers[key]}`)
+      const lines = Object.entries(context.answers)
+        .filter(([, answer]) => answer)
+        .map(([question, answer]) => `• ${question}: ${answer}`)
       const recommendation = context.recommendation
         ? `\n\nCategoria indicada pelo site: ${context.recommendation}.`
         : ''

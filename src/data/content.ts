@@ -1,3 +1,4 @@
+import { DEFAULT_DIAGNOSTIC_QUESTIONS } from './diagnostic-questions'
 import type { Article, CategoryComparison, Faq, Testimonial, SiteSettings, AdminUser, AuditLog } from '@/lib/types'
 
 /* ------------------------- Comparativo de categorias ----------------------- */
@@ -91,7 +92,7 @@ export const faqs: Faq[] = [
     id: 'f-1',
     question: 'Como sei qual configuração atende a minha necessidade?',
     answer:
-      'O caminho mais rápido é o diagnóstico "Encontre sua configuração": são dez perguntas curtas sobre a sua aplicação, os programas que você usa e o volume de trabalho.',
+      'O caminho mais rápido é o diagnóstico "Encontre sua configuração": são cinco perguntas curtas sobre a sua aplicação, quem vai usar e o volume de trabalho.',
     scope: 'home',
     order: 1,
     status: 'published',
@@ -464,6 +465,7 @@ export const defaultSettings: SiteSettings = {
     'IDs de GA4, GTM, Meta Pixel e Google Ads',
     'Texto jurídico revisado da Política de Privacidade e dos Termos de Uso',
   ],
+  diagnosticQuestions: DEFAULT_DIAGNOSTIC_QUESTIONS,
 }
 
 /* -------------------------- Usuários administrativos ----------------------- */
