@@ -7,6 +7,7 @@ import { getRepository } from '@/lib/repository'
 import { mensagemDeGravacao } from '@/lib/repository/erro'
 import { buildExplainers } from '@/data/product-helpers'
 import { TAMANHO_MAXIMO, TIPOS_ACEITOS, uploadDisponivel, uploadProductImage } from '@/lib/product-images'
+import { midiaDisponivel, removeArticleImage, uploadArticleImage } from '@/lib/article-media'
 import {
   DEFAULT_DIAGNOSTIC_QUESTIONS,
   OPTION_COUNT,
@@ -267,7 +268,7 @@ async function salvarArtigo(formData: FormData): Promise<void> {
     title: text(formData, 'title'),
     category: (text(formData, 'category') || 'Guia') as Article['category'],
     excerpt: text(formData, 'excerpt'),
-    body: String(formData.get('body') ?? ''),
+    body: String(formData.get('body') ?? '').replace(/\r\n?/g, '\n'),
     readingMinutes: number(formData, 'readingMinutes', 5),
     author: text(formData, 'author') || 'Equipe UPAR',
     publishedAt: text(formData, 'publishedAt') || new Date().toISOString().slice(0, 10),
@@ -498,6 +499,51 @@ async function definirCapaDoProduto(formData: FormData): Promise<void> {
   redirect(`/admin/produtos/${id}?salvo=imagens`)
 }
 
+/* ---------------------------- Mídia dos conteúdos -------------------------- */
+
+async function enviarMidiaDoArtigo(formData: FormData): Promise<void> {
+  const session = await requireSession('conteudos')
+  const slug = slugify(text(formData, 'slug'))
+  if (!slug) return
+  if (!midiaDisponivel) {
+    redirect(`/admin/conteudos/${slug}?erro=${encodeURIComponent('O envio de imagens precisa da SUPABASE_SERVICE_ROLE_KEY.')}`)
+  }
+
+  const arquivos = formData.getAll('files').filter((f): f is File => f instanceof File && f.size > 0)
+  let enviadas = 0
+  const recusadas: string[] = []
+  for (const arquivo of arquivos.slice(0, 10)) {
+    const url = await uploadArticleImage(slug, arquivo)
+    if (url) enviadas += 1
+    else recusadas.push(`${arquivo.name}: use JPG, PNG, WebP ou GIF até 8 MB`)
+  }
+
+  if (enviadas > 0) {
+    await getRepository().log({
+      actor: session.email,
+      action: 'artigo.imagens.enviadas',
+      entity: `artigo:${slug}`,
+      detail: `${enviadas} imagem(ns)`,
+    })
+  }
+  if (recusadas.length > 0) {
+    redirect(`/admin/conteudos/${slug}?erro=${encodeURIComponent(recusadas.join('; '))}`)
+  }
+  redirect(`/admin/conteudos/${slug}?salvo=midia`)
+}
+
+async function removerMidiaDoArtigo(formData: FormData): Promise<void> {
+  const session = await requireSession('conteudos')
+  const slug = slugify(text(formData, 'slug'))
+  const name = text(formData, 'name')
+  if (!slug || !name) return
+  const ok = await removeArticleImage(slug, name)
+  if (ok) {
+    await getRepository().log({ actor: session.email, action: 'artigo.imagem.removida', entity: `artigo:${slug}`, detail: name })
+  }
+  redirect(`/admin/conteudos/${slug}?salvo=midia`)
+}
+
 /* ------------------------- Actions expostas aos forms ------------------------- */
 
 export async function updateLead(formData: FormData): Promise<void> {
@@ -535,4 +581,10 @@ export async function removeProductImage(formData: FormData): Promise<void> {
 }
 export async function setProductCover(formData: FormData): Promise<void> {
   return gravando(`/admin/produtos/${text(formData, 'id')}`, () => definirCapaDoProduto(formData))
+}
+export async function uploadArticleMedia(formData: FormData): Promise<void> {
+  return gravando(`/admin/conteudos/${slugify(text(formData, 'slug'))}`, () => enviarMidiaDoArtigo(formData))
+}
+export async function removeArticleMedia(formData: FormData): Promise<void> {
+  return gravando(`/admin/conteudos/${slugify(text(formData, 'slug'))}`, () => removerMidiaDoArtigo(formData))
 }

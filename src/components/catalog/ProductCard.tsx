@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Badge } from '@/components/ui/Badge'
-import { Icon } from '@/components/ui/Icon'
+import { Icon, type IconName } from '@/components/ui/Icon'
 import { MachineRender } from '@/components/site/MachineRender'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { cn } from '@/lib/cn'
@@ -32,10 +32,14 @@ export function ProductCard({
     .map((slug) => applications.find((a) => a.slug === slug)?.name)
     .filter(Boolean) as string[]
 
-  const specs: { label: string; value: string }[] = [
-    { label: 'Placa de vídeo', value: gpuSummary(product) },
-    { label: 'VRAM', value: vramSummary(product) },
-    { label: 'Memória', value: `${formatCapacity(product.ram.capacityGb)} ${product.ram.type}` },
+  /*
+   * Três números em blocos, não uma tabela rótulo/valor: no card a pessoa
+   * compara de relance, e valor longo (modelo de placa) precisa de largura.
+   */
+  const specs: { icon: IconName; label: string; value: string; destaque?: boolean }[] = [
+    { icon: 'gpu', label: 'Placa', value: gpuSummary(product) },
+    { icon: 'memory', label: 'VRAM', value: vramSummary(product), destaque: true },
+    { icon: 'cpu', label: 'RAM', value: `${formatCapacity(product.ram.capacityGb)} ${product.ram.type}` },
   ]
 
   return (
@@ -120,11 +124,22 @@ export function ProductCard({
           </ul>
         )}
 
-        <dl className="flex flex-col gap-1.5 border-t border-ink-700/60 pt-4 text-sm">
+        <dl className="grid grid-cols-3 gap-2">
           {specs.map((spec) => (
-            <div key={spec.label} className="flex items-baseline justify-between gap-3">
-              <dt className="shrink-0 text-ink-400">{spec.label}</dt>
-              <dd className="text-right text-ink-100">{spec.value}</dd>
+            <div
+              key={spec.label}
+              className={cn(
+                'flex min-w-0 flex-col gap-1 rounded-lg border px-2.5 py-2',
+                spec.destaque ? 'border-brand-500/35 bg-brand-500/8' : 'border-ink-700/70 bg-ink-900/50',
+              )}
+            >
+              <dt className="flex items-center gap-1.5 text-2xs tracking-[0.06em] text-ink-400 uppercase">
+                <Icon name={spec.icon} className={cn('size-3.5', spec.destaque ? 'text-brand-300' : 'text-flux-400')} />
+                {spec.label}
+              </dt>
+              <dd className={cn('text-[0.8125rem] leading-snug font-medium', spec.destaque ? 'text-brand-200' : 'text-white')}>
+                {spec.value}
+              </dd>
             </div>
           ))}
         </dl>
@@ -146,20 +161,26 @@ export function ProductCard({
             </Badge>
           </div>
 
-          <div className="flex flex-col gap-2 @[22rem]:flex-row">
+          {/*
+            Um botão principal e o WhatsApp como atalho quadrado ao lado. Dois
+            botões de texto lado a lado não cabiam no celular, e "Analisar" e
+            "Solicitar" competiam entre si.
+          */}
+          <div className="flex gap-2">
             <Link
               href={`/produtos/${product.slug}`}
-              className="relative z-20 inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/70 px-4 text-[0.9375rem] font-medium text-ink-50 transition-colors hover:border-ink-500 hover:bg-ink-700/80"
+              className="relative z-20 inline-flex h-11 min-w-0 flex-1 items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 text-[0.9375rem] font-medium text-ink-950 transition-colors hover:bg-brand-400"
             >
-              Analisar computador
+              Ver configuração
               <Icon name="arrowRight" className="size-4" />
             </Link>
             <WhatsAppCta
               context={{ kind: 'produto', product, application: appNames[0] }}
               size="md"
-              className="relative z-20 flex-1"
+              className="relative z-20 w-11 shrink-0 px-0"
+              aria-label={`Pedir orçamento de ${product.name} no WhatsApp`}
             >
-              Solicitar orçamento
+              <span className="sr-only">Pedir orçamento no WhatsApp</span>
             </WhatsAppCta>
           </div>
         </div>

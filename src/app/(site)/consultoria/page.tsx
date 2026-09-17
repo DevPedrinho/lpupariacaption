@@ -8,7 +8,8 @@ import { JsonLd } from '@/components/site/JsonLd'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { FaqSection } from '@/components/home/FaqSection'
 import { FinalCta } from '@/components/home/FinalCta'
-import { consultingSteps, differentials } from '@/data/process'
+import { differentials } from '@/data/process'
+import { ConsultingTimeline } from '@/components/site/ConsultingTimeline'
 import { breadcrumbSchema, faqSchema } from '@/lib/schema'
 
 export const metadata: Metadata = {
@@ -58,23 +59,12 @@ export default async function ConsultingPage() {
           <SectionHeader
             eyebrow="O processo"
             title="Sete etapas, do primeiro contato ao acompanhamento"
-            description="Nenhuma delas depende de você entender de hardware."
+            description="Nenhuma delas depende de você entender de hardware. Abra a que quiser conhecer melhor."
           />
 
-          <ol className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {consultingSteps.map((step, index) => (
-              <li
-                key={step.title}
-                className="relative flex flex-col gap-3 rounded-xl border border-ink-700/70 bg-ink-880/60 p-6"
-              >
-                <span className="inline-flex size-9 items-center justify-center rounded-lg bg-brand-500/12 text-sm font-semibold text-brand-300 ring-1 ring-brand-500/25 ring-inset">
-                  {index + 1}
-                </span>
-                <h2 className="text-[1.0625rem] leading-snug font-medium text-white">{step.title}</h2>
-                <p className="text-sm leading-relaxed text-ink-300">{step.description}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-12">
+            <ConsultingTimeline />
+          </div>
         </div>
       </Section>
 

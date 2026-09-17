@@ -103,20 +103,21 @@ export function ProductBuyBox({
             <span className="hidden sm:inline">Validar esta configuração no WhatsApp</span>
           </WhatsAppCta>
 
-          <div className="flex flex-col gap-2.5 sm:flex-row">
+          {/* Ações secundárias em dois blocos iguais: cabem lado a lado até em 360px. */}
+          <div className="grid grid-cols-2 gap-2.5">
             <Link
               href="/comparativo"
-              className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-4 text-[0.9375rem] font-medium text-ink-50 transition-colors hover:border-ink-500"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-3 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
             >
-              <Icon name="compare" className="size-4" />
-              Comparar com outro
+              <Icon name="compare" className="size-4 shrink-0" />
+              Comparar
             </Link>
             <Link
               href="/encontre-sua-configuracao"
-              className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-4 text-[0.9375rem] font-medium text-ink-50 transition-colors hover:border-ink-500"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-3 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
             >
-              <Icon name="spark" className="size-4" />
-              Ver se é para mim
+              <Icon name="spark" className="size-4 shrink-0" />
+              É para mim?
             </Link>
           </div>
         </div>

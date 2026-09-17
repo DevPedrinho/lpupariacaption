@@ -14,6 +14,7 @@ type Props = {
   variant?: 'whatsapp' | 'secondary' | 'ghost' | 'light'
   size?: 'sm' | 'md' | 'lg'
   hideIcon?: boolean
+  'aria-label'?: string
 }
 
 const base =
@@ -45,6 +46,7 @@ export function WhatsAppCta({
   variant = 'whatsapp',
   size = 'md',
   hideIcon = false,
+  'aria-label': ariaLabel,
 }: Props) {
   const settings = useSiteConfig()
   const pathname = usePathname()
@@ -56,6 +58,7 @@ export function WhatsAppCta({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={ariaLabel}
       className={cn(base, variants[variant], sizes[size], className)}
       onClick={() =>
         track('whatsapp_click', {

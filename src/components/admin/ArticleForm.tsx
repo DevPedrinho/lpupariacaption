@@ -56,9 +56,11 @@ export function ArticleForm({ article }: { article?: Article }) {
       <Panel>
         <label htmlFor="body" className="mb-1.5 block text-xs font-medium text-ink-300">
           Conteúdo
-          <span className="mt-0.5 block text-xs font-normal text-ink-500">
-            Use <code>##</code> e <code>###</code> para títulos, <code>-</code> para listas e{' '}
-            <code>**texto**</code> para negrito.
+          <span className="mt-0.5 block text-xs font-normal leading-relaxed text-ink-500">
+            <code>##</code> e <code>###</code> para títulos · <code>-</code> para listas · <code>**texto**</code>{' '}
+            para negrito · <code>[texto](https://…)</code> para link · <code>![legenda](https://…)</code> numa
+            linha sozinha para imagem · endereço do YouTube ou Vimeo numa linha sozinha para vídeo.
+            {!article && ' Salve o conteúdo uma vez para liberar o envio de imagens.'}
           </span>
         </label>
         <textarea id="body" name="body" rows={22} defaultValue={article?.body} className={`${area} font-mono text-[0.8125rem] leading-relaxed`} />
