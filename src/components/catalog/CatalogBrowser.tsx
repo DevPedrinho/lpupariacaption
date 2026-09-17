@@ -173,6 +173,43 @@ export function CatalogBrowser({
     })),
   )
 
+  /*
+   * Filtros rápidos na barra: os três que um comprador não técnico entende
+   * de primeira (aplicação, nível e formato). O resto — VRAM, RAM, modelo da
+   * placa… — continua disponível em "Mais filtros", sem ocupar a tela.
+   */
+  const rapidos: FilterKey[] = ['aplicacao', 'desempenho', 'formato']
+  const avancadosAtivos = (Object.keys(GROUP_LABEL) as FilterKey[])
+    .filter((key) => !rapidos.includes(key))
+    .reduce((total, key) => total + filters[key].length, 0)
+
+  const Chip = ({
+    active,
+    onClick,
+    children,
+    count,
+  }: {
+    active: boolean
+    onClick: () => void
+    children: React.ReactNode
+    count?: number
+  }) => (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        'inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-sm whitespace-nowrap transition-colors',
+        active
+          ? 'border-brand-500 bg-brand-500/12 text-white'
+          : 'border-ink-600/70 bg-ink-900/50 text-ink-200 hover:border-ink-500 hover:text-white',
+      )}
+    >
+      {children}
+      {typeof count === 'number' && <span className={cn('text-xs', active ? 'text-brand-300' : 'text-ink-500')}>{count}</span>}
+    </button>
+  )
+
   const panel = (
     <div className="flex flex-col">
       <div className="flex items-center justify-between gap-3 border-b border-ink-700/60 pb-4">
@@ -207,68 +244,106 @@ export function CatalogBrowser({
   )
 
   return (
-    <div className="container-page grid gap-8 pb-20 lg:grid-cols-[17rem_1fr] lg:gap-10">
-      <aside className="hidden lg:block">
-        <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">{panel}</div>
-      </aside>
-
+    <div className="container-page pb-20">
       <div className="min-w-0">
-        <div className="flex flex-col gap-3 rounded-xl border border-ink-700/70 bg-ink-880/60 p-3.5 sm:flex-row sm:items-center">
+        {/* Busca, ordem e o acesso aos filtros técnicos numa linha só. */}
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <Icon name="search" className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-ink-400" />
             <input
               type="search"
               value={filters.busca}
               onChange={(event) => setFilters((current) => ({ ...current, busca: event.target.value }))}
-              placeholder="Buscar por nome, processador ou placa de vídeo"
+              placeholder="Buscar por nome ou placa de vídeo"
               aria-label="Buscar no catálogo"
               className="h-11 w-full rounded-lg border border-ink-600/70 bg-ink-900/70 pr-3 pl-9 text-[0.9375rem] text-ink-50 placeholder:text-ink-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/35 focus:outline-none"
             />
           </div>
-
-          <div className="flex min-w-0 items-center gap-2">
-            <span className="shrink-0 lg:hidden">
-              <Button variant="secondary" size="md" onClick={() => setDrawerOpen(true)}>
-                <Icon name="sliders" />
-                Filtros{activeCount > 0 ? ` (${activeCount})` : ''}
-              </Button>
-            </span>
+          <div className="grid grid-cols-2 gap-2.5 sm:flex sm:shrink-0">
             <label className="sr-only" htmlFor="ordenacao">Ordenar catálogo</label>
             <select
               id="ordenacao"
               value={sort}
               onChange={(event) => setSort(event.target.value as SortKey)}
-              className="h-11 min-w-0 flex-1 rounded-lg border border-ink-600/70 bg-ink-900/70 px-3 text-[0.9375rem] text-ink-50 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/35 focus:outline-none"
+              className="h-11 min-w-0 rounded-lg border border-ink-600/70 bg-ink-900/70 px-3 text-sm text-ink-50 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/35 focus:outline-none sm:w-44"
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
+            <Button variant="secondary" size="md" onClick={() => setDrawerOpen(true)} className="justify-center">
+              <Icon name="sliders" />
+              Mais filtros{avancadosAtivos > 0 ? ` (${avancadosAtivos})` : ''}
+            </Button>
           </div>
         </div>
 
-        {activeChips.length > 0 && (
-          <ul className="mt-4 flex flex-wrap items-center gap-2">
-            {activeChips.map((chip) => (
-              <li key={`${chip.key}-${chip.value}`}>
-                <button
-                  type="button"
-                  onClick={() => toggle(chip.key, chip.value)}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/35 bg-brand-500/10 py-1 pr-2 pl-3 text-sm text-brand-200 transition-colors hover:bg-brand-500/18"
-                >
-                  <span className="text-2xs text-brand-300/80 uppercase">{GROUP_LABEL[chip.key]}</span>
-                  {chip.label}
-                  <Icon name="close" className="size-3.5" />
-                  <span className="sr-only">Remover filtro</span>
-                </button>
-              </li>
+        {/* Aplicação: uma fileira rolável de chips, sem quebrar em coluna. */}
+        <div className="mt-4 -mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-2">
+            <Chip active={filters.aplicacao.length === 0} onClick={() => setFilters((c) => ({ ...c, aplicacao: [] }))}>
+              Todas as aplicações
+            </Chip>
+            {options.aplicacao.map((option) => (
+              <Chip
+                key={option.value}
+                active={filters.aplicacao.includes(option.value)}
+                onClick={() => toggle('aplicacao', option.value)}
+                count={option.count}
+              >
+                {option.label}
+              </Chip>
             ))}
-            <li>
-              <button type="button" onClick={clearAll} className="px-2 text-sm text-ink-300 underline underline-offset-4 hover:text-white">
-                Limpar tudo
-              </button>
-            </li>
+          </div>
+        </div>
+
+        {/* Nível e formato: poucos valores, cabem em chips que quebram linha. */}
+        <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs tracking-[0.08em] text-ink-400 uppercase">Nível</span>
+            {options.desempenho.map((option) => (
+              <Chip key={option.value} active={filters.desempenho.includes(option.value)} onClick={() => toggle('desempenho', option.value)}>
+                {option.label}
+              </Chip>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs tracking-[0.08em] text-ink-400 uppercase">Formato</span>
+            {options.formato.map((option) => (
+              <Chip key={option.value} active={filters.formato.includes(option.value)} onClick={() => toggle('formato', option.value)}>
+                {option.label}
+              </Chip>
+            ))}
+          </div>
+        </div>
+
+        {activeChips.some((chip) => !rapidos.includes(chip.key)) && (
+          <ul className="mt-4 flex flex-wrap items-center gap-2">
+            {activeChips
+              .filter((chip) => !rapidos.includes(chip.key))
+              .map((chip) => (
+                <li key={`${chip.key}-${chip.value}`}>
+                  <button
+                    type="button"
+                    onClick={() => toggle(chip.key, chip.value)}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-flux-400/35 bg-flux-500/10 py-1 pr-2 pl-3 text-sm text-flux-200 transition-colors hover:bg-flux-500/18"
+                  >
+                    <span className="text-2xs text-flux-300/80 uppercase">{GROUP_LABEL[chip.key]}</span>
+                    {chip.label}
+                    <Icon name="close" className="size-3.5" />
+                    <span className="sr-only">Remover filtro</span>
+                  </button>
+                </li>
+              ))}
           </ul>
+        )}
+
+        {activeCount > 0 && (
+          <p className="mt-3">
+            <button type="button" onClick={clearAll} className="text-sm text-ink-300 underline underline-offset-4 hover:text-white">
+              Limpar todos os filtros
+            </button>
+          </p>
         )}
 
         <p className="mt-5 text-sm text-ink-400" aria-live="polite">
@@ -278,7 +353,7 @@ export function CatalogBrowser({
         </p>
 
         {results.length > 0 ? (
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {results.map((product) => (
               <ProductCard key={product.id} product={product} applications={appIndex} />
             ))}
@@ -317,10 +392,10 @@ export function CatalogBrowser({
         </div>
       </div>
 
-      {/* Painel de filtros em telas pequenas */}
+      {/* Painel completo de filtros (gaveta lateral) */}
       <div
         hidden={!drawerOpen}
-        className="fixed inset-0 z-60 lg:hidden"
+        className="fixed inset-0 z-60"
         role="dialog"
         aria-modal="true"
         aria-label="Filtros do catálogo"
@@ -333,7 +408,7 @@ export function CatalogBrowser({
         />
         <div className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col bg-ink-900 shadow-lift">
           <div className="flex items-center justify-between border-b border-ink-700/60 px-5 py-4">
-            <h2 className="text-base font-semibold text-white">Filtros</h2>
+            <h2 className="text-base font-semibold text-white">Todos os filtros</h2>
             <button
               type="button"
               onClick={() => setDrawerOpen(false)}
