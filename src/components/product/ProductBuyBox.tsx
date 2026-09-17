@@ -72,7 +72,10 @@ export function ProductBuyBox({
               <Icon name={item.icon} className={cn('size-4', item.destaque ? 'text-brand-300' : 'text-flux-400')} />
               {item.label}
             </span>
-            <span className={cn('text-[0.9375rem] leading-snug font-medium', item.destaque ? 'text-brand-200' : 'text-white')}>
+            <span
+              title={item.value}
+              className={cn('line-clamp-2 text-[0.9375rem] leading-snug font-medium', item.destaque ? 'text-brand-200' : 'text-white')}
+            >
               {item.value}
             </span>
           </li>

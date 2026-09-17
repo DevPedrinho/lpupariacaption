@@ -135,8 +135,10 @@ export function ProductForm({
             </select>
           </div>
           <div>
-            <Label htmlFor="gpuModel">Modelo da GPU</Label>
-            <input id="gpuModel" name="gpuModel" defaultValue={product?.gpu.model} className={input} />
+            <Label htmlFor="gpuModel" hint="Só o nome do modelo, curto (ex.: RTX A6000). Detalhes vão na observação abaixo.">
+              Modelo da GPU
+            </Label>
+            <input id="gpuModel" name="gpuModel" maxLength={40} required defaultValue={product?.gpu.model} className={input} />
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
@@ -151,6 +153,12 @@ export function ProductForm({
               <Label htmlFor="maxGpus">Máx. GPUs</Label>
               <input id="maxGpus" name="maxGpus" type="number" min={1} defaultValue={product?.maxGpus ?? 1} className={input} />
             </div>
+          </div>
+          <div className="md:col-span-2">
+            <Label htmlFor="gpuNote" hint="Aparece na ficha técnica da página do produto (ex.: memória GDDR6 com ECC, refrigeração blower).">
+              Observação sobre a placa de vídeo
+            </Label>
+            <input id="gpuNote" name="gpuNote" maxLength={200} defaultValue={product?.gpu.note} className={input} />
           </div>
 
           <div>

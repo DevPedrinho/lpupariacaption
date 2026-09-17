@@ -85,6 +85,7 @@ export default async function ProductPage({ params }: Params) {
         { label: 'Fabricante', value: product.gpu.vendor },
         { label: 'VRAM', value: vramSummary(product) },
         { label: 'Placas suportadas pelo chassi', value: `Até ${product.maxGpus}` },
+        ...(product.gpu.note ? [{ label: 'Observação', value: product.gpu.note }] : []),
       ],
     },
     {

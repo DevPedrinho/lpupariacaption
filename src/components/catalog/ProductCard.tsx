@@ -95,7 +95,7 @@ export function ProductCard({
               </>
             )}
           </div>
-          <h3 className="text-lg leading-snug font-semibold">
+          <h3 className="line-clamp-2 text-lg leading-snug font-semibold">
             {/* Link esticado: um único link nomeado torna o card inteiro clicável
                 sem criar destinos duplicados para leitores de tela. */}
             <Link
@@ -105,7 +105,7 @@ export function ProductCard({
               {product.name}
             </Link>
           </h3>
-          <p className="text-sm leading-relaxed text-ink-300">{product.tagline}</p>
+          <p className="line-clamp-2 text-sm leading-relaxed text-ink-300">{product.tagline}</p>
         </div>
 
         {appNames.length > 0 && (
@@ -137,7 +137,12 @@ export function ProductCard({
                 <Icon name={spec.icon} className={cn('size-3.5', spec.destaque ? 'text-brand-300' : 'text-flux-400')} />
                 {spec.label}
               </dt>
-              <dd className={cn('text-[0.8125rem] leading-snug font-medium', spec.destaque ? 'text-brand-200' : 'text-white')}>
+              {/* Duas linhas no máximo: um modelo escrito como frase não pode
+                  esticar o card. O texto inteiro fica no title e na ficha. */}
+              <dd
+                title={spec.value}
+                className={cn('line-clamp-2 text-[0.8125rem] leading-snug font-medium', spec.destaque ? 'text-brand-200' : 'text-white')}
+              >
                 {spec.value}
               </dd>
             </div>

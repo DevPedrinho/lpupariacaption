@@ -126,9 +126,10 @@ async function salvarProduto(formData: FormData): Promise<void> {
     },
     gpu: {
       vendor: (text(formData, 'gpuVendor') || 'NVIDIA') as GpuVendor,
-      model: text(formData, 'gpuModel'),
+      model: text(formData, 'gpuModel').slice(0, 40),
       quantity: Math.max(1, number(formData, 'gpuQuantity', 1)),
       vramGb: number(formData, 'gpuVram'),
+      ...(text(formData, 'gpuNote') ? { note: text(formData, 'gpuNote').slice(0, 200) } : {}),
     },
     ram: {
       capacityGb: number(formData, 'ramCapacity'),
