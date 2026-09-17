@@ -31,6 +31,9 @@ const GANHOS = [
   'Suporte de quem dimensionou a máquina',
 ]
 
+// A análise por IA roda dentro da action de envio; 10 s (padrão) não bastam.
+export const maxDuration = 60
+
 export default async function ComparativoPage() {
   const session = await getCustomerSession()
 

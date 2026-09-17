@@ -8,14 +8,13 @@ import {
   comparativosDisponiveis,
   createComparison,
   getCustomerComparison,
-  uploadPrint,
+  signPrintUpload,
 } from '@/lib/comparativos'
 import { gerarRascunho } from '@/lib/ai/comparativo'
 
 export type EnvioState = { error?: string }
 
 const MAX_ARQUIVOS = 4
-const MAX_BYTES = 8 * 1024 * 1024
 
 const INDISPONIVEL =
   'O módulo ainda não está configurado neste ambiente. Fale com a UPAR pelo WhatsApp.'
@@ -29,31 +28,22 @@ export async function enviarConfiguracao(_prev: EnvioState, formData: FormData):
   if (!session) redirect('/entrar?next=%2Fcomparativo')
   if (!comparativosDisponiveis) return { error: INDISPONIVEL }
 
-  const sourceText = String(formData.get('sourceText') ?? '').trim()
-  const arquivos = formData
-    .getAll('prints')
-    .filter((item): item is File => item instanceof File && item.size > 0)
+  const sourceText = String(formData.get('sourceText') ?? '').trim().slice(0, 6000)
 
-  if (!sourceText && arquivos.length === 0) {
+  /*
+   * Os prints já subiram direto do navegador para o Storage; aqui chegam só
+   * os caminhos. Aceitamos apenas os que estão na pasta deste cliente e com
+   * o formato que o servidor assinou — caminho inventado não passa.
+   */
+  const padrao = new RegExp(`^${session.id}/[0-9a-f-]{36}\\.(jpg|png|webp|avif|gif)$`)
+  const imagePaths = formData
+    .getAll('imagePaths')
+    .map((item) => String(item))
+    .filter((path) => padrao.test(path))
+    .slice(0, MAX_ARQUIVOS)
+
+  if (!sourceText && imagePaths.length === 0) {
     return { error: 'Envie o print da configuração ou cole o texto dela.' }
-  }
-  if (arquivos.length > MAX_ARQUIVOS) {
-    return { error: `Envie no máximo ${MAX_ARQUIVOS} imagens.` }
-  }
-  for (const arquivo of arquivos) {
-    if (!arquivo.type.startsWith('image/')) {
-      return { error: 'Os anexos precisam ser imagens.' }
-    }
-    if (arquivo.size > MAX_BYTES) {
-      return { error: 'Cada imagem precisa ter no máximo 8 MB.' }
-    }
-  }
-
-  const imagePaths: string[] = []
-  for (const arquivo of arquivos) {
-    const path = await uploadPrint(session.id, arquivo)
-    if (!path) return { error: 'Não foi possível enviar a imagem. Tente novamente.' }
-    imagePaths.push(path)
   }
 
   const comparativo = await createComparison({ customerId: session.id, sourceText, imagePaths })
@@ -90,4 +80,13 @@ export async function responder(_prev: EnvioState, formData: FormData): Promise<
 
   revalidatePath(`/comparativo/${id}`)
   return {}
+}
+
+/** Assina o envio de um print. O navegador chama antes de submeter o formulário. */
+export async function prepararPrint(contentType: string): Promise<{ signedUrl: string; path: string } | { error: string }> {
+  const session = await getCustomerSession()
+  if (!session) return { error: 'Sessão expirada. Entre de novo.' }
+  if (!comparativosDisponiveis) return { error: INDISPONIVEL }
+  const assinatura = await signPrintUpload(session.id, String(contentType))
+  return assinatura ?? { error: 'Formato de imagem não aceito. Use JPG, PNG ou WebP.' }
 }

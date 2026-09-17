@@ -4,45 +4,10 @@ import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
+import { reduzirImagem } from '@/lib/imagem-cliente'
 
 type Enviado = { src: string; alt: string }
 type Item = { nome: string; estado: 'preparando' | 'enviando' | 'ok' | 'erro'; detalhe?: string }
-
-const LADO_MAXIMO = 2000
-const QUALIDADE = 0.86
-
-/**
- * Reduz a foto no próprio navegador antes de enviar.
- *
- * Foto de celular tem 4000+ px e 5–10 MB; o site nunca mostra acima de
- * ~1400 px. Reamostrar para 2000 px no lado maior e recodificar em JPEG
- * derruba o tamanho para algumas centenas de KB — é o que faz o envio
- * levar segundos em vez de minutos. PNG pequeno e GIF passam intactos.
- */
-async function reduzir(file: File): Promise<{ blob: Blob; type: string }> {
-  const intacto = { blob: file, type: file.type }
-  if (file.type === 'image/gif' || file.size < 400 * 1024) return intacto
-  try {
-    const bitmap = await createImageBitmap(file)
-    const escala = Math.min(1, LADO_MAXIMO / Math.max(bitmap.width, bitmap.height))
-    const largura = Math.round(bitmap.width * escala)
-    const altura = Math.round(bitmap.height * escala)
-    const canvas = document.createElement('canvas')
-    canvas.width = largura
-    canvas.height = altura
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return intacto
-    ctx.drawImage(bitmap, 0, 0, largura, altura)
-    bitmap.close()
-    // PNG com transparência continua PNG; o resto vira JPEG.
-    const type = file.type === 'image/png' ? 'image/png' : 'image/jpeg'
-    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, QUALIDADE))
-    if (!blob || blob.size >= file.size) return intacto
-    return { blob, type }
-  } catch {
-    return intacto
-  }
-}
 
 export function Uploader({
   prefix,
@@ -90,7 +55,7 @@ export function Uploader({
         const indice = cursor++
         const file = lista[indice]
         try {
-          const { blob, type } = await reduzir(file)
+          const { blob, type } = await reduzirImagem(file)
           const assinatura = await preparar(bucket, prefix, type)
           if ('error' in assinatura) {
             atualizar(indice, { estado: 'erro', detalhe: assinatura.error })

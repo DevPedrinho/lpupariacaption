@@ -299,6 +299,27 @@ export async function saveDraft(comparisonId: string, draft: Partial<ComparisonD
 
 /* -------------------------------- Anexos ----------------------------------- */
 
+/**
+ * Assina a URL para o navegador subir o print direto no bucket privado.
+ * O caminho fica sob a pasta do cliente, e é isso que `enviarConfiguracao`
+ * confere depois: só aceita caminhos da própria pessoa.
+ */
+export async function signPrintUpload(
+  customerId: string,
+  contentType: string,
+): Promise<{ signedUrl: string; path: string } | null> {
+  const tipos = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif']
+  if (!tipos.includes(contentType)) return null
+  const ext = contentType === 'image/jpeg' ? 'jpg' : contentType.replace('image/', '')
+  const path = `${customerId}/${crypto.randomUUID()}.${ext}`
+  const { data, error } = await getAdminClient().storage.from(COMPARATIVOS_BUCKET).createSignedUploadUrl(path)
+  if (error || !data) {
+    console.error('Falha ao assinar envio do print', error)
+    return null
+  }
+  return { signedUrl: data.signedUrl, path }
+}
+
 export async function uploadPrint(customerId: string, file: File): Promise<string | null> {
   const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'png'
   const path = `${customerId}/${crypto.randomUUID()}.${ext}`
