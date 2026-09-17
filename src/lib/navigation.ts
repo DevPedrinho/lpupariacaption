@@ -43,6 +43,7 @@ export const footerNav = [
   {
     title: 'Institucional',
     links: [
+      { href: '/garantia', label: 'Política de Garantia' },
       { href: '/politica-de-privacidade', label: 'Política de Privacidade' },
       { href: '/termos-de-uso', label: 'Termos de Uso' },
       { href: '/admin/login', label: 'Acesso administrativo' },

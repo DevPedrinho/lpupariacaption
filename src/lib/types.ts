@@ -303,6 +303,13 @@ export interface SiteSettings {
   instagram?: string
   linkedin?: string
   youtube?: string
+  facebook?: string
+  /** Inscrição estadual, exibida com o CNPJ no rodapé. */
+  stateRegistration?: string
+  /** Formas de pagamento aceitas, uma por linha no painel. */
+  paymentMethods: string[]
+  /** Condição de parcelamento, como a UPAR anuncia (ex.: "Em até 21x sem juros"). */
+  installmentNote?: string
   heroTitle: string
   heroSubtitle: string
   heroBadge: string

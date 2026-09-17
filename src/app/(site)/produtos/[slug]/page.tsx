@@ -386,6 +386,10 @@ export default async function ProductPage({ params }: Params) {
               <p className="mt-1.5 text-sm leading-relaxed text-ink-300">
                 {product.warranty ?? settings.warrantyPolicy}
               </p>
+              <Link href="/garantia" className="mt-2 inline-flex items-center gap-1 text-sm text-flux-300 hover:text-flux-400">
+                Ler a política de garantia
+                <Icon name="arrowRight" className="size-3.5" />
+              </Link>
             </div>
           </div>
         </div>

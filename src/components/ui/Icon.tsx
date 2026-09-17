@@ -7,6 +7,7 @@ export type IconName =
   | 'download' | 'external' | 'mail' | 'phone' | 'pin' | 'clock' | 'info' | 'layers' | 'chart'
   | 'brain' | 'image' | 'video' | 'eye' | 'code' | 'server' | 'flask' | 'cube' | 'bolt' | 'quote'
   | 'lock' | 'logout' | 'edit' | 'trash' | 'copy' | 'star'
+  | 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'card' | 'pix'
 
 const paths: Record<IconName, React.ReactNode> = {
   whatsapp: (
@@ -182,6 +183,33 @@ const paths: Record<IconName, React.ReactNode> = {
     </>
   ),
   star: <path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8L12 3.5Z" />,
+  facebook: <path d="M14 8.5V6.8c0-.8.5-1.3 1.3-1.3H17V2.5h-2.6C11.9 2.5 10.5 4 10.5 6.4v2.1H8V12h2.5v9.5H14V12h2.6l.4-3.5H14Z" fill="currentColor" stroke="none" />,
+  instagram: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none" />
+    </>
+  ),
+  linkedin: (
+    <>
+      <path d="M4.5 9.5h3.2V20H4.5zM6.1 4a1.85 1.85 0 1 1 0 3.7 1.85 1.85 0 0 1 0-3.7Z" fill="currentColor" stroke="none" />
+      <path d="M10 9.5h3v1.5c.5-.9 1.7-1.8 3.4-1.8 3.3 0 3.9 2.2 3.9 5V20h-3.2v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V20H10z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  youtube: (
+    <>
+      <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8Z" />
+      <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  card: (
+    <>
+      <rect x="2.5" y="5.5" width="19" height="13" rx="2.5" />
+      <path d="M2.5 10h19M6.5 14.5h4" />
+    </>
+  ),
+  pix: <path d="m12 3.2 3.4 3.4h1.2a2.8 2.8 0 0 1 2 .8l2.2 2.2a3.4 3.4 0 0 1 0 4.8l-2.2 2.2a2.8 2.8 0 0 1-2 .8h-1.2L12 20.8l-3.4-3.4H7.4a2.8 2.8 0 0 1-2-.8l-2.2-2.2a3.4 3.4 0 0 1 0-4.8l2.2-2.2a2.8 2.8 0 0 1 2-.8h1.2L12 3.2Zm0 3.6L9.9 8.9a2.6 2.6 0 0 0 0 3.7l2.1 2.1 2.1-2.1a2.6 2.6 0 0 0 0-3.7L12 6.8Z" />,
 }
 
 const filled: IconName[] = ['whatsapp']

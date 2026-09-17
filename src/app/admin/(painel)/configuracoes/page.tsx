@@ -102,6 +102,9 @@ export default async function SettingsPage({
             <Row id="cnpj" label="CNPJ">
               <input id="cnpj" name="cnpj" defaultValue={settings.cnpj} className={input} />
             </Row>
+            <Row id="stateRegistration" label="Inscrição estadual">
+              <input id="stateRegistration" name="stateRegistration" defaultValue={settings.stateRegistration} className={input} />
+            </Row>
             <Row id="email" label="E-mail público">
               <input id="email" name="email" type="email" defaultValue={settings.email} className={input} />
             </Row>
@@ -126,8 +129,17 @@ export default async function SettingsPage({
             <Row id="linkedin" label="LinkedIn (URL)">
               <input id="linkedin" name="linkedin" defaultValue={settings.linkedin} className={input} />
             </Row>
-            <Row id="youtube" label="YouTube (URL)" full>
+            <Row id="youtube" label="YouTube (URL)">
               <input id="youtube" name="youtube" defaultValue={settings.youtube} className={input} />
+            </Row>
+            <Row id="facebook" label="Facebook (URL)">
+              <input id="facebook" name="facebook" defaultValue={settings.facebook} className={input} />
+            </Row>
+            <Row id="paymentMethods" label="Formas de pagamento" hint="Uma por linha. Aparecem no rodapé.">
+              <textarea id="paymentMethods" name="paymentMethods" rows={3} defaultValue={settings.paymentMethods.join('\n')} className={area} />
+            </Row>
+            <Row id="installmentNote" label="Parcelamento" hint="Ex.: Em até 21x sem juros. Deixe vazio para não mostrar.">
+              <input id="installmentNote" name="installmentNote" defaultValue={settings.installmentNote} className={input} />
             </Row>
           </div>
         </Panel>
@@ -172,7 +184,7 @@ export default async function SettingsPage({
             <Row id="aboutStructure" label="Estrutura e atendimento" full>
               <textarea id="aboutStructure" name="aboutStructure" rows={3} defaultValue={settings.aboutStructure} className={area} />
             </Row>
-            <Row id="warrantyPolicy" label="Política de garantia" hint="Exibida nas páginas de produto que não têm garantia específica." full>
+            <Row id="warrantyPolicy" label="Garantia (resumo)" hint="Exibida nas páginas de produto que não têm garantia específica. A política completa fica em /garantia." full>
               <textarea id="warrantyPolicy" name="warrantyPolicy" rows={2} defaultValue={settings.warrantyPolicy} className={area} />
             </Row>
           </div>

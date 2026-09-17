@@ -466,6 +466,10 @@ export const defaultSettings: SiteSettings = {
     'Texto jurídico revisado da Política de Privacidade e dos Termos de Uso',
   ],
   diagnosticQuestions: DEFAULT_DIAGNOSTIC_QUESTIONS,
+  facebook: '',
+  stateRegistration: '',
+  paymentMethods: [],
+  installmentNote: '',
 }
 
 /* -------------------------- Usuários administrativos ----------------------- */
