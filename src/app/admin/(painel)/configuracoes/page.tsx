@@ -3,7 +3,7 @@ import { getRepository } from '@/lib/repository'
 import { carregar } from '@/lib/admin-carregar'
 import { defaultSettings } from '@/data/content'
 import { AdminHeader, AvisoGravacao, AvisoCarregamento, Panel } from '@/components/admin/ui'
-import { Button } from '@/components/ui/Button'
+import { SubmitButton } from '@/components/admin/SubmitButton'
 import { Icon } from '@/components/ui/Icon'
 import { saveSettings } from '../../actions'
 
@@ -222,7 +222,7 @@ export default async function SettingsPage({
         </Panel>
 
         <div>
-          <Button type="submit" size="lg">Salvar configurações</Button>
+          <SubmitButton>Salvar configurações</SubmitButton>
         </div>
       </form>
     </>

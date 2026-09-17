@@ -1,7 +1,8 @@
 import { Panel } from '@/components/admin/ui'
 import { Icon } from '@/components/ui/Icon'
 import { MachineRender } from '@/components/site/MachineRender'
-import { addProductImages, removeProductImage, setProductCover } from '@/app/admin/actions'
+import { Uploader } from '@/components/admin/Uploader'
+import { addProductImages, prepareUpload, registerProductImages, removeProductImage, setProductCover } from '@/app/admin/actions'
 import type { Product } from '@/lib/types'
 
 const input =
@@ -78,48 +79,35 @@ export function ProductImagesPanel({ product, uploadDisponivel }: { product: Pro
         ))}
       </ul>
 
-      <form action={addProductImages} className="mt-6 grid gap-4 border-t border-ink-700/60 pt-5 md:grid-cols-2">
+      <div className="mt-6 border-t border-ink-700/60 pt-5">
+        <Uploader
+          bucket="produtos"
+          prefix={product.id}
+          accept="image/jpeg,image/png,image/webp,image/avif"
+          disponivel={uploadDisponivel}
+          pedirLegenda
+          legendaPadrao={`Foto de ${product.name}`}
+          preparar={prepareUpload}
+          concluir={registerProductImages}
+        />
+      </div>
+
+      <form action={addProductImages} className="mt-5 grid gap-3 border-t border-ink-700/60 pt-5 sm:grid-cols-[1fr_auto] sm:items-end">
         <input type="hidden" name="id" value={product.id} />
-        <div>
-          <label htmlFor="files" className="mb-1.5 block text-xs font-medium text-ink-300">
-            Enviar fotos <span className="text-ink-500">(JPG, PNG ou WebP, até 8 MB cada, várias de uma vez)</span>
-          </label>
-          <input
-            id="files"
-            name="files"
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/avif"
-            multiple
-            disabled={!uploadDisponivel}
-            className="block w-full text-sm text-ink-300 file:mr-3 file:rounded-md file:border-0 file:bg-brand-500 file:px-3 file:py-2 file:text-sm file:font-medium file:text-ink-950 hover:file:bg-brand-400 disabled:opacity-50"
-          />
-          {!uploadDisponivel && (
-            <p className="mt-1.5 text-xs text-caution-500">
-              O envio de arquivo precisa da SUPABASE_SERVICE_ROLE_KEY neste ambiente. Enquanto isso, use a URL.
-            </p>
-          )}
-        </div>
         <div>
           <label htmlFor="url" className="mb-1.5 block text-xs font-medium text-ink-300">
             Ou o endereço de uma foto já publicada <span className="text-ink-500">(URL)</span>
           </label>
-          <input id="url" name="url" type="url" placeholder="https://…" className={input} />
+          <input id="url" name="url" type="url" required placeholder="https://…" className={input} />
+          <input type="hidden" name="alt" value={`Foto de ${product.name}`} />
         </div>
-        <div className="md:col-span-2">
-          <label htmlFor="alt" className="mb-1.5 block text-xs font-medium text-ink-300">
-            Legenda <span className="text-ink-500">(o que aparece na foto; ajuda no Google e em leitor de tela)</span>
-          </label>
-          <input id="alt" name="alt" placeholder={`Ex.: ${product.name} com o painel lateral aberto`} className={input} />
-        </div>
-        <div className="md:col-span-2">
-          <button
-            type="submit"
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-500 px-4 text-sm font-medium text-ink-950 transition-colors hover:bg-brand-400"
-          >
-            <Icon name="plus" className="size-4" />
-            Adicionar fotos
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="inline-flex h-10 items-center gap-2 rounded-lg border border-ink-600/70 px-4 text-sm font-medium text-ink-100 transition-colors hover:border-ink-500 hover:text-white"
+        >
+          <Icon name="plus" className="size-4" />
+          Adicionar por URL
+        </button>
       </form>
     </Panel>
   )

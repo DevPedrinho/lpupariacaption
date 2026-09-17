@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { uploadDisponivel } from '@/lib/product-images'
+import { uploadDireto } from '@/lib/uploads'
 import { AdminHeader, AvisoGravacao, Panel } from '@/components/admin/ui'
 import { ProductForm } from '@/components/admin/ProductForm'
 import { ProductImagesPanel } from '@/components/admin/ProductImagesPanel'
@@ -43,7 +43,7 @@ export default async function EditProductPage({
       )}
 
       <div className="mb-5">
-        <ProductImagesPanel product={product} uploadDisponivel={uploadDisponivel} />
+        <ProductImagesPanel product={product} uploadDisponivel={uploadDireto} />
       </div>
 
       <ProductForm product={product} applications={applications} />

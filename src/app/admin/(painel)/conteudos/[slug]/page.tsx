@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
-import { listArticleImages, midiaDisponivel } from '@/lib/article-media'
+import { listArticleImages } from '@/lib/article-media'
+import { uploadDireto } from '@/lib/uploads'
 import { AdminHeader, AvisoGravacao, Panel } from '@/components/admin/ui'
 import { ArticleForm } from '@/components/admin/ArticleForm'
 import { ArticleMediaPanel } from '@/components/admin/ArticleMediaPanel'
@@ -34,7 +35,7 @@ export default async function EditArticlePage({
       )}
 
       <div className="mb-5">
-        <ArticleMediaPanel slug={article.slug} media={media} disponivel={midiaDisponivel} />
+        <ArticleMediaPanel slug={article.slug} media={media} disponivel={uploadDireto} />
       </div>
 
       <ArticleForm article={article} />

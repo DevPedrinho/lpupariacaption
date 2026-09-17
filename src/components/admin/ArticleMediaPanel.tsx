@@ -1,11 +1,9 @@
 import { Panel } from '@/components/admin/ui'
 import { Icon } from '@/components/ui/Icon'
 import { CopiarTrecho } from '@/components/admin/CopiarTrecho'
-import { removeArticleMedia, uploadArticleMedia } from '@/app/admin/actions'
+import { Uploader } from '@/components/admin/Uploader'
+import { prepareUpload, registerArticleImages, removeArticleMedia } from '@/app/admin/actions'
 import type { ArticleMedia } from '@/lib/article-media'
-
-const input =
-  'h-10 w-full rounded-lg border border-ink-600/70 bg-ink-900/70 px-3 text-sm text-ink-50 placeholder:text-ink-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none'
 
 /**
  * Imagens do artigo. Fica fora do formulário principal (form dentro de form
@@ -55,38 +53,16 @@ export function ArticleMediaPanel({
         </ul>
       )}
 
-      <form action={uploadArticleMedia} className="mt-5 flex flex-col gap-3 border-t border-ink-700/60 pt-5 sm:flex-row sm:items-end">
-        <input type="hidden" name="slug" value={slug} />
-        <div className="flex-1">
-          <label htmlFor="media-files" className="mb-1.5 block text-xs font-medium text-ink-300">
-            Enviar imagens <span className="text-ink-500">(JPG, PNG, WebP ou GIF, até 8 MB cada)</span>
-          </label>
-          <input
-            id="media-files"
-            name="files"
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
-            multiple
-            required
-            disabled={!disponivel}
-            className={`${input} h-auto py-1.5 file:mr-3 file:rounded-md file:border-0 file:bg-brand-500 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-ink-950 hover:file:bg-brand-400 disabled:opacity-50`}
-          />
-          {!disponivel && (
-            <p className="mt-1.5 text-xs text-caution-500">
-              O envio precisa da SUPABASE_SERVICE_ROLE_KEY neste ambiente. Uma imagem já publicada em outro
-              endereço pode ser usada direto: <code>![legenda](https://…)</code>.
-            </p>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={!disponivel}
-          className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand-500 px-4 text-sm font-medium text-ink-950 transition-colors hover:bg-brand-400 disabled:opacity-50"
-        >
-          <Icon name="plus" className="size-4" />
-          Enviar
-        </button>
-      </form>
+      <div className="mt-5 border-t border-ink-700/60 pt-5">
+        <Uploader
+          bucket="conteudos"
+          prefix={slug}
+          accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
+          disponivel={disponivel}
+          preparar={prepareUpload}
+          concluir={registerArticleImages}
+        />
+      </div>
     </Panel>
   )
 }

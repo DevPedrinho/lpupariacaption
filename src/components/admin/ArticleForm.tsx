@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+import { SubmitButton } from '@/components/admin/SubmitButton'
 import { Panel } from '@/components/admin/ui'
 import { saveArticle } from '@/app/admin/actions'
 import type { Article } from '@/lib/types'
@@ -92,7 +92,7 @@ export function ArticleForm({ article }: { article?: Article }) {
       </Panel>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="submit" size="lg">Salvar conteúdo</Button>
+        <SubmitButton>Salvar conteúdo</SubmitButton>
         <Link href="/admin/conteudos" className="text-sm text-ink-300 transition-colors hover:text-white">
           Cancelar
         </Link>

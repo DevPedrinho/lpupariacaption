@@ -4,7 +4,7 @@ import { carregar } from '@/lib/admin-carregar'
 import { defaultSettings } from '@/data/content'
 import { OUTRO_LABEL, normalizeQuestions } from '@/lib/diagnostic'
 import { AdminHeader, AvisoCarregamento, AvisoGravacao, Panel } from '@/components/admin/ui'
-import { Button } from '@/components/ui/Button'
+import { SubmitButton } from '@/components/admin/SubmitButton'
 import { Icon } from '@/components/ui/Icon'
 import { restoreDiagnosticForm, saveDiagnosticForm } from '../../actions'
 
@@ -147,7 +147,7 @@ export default async function FormularioPage({
         </Panel>
 
         <div>
-          <Button type="submit" size="lg">Salvar formulário</Button>
+          <SubmitButton>Salvar formulário</SubmitButton>
         </div>
       </form>
 

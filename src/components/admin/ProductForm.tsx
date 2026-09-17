@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+import { SubmitButton } from '@/components/admin/SubmitButton'
 import { Panel } from '@/components/admin/ui'
 import { saveProduct } from '@/app/admin/actions'
 import { availabilityLabel, formFactorLabel, tierLabel } from '@/lib/format'
@@ -287,7 +287,7 @@ export function ProductForm({
       </Panel>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="submit" size="lg">Salvar produto</Button>
+        <SubmitButton>Salvar produto</SubmitButton>
         <Link href="/admin/produtos" className="text-sm text-ink-300 transition-colors hover:text-white">
           Cancelar
         </Link>

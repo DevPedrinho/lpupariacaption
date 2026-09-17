@@ -6,8 +6,8 @@ import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { mensagemDeGravacao } from '@/lib/repository/erro'
 import { buildExplainers } from '@/data/product-helpers'
-import { TAMANHO_MAXIMO, TIPOS_ACEITOS, uploadDisponivel, uploadProductImage } from '@/lib/product-images'
-import { midiaDisponivel, removeArticleImage, uploadArticleImage } from '@/lib/article-media'
+import { removeArticleImage } from '@/lib/article-media'
+import { BUCKETS, signUpload, type UploadBucket } from '@/lib/uploads'
 import {
   DEFAULT_DIAGNOSTIC_QUESTIONS,
   OPTION_COUNT,
@@ -178,13 +178,12 @@ async function salvarProduto(formData: FormData): Promise<void> {
     updatedAt: new Date().toISOString(),
   }
 
-  await repo.upsertProduct(product)
-  await repo.log({
+  await Promise.all([repo.upsertProduct(product), repo.log({
     actor: session.email,
     action: existing ? 'produto.atualizado' : 'produto.criado',
     entity: `produto:${product.slug}`,
     detail: product.name,
-  })
+  })])
 
   revalidatePath('/admin/produtos')
   revalidatePath('/catalogo')
@@ -210,13 +209,12 @@ async function duplicarProduto(formData: FormData): Promise<void> {
     updatedAt: new Date().toISOString(),
   }
 
-  await repo.upsertProduct(copy)
-  await repo.log({
+  await Promise.all([repo.upsertProduct(copy), repo.log({
     actor: session.email,
     action: 'produto.duplicado',
     entity: `produto:${copy.slug}`,
     detail: `Origem: ${source.name}`,
-  })
+  })])
   revalidatePath('/admin/produtos')
 }
 
@@ -228,13 +226,12 @@ async function alternarStatusDoProduto(formData: FormData): Promise<void> {
   if (!product) return
 
   const status: PublishStatus = product.status === 'published' ? 'draft' : 'published'
-  await repo.upsertProduct({ ...product, status })
-  await repo.log({
+  await Promise.all([repo.upsertProduct({ ...product, status }), repo.log({
     actor: session.email,
     action: status === 'published' ? 'produto.publicado' : 'produto.despublicado',
     entity: `produto:${product.slug}`,
     detail: product.name,
-  })
+  })])
   revalidatePath('/admin/produtos')
   revalidatePath('/catalogo')
 }
@@ -427,33 +424,16 @@ async function adicionarImagensDoProduto(formData: FormData): Promise<void> {
     else recusadas.push('a URL precisa começar com http:// ou https://')
   }
 
-  const arquivos = formData.getAll('files').filter((f): f is File => f instanceof File && f.size > 0)
-  if (arquivos.length > 0 && !uploadDisponivel) {
-    recusadas.push('envio de arquivo precisa da SUPABASE_SERVICE_ROLE_KEY; use o campo de URL')
-  } else {
-    for (const arquivo of arquivos.slice(0, 10)) {
-      if (!TIPOS_ACEITOS.includes(arquivo.type)) {
-        recusadas.push(`${arquivo.name}: use JPG, PNG, WebP ou AVIF`)
-        continue
-      }
-      if (arquivo.size > TAMANHO_MAXIMO) {
-        recusadas.push(`${arquivo.name}: acima de 8 MB`)
-        continue
-      }
-      const src = await uploadProductImage(product.id, arquivo)
-      if (src) novas.push({ render: 'tower-glass', alt, src })
-      else recusadas.push(`${arquivo.name}: o envio falhou`)
-    }
-  }
-
   if (novas.length > 0) {
-    await repo.upsertProduct({ ...product, images: [...product.images, ...novas], updatedAt: new Date().toISOString() })
-    await repo.log({
-      actor: session.email,
-      action: 'produto.imagens.adicionadas',
-      entity: `produto:${product.slug}`,
-      detail: `${novas.length} imagem(ns)`,
-    })
+    await Promise.all([
+      repo.upsertProduct({ ...product, images: [...product.images, ...novas], updatedAt: new Date().toISOString() }),
+      repo.log({
+        actor: session.email,
+        action: 'produto.imagens.adicionadas',
+        entity: `produto:${product.slug}`,
+        detail: `${novas.length} imagem(ns)`,
+      }),
+    ])
     revalidatePath(`/produtos/${product.slug}`)
     revalidatePath('/catalogo')
     revalidatePath('/')
@@ -502,37 +482,6 @@ async function definirCapaDoProduto(formData: FormData): Promise<void> {
 
 /* ---------------------------- Mídia dos conteúdos -------------------------- */
 
-async function enviarMidiaDoArtigo(formData: FormData): Promise<void> {
-  const session = await requireSession('conteudos')
-  const slug = slugify(text(formData, 'slug'))
-  if (!slug) return
-  if (!midiaDisponivel) {
-    redirect(`/admin/conteudos/${slug}?erro=${encodeURIComponent('O envio de imagens precisa da SUPABASE_SERVICE_ROLE_KEY.')}`)
-  }
-
-  const arquivos = formData.getAll('files').filter((f): f is File => f instanceof File && f.size > 0)
-  let enviadas = 0
-  const recusadas: string[] = []
-  for (const arquivo of arquivos.slice(0, 10)) {
-    const url = await uploadArticleImage(slug, arquivo)
-    if (url) enviadas += 1
-    else recusadas.push(`${arquivo.name}: use JPG, PNG, WebP ou GIF até 8 MB`)
-  }
-
-  if (enviadas > 0) {
-    await getRepository().log({
-      actor: session.email,
-      action: 'artigo.imagens.enviadas',
-      entity: `artigo:${slug}`,
-      detail: `${enviadas} imagem(ns)`,
-    })
-  }
-  if (recusadas.length > 0) {
-    redirect(`/admin/conteudos/${slug}?erro=${encodeURIComponent(recusadas.join('; '))}`)
-  }
-  redirect(`/admin/conteudos/${slug}?salvo=midia`)
-}
-
 async function removerMidiaDoArtigo(formData: FormData): Promise<void> {
   const session = await requireSession('conteudos')
   const slug = slugify(text(formData, 'slug'))
@@ -543,6 +492,67 @@ async function removerMidiaDoArtigo(formData: FormData): Promise<void> {
     await getRepository().log({ actor: session.email, action: 'artigo.imagem.removida', entity: `artigo:${slug}`, detail: name })
   }
   redirect(`/admin/conteudos/${slug}?salvo=midia`)
+}
+
+/* ------------------------- Envio direto para o Storage ------------------------ */
+
+/** Assina a URL de envio de um arquivo. Chamada pelo navegador, um arquivo por vez. */
+export async function prepareUpload(
+  bucket: UploadBucket,
+  prefix: string,
+  contentType: string,
+): Promise<{ signedUrl: string; publicUrl: string } | { error: string }> {
+  if (!(bucket in BUCKETS)) return { error: 'Destino inválido.' }
+  await requireSession(BUCKETS[bucket].capability)
+  return signUpload(bucket, slugify(prefix), String(contentType))
+}
+
+/** Registra as fotos que o navegador já subiu no bucket `produtos`. */
+export async function registerProductImages(
+  productId: string,
+  enviados: { src: string; alt: string }[],
+): Promise<{ error?: string }> {
+  const session = await requireSession('produtos')
+  const { repo, product } = await produtoOuNada(String(productId))
+  if (!product) return { error: 'Produto não encontrado.' }
+
+  const novas: ProductImage[] = enviados
+    .filter((item) => typeof item.src === 'string' && /^https:\/\//.test(item.src))
+    .slice(0, 10)
+    .map((item) => ({ render: 'tower-glass', alt: String(item.alt || `Foto de ${product.name}`).slice(0, 160), src: item.src }))
+  if (novas.length === 0) return { error: 'Nenhuma foto válida.' }
+
+  try {
+    await Promise.all([
+      repo.upsertProduct({ ...product, images: [...product.images, ...novas], updatedAt: new Date().toISOString() }),
+      repo.log({ actor: session.email, action: 'produto.imagens.adicionadas', entity: `produto:${product.slug}`, detail: `${novas.length} imagem(ns)` }),
+    ])
+  } catch (erro) {
+    return { error: mensagemDeGravacao(erro) ?? 'Não foi possível salvar as fotos.' }
+  }
+  revalidatePath(`/produtos/${product.slug}`)
+  revalidatePath('/catalogo')
+  revalidatePath('/')
+  revalidatePath(`/admin/produtos/${product.id}`)
+  return {}
+}
+
+/** As imagens do artigo já estão no bucket; aqui só registra e atualiza a tela. */
+export async function registerArticleImages(
+  slug: string,
+  enviados: { src: string; alt: string }[],
+): Promise<{ error?: string }> {
+  const session = await requireSession('conteudos')
+  const limpo = slugify(String(slug))
+  if (!limpo) return { error: 'Conteúdo inválido.' }
+  await getRepository().log({
+    actor: session.email,
+    action: 'artigo.imagens.enviadas',
+    entity: `artigo:${limpo}`,
+    detail: `${enviados.length} imagem(ns)`,
+  })
+  revalidatePath(`/admin/conteudos/${limpo}`)
+  return {}
 }
 
 /* ------------------------- Actions expostas aos forms ------------------------- */
@@ -582,9 +592,6 @@ export async function removeProductImage(formData: FormData): Promise<void> {
 }
 export async function setProductCover(formData: FormData): Promise<void> {
   return gravando(`/admin/produtos/${text(formData, 'id')}`, () => definirCapaDoProduto(formData))
-}
-export async function uploadArticleMedia(formData: FormData): Promise<void> {
-  return gravando(`/admin/conteudos/${slugify(text(formData, 'slug'))}`, () => enviarMidiaDoArtigo(formData))
 }
 export async function removeArticleMedia(formData: FormData): Promise<void> {
   return gravando(`/admin/conteudos/${slugify(text(formData, 'slug'))}`, () => removerMidiaDoArtigo(formData))

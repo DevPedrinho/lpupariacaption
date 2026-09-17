@@ -66,6 +66,18 @@ Consequências práticas:
 - Quando a branch de trabalho mudar, ajuste *Settings → Git → Production
   Branch* nos projetos.
 
+### Região e velocidade do painel
+
+O banco (Supabase) fica em **São Paulo (sa-east-1)**. Por padrão a Vercel
+executava as funções em Washington (iad1): cada leitura ou gravação do painel
+cruzava o continente duas vezes. O `vercel.json` fixa a região das funções em
+**gru1 (São Paulo)**. Se um dia o projeto for importado de novo, confira em
+*Settings → Functions → Region* que continua `gru1`.
+
+O envio de fotos vai **direto do navegador para o Storage** com URL assinada
+pelo servidor: não passa pela função da Vercel (que limita o corpo a 4,5 MB) e
+a foto é reduzida no próprio navegador antes de subir (2000 px, JPEG).
+
 ### Variáveis de ambiente
 
 As **públicas já estão versionadas** em `.env.production` (URL e chave `anon` do
