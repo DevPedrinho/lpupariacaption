@@ -1,19 +1,21 @@
 import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { AdminHeader } from '@/components/admin/ui'
-import { ProductForm } from '@/components/admin/ProductForm'
+import { ProductBuilder } from '@/components/admin/ProductBuilder'
+import { sugestoesDeModelos } from '@/lib/product-suggestions'
 
 export default async function NewProductPage() {
   await requireSession('produtos')
-  const applications = await getRepository().listApplications(true)
+  const repo = getRepository()
+  const [applications, products] = await Promise.all([repo.listApplications(true), repo.listProducts({ includeDrafts: true })])
 
   return (
     <>
       <AdminHeader
-        title="Novo produto"
-        description="Cadastre a configuração. Ela só aparece no site quando a situação for alterada para “publicado”."
+        title="Montar nova máquina"
+        description="Escolha peça a peça. A máquina só aparece no site quando a situação for “publicado”."
       />
-      <ProductForm applications={applications} />
+      <ProductBuilder applications={applications} sugestoes={sugestoesDeModelos(products)} />
     </>
   )
 }

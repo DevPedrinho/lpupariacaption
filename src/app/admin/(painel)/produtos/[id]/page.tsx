@@ -3,7 +3,8 @@ import { requireSession } from '@/lib/admin-session'
 import { getRepository } from '@/lib/repository'
 import { uploadDireto } from '@/lib/uploads'
 import { AdminHeader, AvisoGravacao, Panel } from '@/components/admin/ui'
-import { ProductForm } from '@/components/admin/ProductForm'
+import { ProductBuilder } from '@/components/admin/ProductBuilder'
+import { sugestoesDeModelos } from '@/lib/product-suggestions'
 import { ProductImagesPanel } from '@/components/admin/ProductImagesPanel'
 import { Icon } from '@/components/ui/Icon'
 import { formatDateTime } from '@/lib/format'
@@ -46,7 +47,7 @@ export default async function EditProductPage({
         <ProductImagesPanel product={product} uploadDisponivel={uploadDireto} />
       </div>
 
-      <ProductForm product={product} applications={applications} />
+      <ProductBuilder product={product} applications={applications} sugestoes={sugestoesDeModelos(products)} />
     </>
   )
 }
