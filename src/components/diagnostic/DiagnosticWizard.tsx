@@ -178,9 +178,8 @@ export function DiagnosticWizard({
           <div className="mt-6 flex items-start gap-2.5 rounded-lg border border-caution-500/30 bg-caution-500/8 px-4 py-3.5 text-sm text-[#F0C560]">
             <Icon name="info" className="mt-0.5 size-4 shrink-0" />
             <p className="leading-relaxed">
-              Esta indicação é um <strong>ponto de partida gerado a partir das suas respostas</strong>. Ela
-              precisa ser validada por um especialista, que vai confirmar se os modelos e programas que você
-              usa realmente rodam bem nesta categoria.
+              Esta indicação é um <strong>ponto de partida</strong>. Um especialista confirma se os modelos e
+              programas que você usa rodam bem nesta categoria.
             </p>
           </div>
 
@@ -203,8 +202,8 @@ export function DiagnosticWizard({
               Configurações relacionadas ao seu perfil
             </h3>
             <p className="mt-2 max-w-2xl text-[0.9375rem] leading-relaxed text-ink-300">
-              Selecionamos até três equipamentos compatíveis com as suas respostas. Você pode compará-los
-              lado a lado antes de conversar com um especialista.
+              Até três equipamentos compatíveis com as suas respostas. Compare antes de conversar com um
+              especialista.
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {recommended.map((product) => (

@@ -60,8 +60,7 @@ export default async function ContactPage() {
               <Icon name="whatsapp" className="size-6 text-[#1FA855]" />
               <h2 className="mt-4 text-lg font-semibold text-white">Atendimento pelo WhatsApp</h2>
               <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-300">
-                Fale direto com a equipe técnica sobre a sua aplicação. É o canal mais rápido para
-                dimensionamento e orçamento.
+                Fale direto com a equipe técnica. É o canal mais rápido para dimensionamento e orçamento.
               </p>
               <WhatsAppCta context={{ kind: 'consultoria' }} size="md" className="mt-5 w-full">
                 Abrir conversa
@@ -88,8 +87,8 @@ export default async function ContactPage() {
             <div className="rounded-xl border border-ink-700/70 bg-ink-880/40 p-7">
               <h2 className="text-base font-semibold text-white">Compras institucionais</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-300">
-                Universidades, institutos e órgãos públicos podem solicitar a documentação técnica necessária
-                para o processo de compra. Informe o tipo de processo no primeiro contato.
+                Universidades, institutos e órgãos públicos podem solicitar a documentação técnica para o
+                processo de compra.
               </p>
             </div>
           </aside>

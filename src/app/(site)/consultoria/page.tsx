@@ -15,7 +15,7 @@ import { breadcrumbSchema, faqSchema } from '@/lib/schema'
 export const metadata: Metadata = {
   title: 'Consultoria técnica para computadores de IA',
   description:
-    'Entendimento da necessidade, levantamento de softwares e modelos, dimensionamento técnico, montagem, testes e acompanhamento. Conheça o processo da UPAR.',
+    'Do entendimento da necessidade à entrega: conheça o processo de dimensionamento da UPAR.',
   alternates: { canonical: '/consultoria' },
 }
 
@@ -73,7 +73,7 @@ export default async function ConsultingPage() {
           <SectionHeader
             eyebrow="O que levar para a conversa"
             title="Quatro informações encurtam muito o caminho"
-            description="Não é necessário ter tudo definido. Mas quanto mais claro estiver o cenário, mais precisa fica a proposta."
+            description="Não precisa ter tudo definido. Quanto mais claro o cenário, mais precisa a proposta."
             className="lg:sticky lg:top-28 lg:self-start"
           />
           <ul className="flex flex-col gap-3">
@@ -96,7 +96,7 @@ export default async function ConsultingPage() {
               {
                 title: 'O horizonte de crescimento',
                 description:
-                  'Saber se o uso tende a aumentar permite escolher fonte, chassi e plataforma pensando no próximo passo.',
+                  'Se o uso vai crescer, fonte, chassi e plataforma são escolhidos pensando no próximo passo.',
               },
             ].map((item) => (
               <li key={item.title} className="flex gap-3.5 rounded-xl border border-ink-700/70 bg-ink-880/50 p-5">

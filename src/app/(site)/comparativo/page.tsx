@@ -44,7 +44,7 @@ export default async function ComparativoPage() {
         <PageHero
           eyebrow="Comparativo"
           title="Achou um computador em outro site? Manda pra gente."
-          description="Um consultor da UPAR analisa a configuração que você encontrou e responde o que entregaríamos no lugar — com a justificativa de cada ponto."
+          description="Um consultor da UPAR analisa a configuração que você encontrou e responde o que entregaríamos no lugar, e por quê."
           breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Comparativo' }]}
         />
 
@@ -109,8 +109,7 @@ export default async function ComparativoPage() {
             </div>
 
             <p className="mt-10 text-center text-sm leading-relaxed text-ink-400">
-              Não prometemos ser sempre mais baratos que o anúncio que você encontrou. Se a máquina de lá
-              resolver o seu caso, vamos dizer isso também.
+              Se a máquina que você encontrou resolver o seu caso, vamos dizer isso também.
             </p>
           </div>
         </Section>

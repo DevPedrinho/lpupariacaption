@@ -189,7 +189,7 @@ export default async function SolutionPage({ params }: Params) {
           <SectionHeader
             eyebrow="Crescimento"
             title="Possibilidades de expansão"
-            description="Um bom projeto considera o próximo passo. Veja o que costuma ser ampliado nesta aplicação."
+            description="O que costuma ser ampliado nesta aplicação."
           />
           <ul className="flex flex-col gap-3">
             {application.expansion.slice(0, 3).map((item) => (
@@ -207,7 +207,7 @@ export default async function SolutionPage({ params }: Params) {
 
       <FinalCta
         title={`Vamos dimensionar a sua máquina para ${application.name.toLowerCase()}?`}
-        description="Conte quais programas e modelos você usa. A partir daí montamos uma configuração proporcional ao seu volume de trabalho."
+        description="Conte quais programas e modelos você usa. Montamos uma configuração proporcional ao seu volume de trabalho."
         context={{ kind: 'aplicacao', application: application.name }}
       />
     </>

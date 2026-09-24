@@ -18,8 +18,8 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
 
         {hasDemo && (
           <DemoNotice className="mt-6 max-w-2xl">
-            Os depoimentos abaixo são <strong>demonstrativos</strong> e existem apenas para validar o
-            layout. Serão substituídos por depoimentos reais coletados pela UPAR, com autorização de uso.
+            Depoimentos <strong>demonstrativos</strong>, apenas para validar o layout. Serão substituídos por
+            depoimentos reais, com autorização de uso.
           </DemoNotice>
         )}
 

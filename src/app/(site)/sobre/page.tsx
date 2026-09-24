@@ -12,7 +12,7 @@ import { breadcrumbSchema, organizationSchema } from '@/lib/schema'
 export const metadata: Metadata = {
   title: 'Sobre a UPAR',
   description:
-    'Especialização em computadores de alta performance, upgrades e soluções personalizadas, agora aplicada a projetos de inteligência artificial.',
+    'Especialização em computadores de alta performance e upgrades, aplicada a projetos de inteligência artificial.',
   alternates: { canonical: '/sobre' },
 }
 
@@ -52,7 +52,7 @@ export default async function AboutPage() {
       <PageHero
         eyebrow="Sobre a UPAR"
         title="Especialização em alta performance, aplicada à inteligência artificial"
-        description="A UPAR construiu sua experiência montando computadores para trabalho pesado e executando upgrades em máquinas exigentes."
+        description="Experiência construída montando computadores para trabalho pesado e fazendo upgrades em máquinas exigentes."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Sobre a UPAR' }]}
       />
 
@@ -71,9 +71,8 @@ export default async function AboutPage() {
           </div>
 
           <DemoNotice className="mt-8 max-w-3xl">
-            Esta página usa <strong>textos editáveis pelo painel administrativo</strong>. Números
-            institucionais — tempo de mercado, quantidade de clientes atendidos, tamanho da equipe — não são
-            exibidos porque ainda não foram informados pela UPAR. Assim que forem cadastrados, aparecem aqui.
+            Textos <strong>editáveis pelo painel administrativo</strong>. Números institucionais só aparecem
+            depois de informados pela UPAR.
           </DemoNotice>
         </div>
       </Section>
@@ -127,8 +126,8 @@ export default async function AboutPage() {
               <h3 className="text-lg font-semibold text-white">Garantia</h3>
               <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-300">{settings.warrantyPolicy}</p>
               <p className="mt-4 text-sm leading-relaxed text-ink-400">
-                As condições específicas variam conforme os componentes da configuração. Solicite as
-                condições aplicáveis ao equipamento que você está avaliando.
+                As condições variam conforme a configuração. Veja a política completa ou consulte um
+                especialista.
               </p>
             </div>
           </div>

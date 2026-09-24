@@ -249,7 +249,7 @@ export const applications: Application[] = [
     icon: 'video',
     short: 'Unir edição profissional, efeitos e geração de vídeo por IA na mesma máquina.',
     intro:
-      'Produção de vídeo combina duas cargas diferentes: a edição em tempo real, que depende de armazenamento rápido e memória, e a geração por IA, que depende fortemente da placa de vídeo.',
+      'Produção de vídeo combina edição em tempo real, que pede disco rápido e memória, e geração por IA, que pede placa de vídeo.',
     whoFor: [
       'Produtoras e estúdios de pós-produção',
       'Criadores que trabalham com material em alta resolução',
@@ -294,7 +294,7 @@ export const applications: Application[] = [
     icon: 'eye',
     short: 'Detecção, inspeção e análise de imagem em tempo real, do treinamento à operação.',
     intro:
-      'Projetos de visão computacional têm duas fases com necessidades distintas: treinar o modelo com um conjunto de imagens e depois executá-lo sobre câmeras ou lotes de arquivos.',
+      'Visão computacional tem duas fases: treinar o modelo com imagens e executá-lo sobre câmeras ou lotes de arquivos.',
     whoFor: [
       'Indústrias com inspeção visual e controle de qualidade',
       'Integradores de segurança e monitoramento',
@@ -427,7 +427,7 @@ export const applications: Application[] = [
     icon: 'flask',
     short: 'CAD, CAE e simulações numéricas com estabilidade para projetos extensos.',
     intro:
-      'Simulações de engenharia costumam depender fortemente de núcleos de CPU e de memória, com a GPU atuando na visualização e em solvers específicos.',
+      'Simulações dependem principalmente de núcleos de CPU e memória. A GPU entra na visualização e em solvers específicos.',
     whoFor: [
       'Escritórios de engenharia e projetos industriais',
       'Times de P&D com análise estrutural, térmica ou de fluidos',
@@ -468,7 +468,7 @@ export const applications: Application[] = [
     icon: 'code',
     short: 'Ambientes locais, contêineres e assistentes de código rodando sem travar o fluxo.',
     intro:
-      'O desenvolvimento moderno mantém muitas coisas abertas ao mesmo tempo: editor, contêineres, bancos, testes e, cada vez mais, um modelo de IA assistindo o código.',
+      'Editor, contêineres, bancos, testes e um modelo de IA assistindo o código: tudo aberto ao mesmo tempo.',
     whoFor: [
       'Times de engenharia de software',
       'Desenvolvedores que rodam modelos de código localmente',

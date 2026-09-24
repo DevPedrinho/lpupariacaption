@@ -62,22 +62,22 @@ export const TIER_SUMMARY: Record<PerformanceTier, { headline: string; rationale
   essencial: {
     headline: 'Categoria Essencial',
     rationale:
-      'Pelo que você descreveu, uma configuração de entrada bem dimensionada já atende — com espaço para ampliar memória e armazenamento conforme o uso crescer.',
+      'Uma configuração de entrada bem dimensionada já atende, com espaço para ampliar memória e armazenamento.',
   },
   avancado: {
     headline: 'Categoria Avançado',
     rationale:
-      'O seu cenário pede folga em VRAM e memória para o uso diário, mantendo a possibilidade de adicionar uma segunda placa de vídeo mais adiante.',
+      'O seu cenário pede folga em VRAM e memória, com a possibilidade de uma segunda placa de vídeo mais adiante.',
   },
   profissional: {
     headline: 'Categoria Profissional',
     rationale:
-      'Cargas longas, modelos maiores ou uso compartilhado justificam uma plataforma profissional, com memória mais robusta e estabilidade para execuções contínuas.',
+      'Cargas longas, modelos maiores ou uso compartilhado pedem uma plataforma profissional, estável para execuções contínuas.',
   },
   extremo: {
     headline: 'Categoria Extremo',
     rationale:
-      'O volume e o tipo de trabalho descritos apontam para alta densidade de placas de vídeo — capacidade próxima da nuvem, dentro da sua própria infraestrutura.',
+      'O volume descrito aponta para alta densidade de placas de vídeo, dentro da sua própria infraestrutura.',
   },
 }
 

@@ -362,9 +362,8 @@ export function CatalogBrowser({
           <div className="mt-5 flex flex-col items-start gap-5 rounded-xl border border-ink-700/70 bg-ink-880/60 p-8">
             <Badge tone="flux">Nada encontrado com esses critérios</Badge>
             <p className="max-w-lg text-[0.9375rem] leading-relaxed text-ink-300">
-              Isso não significa que a UPAR não atenda a sua necessidade — grande parte dos equipamentos é
-              montada sob medida e não aparece no catálogo pronto. Descreva o que você precisa executar e
-              montamos a configuração.
+              Grande parte dos equipamentos é montada sob medida e não aparece no catálogo. Descreva o que
+              você precisa executar e montamos a configuração.
             </p>
             <div className="flex flex-col gap-2.5 sm:flex-row">
               <WhatsAppCta context={{ kind: 'catalogo' }} size="md">
@@ -381,8 +380,7 @@ export function CatalogBrowser({
           <div>
             <h2 className="text-lg font-semibold text-white">Ainda em dúvida sobre qual configuração escolher?</h2>
             <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-ink-300">
-              O diagnóstico leva cerca de dois minutos e indica uma categoria compatível com a sua aplicação,
-              com até três equipamentos relacionados.
+              Dois minutos de diagnóstico indicam uma categoria compatível e até três equipamentos relacionados.
             </p>
           </div>
           <ButtonLink href="/encontre-sua-configuracao" size="md" className="shrink-0">

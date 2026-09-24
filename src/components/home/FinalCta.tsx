@@ -7,7 +7,7 @@ import type { WhatsAppContext } from '@/lib/whatsapp'
 
 export function FinalCta({
   title = 'Converse com quem entende sua aplicação',
-  description = 'Descreva o que você precisa executar. A partir daí, indicamos a configuração proporcional à sua operação — sem sobra desnecessária e sem falta que trave o projeto.',
+  description = 'Descreva o que você precisa executar. Indicamos a configuração proporcional à sua operação, sem sobra e sem falta.',
   context = { kind: 'geral' },
   showDiagnostic = true,
 }: {

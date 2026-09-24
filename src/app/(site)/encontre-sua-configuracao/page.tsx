@@ -10,7 +10,7 @@ import { Icon } from '@/components/ui/Icon'
 export const metadata: Metadata = {
   title: 'Encontre sua configuração',
   description:
-    'Cinco perguntas rápidas sobre a sua aplicação e a UPAR AI indica a categoria de computador compatível, com até três configurações relacionadas.',
+    'Cinco perguntas rápidas e a UPAR AI indica a categoria de computador compatível com a sua aplicação.',
   alternates: { canonical: '/encontre-sua-configuracao' },
 }
 
@@ -40,7 +40,7 @@ export default async function DiagnosticPage() {
       <PageHero
         eyebrow="Diagnóstico"
         title="Encontre a configuração certa para a sua aplicação"
-        description="Responder é rápido e não gera compromisso. No final você recebe uma categoria indicada, até três configurações relacionadas e a opção de enviar tudo para um especialista."
+        description="Rápido e sem compromisso. No final, uma categoria indicada, até três configurações e a opção de enviar tudo a um especialista."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Encontre sua configuração' }]}
       >
         <ul className="mt-10 grid gap-3 sm:grid-cols-3">

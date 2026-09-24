@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | UPAR AI',
   },
   description:
-    'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica para descobrir a configuração certa para a sua aplicação.',
+    'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica para encontrar a configuração certa.',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',

@@ -10,7 +10,7 @@ import { FinalCta } from '@/components/home/FinalCta'
 export const metadata: Metadata = {
   title: 'Catálogo de computadores para IA',
   description:
-    'Workstations, desktops e servidores para inteligência artificial. Filtre por aplicação, VRAM, placa de vídeo, memória e formato para encontrar a configuração compatível com o seu projeto.',
+    'Workstations, desktops e servidores para IA. Filtre por aplicação, VRAM, placa de vídeo, memória e formato.',
   alternates: { canonical: '/catalogo' },
 }
 

@@ -14,7 +14,7 @@ import { formatDate } from '@/lib/format'
 export const metadata: Metadata = {
   title: 'Conteúdos: guias de hardware para IA',
   description:
-    'Guias, comparativos e materiais sobre VRAM, GPUs, IA local versus nuvem, workstations para empresas e glossário de hardware para inteligência artificial.',
+    'Guias sobre VRAM, GPUs, IA local versus nuvem e workstations para empresas.',
   alternates: { canonical: '/conteudos' },
 }
 
@@ -34,7 +34,7 @@ export default async function ArticlesPage() {
       <PageHero
         eyebrow="Conteúdos"
         title="Material para decidir com segurança"
-        description="Guias diretos sobre os pontos que mais geram dúvida na hora de investir em hardware para inteligência artificial — escritos para quem precisa decidir, não apenas para quem já domina o assunto."
+        description="Guias diretos sobre o que mais gera dúvida ao investir em hardware para IA, escritos para quem precisa decidir."
         breadcrumbs={[{ label: 'Início', href: '/' }, { label: 'Conteúdos' }]}
       />
 
@@ -42,9 +42,8 @@ export default async function ArticlesPage() {
         <div className="container-page">
           {hasDemo && (
             <DemoNotice className="mb-9 max-w-3xl">
-              Os artigos abaixo são <strong>conteúdo demonstrativo</strong>, escritos para validar a
-              estrutura editorial e de SEO. A UPAR pode editar, substituir ou publicar novos textos pelo
-              painel administrativo.
+              Os artigos abaixo são <strong>conteúdo demonstrativo</strong>. A UPAR pode editar, substituir
+              ou publicar novos textos pelo painel.
             </DemoNotice>
           )}
 

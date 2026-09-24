@@ -13,7 +13,7 @@ export function FaqSection({ faqs, tone = 'dark' }: { faqs: Faq[]; tone?: 'dark'
             tone={tone}
             eyebrow="Perguntas frequentes"
             title="Dúvidas que aparecem em quase toda conversa"
-            description="Se a sua pergunta não estiver aqui, ela provavelmente é específica da sua aplicação — e esse é exatamente o tipo de conversa que vale ter com um especialista."
+            description="Se a sua pergunta não estiver aqui, ela é específica da sua aplicação. Vale conversar com um especialista."
             className="lg:sticky lg:top-28 lg:self-start"
           />
           <Accordion

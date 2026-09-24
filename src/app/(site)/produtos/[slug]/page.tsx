@@ -201,9 +201,8 @@ export default async function ProductPage({ params }: Params) {
       {product.isDemo && (
         <div className="container-page pb-10">
           <DemoNotice>
-            Esta é uma <strong>configuração demonstrativa</strong>, criada para validar a experiência do
-            site. Especificações, disponibilidade e valores serão substituídos pelo catálogo real da UPAR
-            através do painel administrativo.
+            Esta é uma <strong>configuração demonstrativa</strong>. Especificações e valores serão
+            substituídos pelo catálogo real da UPAR.
           </DemoNotice>
         </div>
       )}
@@ -260,9 +259,8 @@ export default async function ProductPage({ params }: Params) {
           </ul>
 
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-ink-400">
-            A UPAR não publica velocidade de resposta, tempo de renderização ou compatibilidade com modelos
-            específicos sem ter medido. Quando existir medição validada pela equipe técnica, ela aparece
-            nesta página com o contexto do teste.
+            A UPAR não publica velocidade, tempo de render ou compatibilidade com modelos sem ter medido.
+            Quando houver medição validada, ela aparece aqui com o contexto do teste.
           </p>
         </div>
       </Section>
@@ -414,7 +412,7 @@ export default async function ProductPage({ params }: Params) {
 
       <FinalCta
         title="Esta configuração atende o que você precisa executar?"
-        description="Envie a sua aplicação para um especialista. Em poucos minutos você recebe uma validação técnica — ou uma alternativa mais adequada."
+        description="Envie a sua aplicação para um especialista e receba uma validação técnica ou uma alternativa mais adequada."
         context={{ kind: 'produto', product, application: primaryApplication }}
       />
 

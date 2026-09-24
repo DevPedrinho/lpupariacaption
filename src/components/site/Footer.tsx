@@ -35,8 +35,8 @@ export function Footer() {
           <div className="flex flex-col gap-5">
             <Logo />
             <p className="max-w-sm text-[0.9375rem] leading-relaxed text-ink-300">
-              Computadores, workstations e servidores dimensionados para inteligência artificial — com
-              consultoria técnica antes da configuração.
+              Computadores, workstations e servidores dimensionados para IA, com consultoria técnica antes da
+              configuração.
             </p>
             <WhatsAppCta context={{ kind: 'geral' }} size="md" className="self-start">
               Falar com especialista
@@ -143,7 +143,7 @@ export function Footer() {
             reservados.
           </p>
           <p className="text-ink-500">
-            As especificações podem ser ajustadas conforme a aplicação e a disponibilidade de componentes.
+            Especificações podem variar conforme a aplicação e a disponibilidade de componentes.
           </p>
         </div>
       </div>

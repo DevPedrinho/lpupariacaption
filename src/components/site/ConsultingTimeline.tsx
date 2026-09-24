@@ -19,8 +19,7 @@ export function ConsultingTimeline() {
       <div className="lg:sticky lg:top-28 lg:self-start">
         <ConsultantPhoto className="mx-auto max-w-sm lg:max-w-none" />
         <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-300">
-          A pessoa que conversa com você é a mesma que dimensiona, acompanha a montagem e atende
-          depois da entrega.
+          Quem conversa com você é quem dimensiona, acompanha a montagem e atende depois da entrega.
         </p>
       </div>
 

@@ -126,8 +126,7 @@ export function ProductBuyBox({
         </div>
 
         <p className="text-xs leading-relaxed text-ink-400">
-          Atendimento consultivo. Um especialista confere se esta configuração atende a sua aplicação antes
-          de qualquer proposta.
+          Um especialista confere se esta configuração atende a sua aplicação antes de qualquer proposta.
         </p>
       </div>
     </div>

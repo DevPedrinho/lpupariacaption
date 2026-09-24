@@ -2,7 +2,7 @@ export const consultingSteps = [
   {
     title: 'Entendimento da necessidade',
     description:
-      'A conversa começa pela sua operação: o que você precisa que o computador faça, quem vai usar e qual problema está tentando resolver.',
+      'Começamos pela sua operação: o que a máquina precisa fazer, quem vai usar e qual problema resolver.',
   },
   {
     title: 'Levantamento dos softwares e modelos',
@@ -12,12 +12,12 @@ export const consultingSteps = [
   {
     title: 'Dimensionamento técnico',
     description:
-      'Com as informações em mãos, calculamos VRAM, memória, núcleos e armazenamento necessários — sem sobra desnecessária e sem falta que trave o projeto.',
+      'Calculamos VRAM, memória, núcleos e armazenamento na medida: sem sobra e sem falta.',
   },
   {
     title: 'Construção da configuração',
     description:
-      'Montamos a proposta de componentes, considerando compatibilidade, refrigeração, energia e o espaço que você tem disponível.',
+      'Montamos a proposta considerando compatibilidade, refrigeração, energia e o espaço disponível.',
   },
   {
     title: 'Validação da proposta',
@@ -27,12 +27,12 @@ export const consultingSteps = [
   {
     title: 'Montagem e testes',
     description:
-      'O equipamento é montado pela nossa equipe e submetido a testes de estabilidade sob carga antes de sair da bancada.',
+      'Montagem pela nossa equipe e testes de estabilidade sob carga antes de sair da bancada.',
   },
   {
     title: 'Entrega e acompanhamento',
     description:
-      'Entregamos configurado e continuamos disponíveis. Quem atende depois da venda é a mesma equipe que dimensionou a máquina.',
+      'Entregamos configurado. Quem atende depois é a mesma equipe que dimensionou a máquina.',
   },
 ] as const
 
@@ -46,7 +46,7 @@ export const differentials = [
     icon: 'brain' as const,
     title: 'A conversa começa pela aplicação',
     description:
-      'Antes de falar de peças, entendemos o que você precisa executar: quais modelos, quais programas, quantas pessoas vão usar e com que frequência.',
+      'Antes das peças, entendemos o que você precisa executar: modelos, programas, quantas pessoas e com que frequência.',
   },
   {
     icon: 'shield' as const,
@@ -70,7 +70,7 @@ export const differentials = [
     icon: 'users' as const,
     title: 'Empresas, universidades e órgãos públicos',
     description:
-      'Além do dimensionamento técnico, acompanhamos as exigências formais de cada tipo de compra, incluindo a documentação necessária para processos institucionais.',
+      'Acompanhamos as exigências formais de cada compra, incluindo a documentação de processos institucionais.',
   },
   {
     icon: 'info' as const,

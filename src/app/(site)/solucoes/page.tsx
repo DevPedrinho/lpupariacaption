@@ -12,7 +12,7 @@ import { tierLabel } from '@/lib/format'
 export const metadata: Metadata = {
   title: 'Soluções por aplicação',
   description:
-    'LLMs locais, machine learning, deep learning, ciência de dados, geração de imagens e vídeo, visão computacional, renderização, engenharia e mais. Veja o dimensionamento indicado para cada aplicação.',
+    'LLMs locais, machine learning, ciência de dados, geração de imagem e vídeo, renderização, engenharia e mais.',
   alternates: { canonical: '/solucoes' },
 }
 

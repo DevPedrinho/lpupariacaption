@@ -31,14 +31,14 @@ export function buildExplainers(
       title: 'Processador',
       spec: `${p.cpu.model} — ${p.cpu.cores} núcleos e ${p.cpu.threads} threads`,
       role:
-        'É o coordenador da máquina. Cuida da preparação dos dados, das partes do trabalho que não rodam na placa de vídeo e de manter várias tarefas em andamento ao mesmo tempo. Quanto mais núcleos, mais trabalho paralelo a máquina sustenta sem engasgar.',
+        'Coordena a máquina: prepara os dados e mantém várias tarefas rodando ao mesmo tempo. Mais núcleos, mais trabalho em paralelo.',
     },
     {
       icon: 'gpu',
       title: 'Placa de vídeo',
       spec: gpuLabel,
       role:
-        'É onde os modelos de IA efetivamente rodam. A placa de vídeo executa milhares de cálculos simultâneos, e é por isso que ela define a maior parte do desempenho em treinamento, inferência, geração de imagem e renderização.',
+        'É onde os modelos de IA rodam. Define a maior parte do desempenho em treinamento, inferência, geração de imagem e render.',
     },
     {
       icon: 'memory',
@@ -48,42 +48,42 @@ export function buildExplainers(
           ? `${p.gpu.vramGb} GB por placa — ${totalVram} GB no total`
           : `${p.gpu.vramGb} GB`,
       role:
-        'É o fator que mais limita projetos de IA. O modelo precisa caber aqui para rodar com fluidez; se não couber, parte do processamento migra para a memória do sistema e o desempenho cai. Contexto longo e resoluções altas também consomem VRAM.',
+        'O modelo precisa caber aqui. Se não cabe, o desempenho cai. É o limite mais comum em projetos de IA.',
     },
     {
       icon: 'memory',
       title: 'Memória RAM',
       spec: `${p.ram.capacityGb} GB ${p.ram.type}${p.ram.maxGb ? ` — expansível até ${p.ram.maxGb} GB` : ''}`,
       role:
-        'É o espaço de trabalho do sistema. Sustenta bases de dados em análise, carregamento de modelos, contêineres e várias aplicações abertas. Memória curta faz o computador recorrer ao disco, e é aí que o trabalho fica lento.',
+        'Espaço de trabalho do sistema: bases de dados, modelos carregados e várias aplicações abertas sem recorrer ao disco.',
     },
     {
       icon: 'storage',
       title: 'Armazenamento',
       spec: storageLabel,
       role:
-        'Além da capacidade, o que importa é a velocidade de leitura. Modelos ocupam dezenas de gigabytes e conjuntos de dados precisam ser lidos rapidamente para não deixar a placa de vídeo ociosa esperando informação.',
+        'Modelos e conjuntos de dados ocupam dezenas de gigabytes. Leitura rápida evita deixar a placa de vídeo esperando.',
     },
     {
       icon: 'cooling',
       title: 'Refrigeração',
       spec: p.cooling,
       role:
-        'Cargas de IA são longas e constantes. Quando a temperatura sobe demais, os componentes reduzem a própria velocidade para se proteger e o trabalho demora mais. Refrigeração adequada é o que mantém o desempenho estável do começo ao fim.',
+        'Cargas de IA são longas. Refrigeração adequada evita que os componentes reduzam a velocidade para se proteger.',
     },
     {
       icon: 'power',
       title: 'Fonte de alimentação',
       spec: p.psu,
       role:
-        'Fornece energia estável para processador e placas de vídeo nos momentos de pico. Uma fonte dimensionada com folga protege o equipamento e viabiliza a instalação de placas adicionais no futuro.',
+        'Energia estável nos picos de uso. Folga na fonte protege o equipamento e permite adicionar placas depois.',
     },
     {
       icon: 'network',
       title: 'Rede e conectividade',
       spec: p.network,
       role:
-        'Define como a máquina conversa com o restante da operação: acesso de outros usuários, integração com armazenamento compartilhado e transferência de conjuntos de dados.',
+        'Como a máquina conversa com o restante da operação: outros usuários, armazenamento compartilhado e transferência de dados.',
     },
     {
       icon: 'upgrade',

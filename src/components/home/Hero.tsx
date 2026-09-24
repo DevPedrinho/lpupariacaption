@@ -101,8 +101,7 @@ export function Hero() {
       </div>
 
       <p className="container-page -mt-6 pb-12 text-xs text-ink-500 md:-mt-10">
-        Ilustração técnica. Os limites indicados referem-se às configurações mais densas da linha — cada
-        projeto é dimensionado individualmente.
+        Ilustração técnica. Os limites referem-se às configurações mais densas da linha.
       </p>
     </section>
   )

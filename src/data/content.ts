@@ -92,7 +92,7 @@ export const faqs: Faq[] = [
     id: 'f-1',
     question: 'Como sei qual configuração atende a minha necessidade?',
     answer:
-      'O caminho mais rápido é o diagnóstico "Encontre sua configuração": são cinco perguntas curtas sobre a sua aplicação, quem vai usar e o volume de trabalho.',
+      'O diagnóstico "Encontre sua configuração" resolve em cinco perguntas. Um especialista valida o resultado antes da proposta.',
     scope: 'home',
     order: 1,
     status: 'published',
@@ -101,7 +101,7 @@ export const faqs: Faq[] = [
     id: 'f-2',
     question: 'Por que a VRAM é tão importante para inteligência artificial?',
     answer:
-      'A VRAM é a memória da placa de vídeo, e é nela que o modelo precisa caber para funcionar com fluidez.',
+      'A VRAM é a memória da placa de vídeo. O modelo precisa caber nela para rodar com fluidez.',
     scope: 'home',
     order: 2,
     status: 'published',
@@ -110,7 +110,7 @@ export const faqs: Faq[] = [
     id: 'f-3',
     question: 'Faz sentido rodar IA localmente em vez de usar a nuvem?',
     answer:
-      'Depende do seu uso. Executar localmente costuma fazer sentido quando o volume é constante, quando os dados não podem sair da sua infraestrutura ou quando a previsibilidade de custo importa.',
+      'Depende do uso. Localmente costuma compensar quando o volume é constante, os dados não podem sair da empresa ou o custo precisa ser previsível.',
     scope: 'home',
     order: 3,
     status: 'published',
@@ -119,7 +119,7 @@ export const faqs: Faq[] = [
     id: 'f-4',
     question: 'Consigo ampliar o equipamento depois?',
     answer:
-      'Sim, e isso faz parte do dimensionamento. Cada configuração informa o que pode ser ampliado — memória, armazenamento e, quando o chassi e a fonte permitem, placas de vídeo adicionais.',
+      'Sim. Cada configuração informa o que pode ser ampliado: memória, armazenamento e, quando chassi e fonte permitem, mais placas de vídeo.',
     scope: 'home',
     order: 4,
     status: 'published',
@@ -128,7 +128,7 @@ export const faqs: Faq[] = [
     id: 'f-5',
     question: 'Vocês atendem empresas, universidades e órgãos públicos?',
     answer:
-      'Sim. Além do dimensionamento técnico, a UPAR acompanha as exigências formais de cada tipo de compra, incluindo a documentação necessária para processos institucionais.',
+      'Sim. Acompanhamos as exigências formais de cada tipo de compra, incluindo a documentação de processos institucionais.',
     scope: 'home',
     order: 5,
     status: 'published',
@@ -137,7 +137,7 @@ export const faqs: Faq[] = [
     id: 'f-6',
     question: 'A configuração pode ser personalizada?',
     answer:
-      'Sim. As configurações apresentadas no catálogo são pontos de partida.',
+      'Sim. As configurações do catálogo são pontos de partida e são ajustadas à sua aplicação.',
     scope: 'produto',
     order: 6,
     status: 'published',
@@ -146,7 +146,7 @@ export const faqs: Faq[] = [
     id: 'f-7',
     question: 'Quanto tempo leva desde o primeiro contato até a entrega?',
     answer:
-      'O prazo varia conforme a configuração e a disponibilidade dos componentes.',
+      'Varia conforme a configuração e a disponibilidade dos componentes. O prazo é informado na proposta.',
     scope: 'consultoria',
     order: 7,
     status: 'published',
@@ -155,7 +155,7 @@ export const faqs: Faq[] = [
     id: 'f-8',
     question: 'Quais são as condições de garantia e suporte?',
     answer:
-      'As condições de garantia e de suporte são informadas pela equipe comercial na proposta.',
+      'Garantia de 12 a 60 meses, conforme o produto. As condições completas estão na política de garantia e na proposta.',
     scope: 'geral',
     order: 8,
     status: 'published',
@@ -430,12 +430,12 @@ export const defaultSettings: SiteSettings = {
   youtube: '',
   heroTitle: 'Potência computacional para transformar Inteligência Artificial em resultado.',
   heroSubtitle:
-    'Workstations e computadores de alta performance dimensionados para modelos de IA, geração de conteúdo, ciência de dados, visão computacional e processamento local.',
+    'Workstations e computadores dimensionados para IA, geração de conteúdo, ciência de dados e processamento local.',
   heroBadge: 'Consultoria técnica antes da configuração',
   aboutHistory:
-    'A UPAR nasceu da especialização em computadores de alta performance e upgrades, atendendo quem precisa de máquinas dimensionadas para trabalho pesado.',
+    'A UPAR nasceu montando computadores de alta performance e fazendo upgrades. Hoje aplica essa experiência a projetos de IA.',
   aboutStructure:
-    'A montagem, os testes e o suporte são feitos pela mesma equipe que dimensiona a configuração.',
+    'Quem dimensiona a configuração é quem monta, testa e atende depois da entrega.',
   aboutExpertise:
     'O trabalho começa pela aplicação, não pela lista de peças.',
   warrantyPolicy:
@@ -445,7 +445,7 @@ export const defaultSettings: SiteSettings = {
   consultantRole: '',
   seoTitle: 'UPAR AI — Computadores de alta performance para Inteligência Artificial',
   seoDescription:
-    'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica gratuita para descobrir a configuração certa para a sua aplicação.',
+    'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica para encontrar a configuração certa.',
   ga4Id: '',
   gtmId: '',
   metaPixelId: '',
