@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { track } from '@/lib/analytics'
-import { buildWhatsAppMessage, whatsappUrl, type WhatsAppContext } from '@/lib/whatsapp'
+import { useEffect, useState } from 'react'
+import { campaignLabel, track } from '@/lib/analytics'
+import { buildWhatsAppMessage, whatsappUrl, withCampaign, type WhatsAppContext } from '@/lib/whatsapp'
 import { cn } from '@/lib/cn'
 import { Icon } from '@/components/ui/Icon'
 import { useSiteConfig } from './SiteConfig'
@@ -50,7 +51,10 @@ export function WhatsAppCta({
 }: Props) {
   const settings = useSiteConfig()
   const pathname = usePathname()
-  const message = buildWhatsAppMessage(context, settings.whatsappGreeting)
+  // A campanha vem do armazenamento do navegador, por isso entra depois da hidratação.
+  const [campaign, setCampaign] = useState<string | undefined>()
+  useEffect(() => setCampaign(campaignLabel()), [])
+  const message = withCampaign(buildWhatsAppMessage(context, settings.whatsappGreeting), campaign)
   const href = whatsappUrl(settings.whatsappNumber, message)
 
   return (

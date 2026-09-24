@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { MachineRender } from '@/components/site/MachineRender'
@@ -81,13 +82,15 @@ export function ProductGallery({
         onTouchEnd={onTouchEnd}
         className="group relative isolate aspect-4/3 overflow-hidden rounded-2xl border border-ink-700/70 bg-linear-to-b from-ink-850 to-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/60"
       >
-        {temFoto ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+        {current.src ? (
+          <Image
             key={current.src}
             src={current.src}
             alt={current.alt}
-            className="h-full w-full object-contain"
+            fill
+            priority={active === 0}
+            sizes="(min-width: 1024px) 720px, 100vw"
+            className="object-contain"
             draggable={false}
           />
         ) : (
@@ -164,8 +167,9 @@ export function ProductGallery({
                 )}
               >
                 {image.src ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={image.src} alt="" className="h-full w-full object-cover" draggable={false} />
+                  <div className="relative h-full w-full">
+                    <Image src={image.src} alt="" fill sizes="96px" className="object-cover" draggable={false} />
+                  </div>
                 ) : (
                   <div className="h-14 w-10">
                     <MachineRender variant={image.render} gpuCount={gpuCount} compact />

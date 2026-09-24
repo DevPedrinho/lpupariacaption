@@ -187,6 +187,37 @@ export default async function SettingsPage({
             <Row id="warrantyPolicy" label="Garantia (resumo)" hint="Exibida nas páginas de produto que não têm garantia específica. A política completa fica em /garantia." full>
               <textarea id="warrantyPolicy" name="warrantyPolicy" rows={2} defaultValue={settings.warrantyPolicy} className={area} />
             </Row>
+            <Row
+              id="caseStudies"
+              label="Casos atendidos"
+              hint="Um por linha: Segmento | Título | Texto. Só publique com autorização do cliente. Vazio = a seção não aparece."
+              full
+            >
+              <textarea
+                id="caseStudies"
+                name="caseStudies"
+                rows={4}
+                placeholder="Universidade | Laboratório de visão computacional em Fortaleza | Workstation com duas placas profissionais para treinar modelos de inspeção de imagens."
+                defaultValue={settings.caseStudies.map((item) => `${item.segment} | ${item.title} | ${item.text}`).join('\n')}
+                className={area}
+              />
+            </Row>
+            <div className="md:col-span-2">
+              <label className="flex items-start gap-3 text-sm text-ink-200">
+                <input
+                  type="checkbox"
+                  name="showTestimonials"
+                  defaultChecked={settings.showTestimonials}
+                  className="mt-0.5 size-4 rounded border-ink-600 bg-ink-900 accent-brand-500"
+                />
+                <span>
+                  Mostrar a seção de depoimentos na home
+                  <span className="mt-0.5 block text-xs text-ink-500">
+                    Desmarque enquanto só houver depoimentos demonstrativos. Anúncio não deve cair em página com aviso de demonstração.
+                  </span>
+                </span>
+              </label>
+            </div>
           </div>
         </Panel>
 
@@ -208,13 +239,27 @@ export default async function SettingsPage({
             <Row id="metaPixelId" label="Meta Pixel">
               <input id="metaPixelId" name="metaPixelId" defaultValue={settings.metaPixelId} className={input} />
             </Row>
-            <Row id="googleAdsId" label="Google Ads">
+            <Row id="googleAdsId" label="Google Ads (ID de conversão)">
               <input id="googleAdsId" name="googleAdsId" placeholder="AW-XXXXXXXXX" defaultValue={settings.googleAdsId} className={input} />
+            </Row>
+            <Row
+              id="adsConversionWhatsapp"
+              label="Rótulo de conversão: clique no WhatsApp"
+              hint="Só a parte depois da barra no código da ação de conversão. Ex.: AbCdEfGhIjK-1"
+            >
+              <input id="adsConversionWhatsapp" name="adsConversionWhatsapp" defaultValue={settings.adsConversionWhatsapp} className={input} />
+            </Row>
+            <Row
+              id="adsConversionLead"
+              label="Rótulo de conversão: lead do formulário"
+              hint="Ação de conversão separada, para o Ads distinguir formulário de WhatsApp."
+            >
+              <input id="adsConversionLead" name="adsConversionLead" defaultValue={settings.adsConversionLead} className={input} />
             </Row>
           </div>
           <p className="mt-4 text-xs leading-relaxed text-ink-500">
-            Os scripts só são carregados depois que o visitante aceita os cookies de medição no banner de
-            consentimento.
+            As tags do Google carregam em modo anônimo (Consent Mode v2) e só usam cookies depois que o
+            visitante aceita no banner. O Meta Pixel segue a mesma regra.
           </p>
         </Panel>
 

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { readConsent, writeConsent, type ConsentValue } from '@/lib/consent'
 import { Button } from '@/components/ui/Button'
 
-/** Banner de consentimento — os scripts de mensuração só carregam após o aceite. */
+/** Banner de consentimento. Antes do aceite, a mensuração roda sem cookies (Consent Mode v2). */
 export function CookieConsent() {
   const [consent, setConsent] = useState<ConsentValue>('accepted')
 

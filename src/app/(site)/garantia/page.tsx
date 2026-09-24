@@ -50,6 +50,14 @@ Durante o prazo, a UPAR repara ou substitui o componente com defeito sem custo d
 3. Se for necessário, combinamos a entrega do equipamento${settings.addressLine ? ` na nossa loja (${settings.addressLine}${settings.city ? `, ${settings.city}` : ''})` : ''} ou o envio por transportadora. Dentro da garantia, o frete de retorno após o reparo é por conta da UPAR.
 4. Ao final, você recebe o equipamento testado, com o registro do que foi feito.
 
+## Manutenção preventiva
+
+Clientes de Fortaleza têm **manutenção preventiva gratuita de 1 a 5 anos, conforme o produto**: limpeza, troca de pasta térmica, verificação de refrigeração e testes de estabilidade, feitos pela equipe da UPAR. O prazo e a periodicidade de cada configuração constam na proposta. Fora de Fortaleza, a preventiva é orçada caso a caso.
+
+## Recompra no upgrade
+
+Quando você decidir ampliar a máquina, a UPAR avalia e recompra os itens substituídos (placa de vídeo, memória, armazenamento) para abater no upgrade. O valor depende do estado e do modelo do componente e é informado na proposta do upgrade.
+
 ## Suporte depois da garantia
 
 Encerrado o prazo, a UPAR continua atendendo: diagnóstico, reparo e upgrade são orçados caso a caso. Quem atende é a mesma equipe que dimensionou e montou a máquina.

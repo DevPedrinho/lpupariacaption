@@ -21,7 +21,7 @@ function resolveSiteUrl(): string {
   const deployment = process.env.VERCEL_URL?.trim()
   if (deployment) return `https://${deployment.replace(/\/+$/, '')}`
 
-  return 'https://ai.upartech.com.br'
+  return 'https://upartechai.com.br'
 }
 
 export const siteUrl = resolveSiteUrl()

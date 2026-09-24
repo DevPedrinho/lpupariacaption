@@ -38,11 +38,19 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params
   const product = await getRepository().getProduct(slug)
   if (!product) return { title: 'Configuração não encontrada' }
+  // Título com o termo que o cliente busca ("workstation para IA") e a placa,
+  // que é o que diferencia uma configuração da outra na página de resultados.
+  const titulo =
+    product.seoTitle ??
+    `${product.name}: ${formFactorLabel[product.formFactor].toLowerCase()} para IA com ${gpuSummary(product)} ${vramSummary(product)}`
+  const descricao =
+    product.seoDescription ??
+    `${product.tagline} ${product.cpu.model}, ${formatCapacity(product.ram.capacityGb)} de RAM. Consultoria técnica gratuita e garantia de 12 a 60 meses.`.slice(0, 155)
   return {
-    title: product.seoTitle ?? product.name,
-    description: product.seoDescription ?? product.summary.slice(0, 155),
+    title: titulo,
+    description: descricao,
     alternates: { canonical: `/produtos/${product.slug}` },
-    openGraph: { title: product.seoTitle ?? product.name, description: product.summary },
+    openGraph: { title: titulo, description: descricao },
   }
 }
 

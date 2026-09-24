@@ -1,4 +1,5 @@
 import { DEFAULT_DIAGNOSTIC_QUESTIONS } from './diagnostic-questions'
+import { defaultLandingPages } from './landing'
 import type { Article, CategoryComparison, Faq, Testimonial, SiteSettings, AdminUser, AuditLog } from '@/lib/types'
 
 /* ------------------------- Comparativo de categorias ----------------------- */
@@ -450,6 +451,11 @@ export const defaultSettings: SiteSettings = {
   gtmId: '',
   metaPixelId: '',
   googleAdsId: '',
+  adsConversionWhatsapp: '',
+  adsConversionLead: '',
+  showTestimonials: true,
+  caseStudies: [],
+  landingPages: defaultLandingPages,
   pendingRealData: [
     'Número oficial do WhatsApp comercial',
     'Cores oficiais da marca (arquivo de identidade visual)',

@@ -21,6 +21,7 @@ export const ADMIN_NAV: NavItem[] = [
   { href: '/admin/produtos', label: 'Produtos', icon: 'cpu', capability: 'produtos' },
   { href: '/admin/conteudos', label: 'Conteúdos', icon: 'edit', capability: 'conteudos' },
   { href: '/admin/formulario', label: 'Formulário', icon: 'layers', capability: 'configuracoes' },
+  { href: '/admin/paginas-de-destino', label: 'Páginas de destino', icon: 'spark', capability: 'configuracoes' },
   { href: '/admin/configuracoes', label: 'Configurações', icon: 'sliders', capability: 'configuracoes' },
   { href: '/admin/usuarios', label: 'Usuários', icon: 'lock', capability: 'usuarios' },
   { href: '/admin/registros', label: 'Registros', icon: 'clock', capability: 'logs' },

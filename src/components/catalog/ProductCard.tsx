@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Badge } from '@/components/ui/Badge'
 import { Icon, type IconName } from '@/components/ui/Icon'
+import Image from 'next/image'
 import { MachineRender } from '@/components/site/MachineRender'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
 import { cn } from '@/lib/cn'
@@ -57,13 +58,13 @@ export function ProductCard({
           className="absolute inset-0 -z-10 opacity-45 grid-mesh [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]"
         />
         {product.images[0]?.src ? (
-          <div className="aspect-4/3 overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          <div className="relative aspect-4/3 overflow-hidden">
+            <Image
               src={product.images[0].src}
               alt={product.images[0].alt}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              fill
+              sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
           </div>
         ) : (

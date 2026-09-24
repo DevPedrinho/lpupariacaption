@@ -171,6 +171,26 @@ export interface Article {
   seoDescription?: string
 }
 
+/** Páginas de destino das campanhas, uma por público. */
+export type LandingSlug = 'empresas' | 'universidades' | 'fortaleza'
+
+export interface LandingCopy {
+  eyebrow: string
+  title: string
+  subtitle: string
+  /** Vantagens reais, uma por linha no painel. */
+  bullets: string[]
+  ctaLabel: string
+  note?: string
+}
+
+/** Caso atendido, escrito pela UPAR e publicado só com autorização do cliente. */
+export interface CaseStudy {
+  segment: string
+  title: string
+  text: string
+}
+
 export interface Testimonial {
   id: string
   quote: string
@@ -214,7 +234,7 @@ export type LeadStatus =
   | 'venda_concluida'
   | 'perdido'
 
-export type LeadOrigin = 'diagnostico' | 'produto' | 'comparativo' | 'contato' | 'consultoria' | 'catalogo'
+export type LeadOrigin = 'diagnostico' | 'produto' | 'comparativo' | 'contato' | 'consultoria' | 'catalogo' | 'landing'
 
 /**
  * Respostas do diagnóstico, indexadas pelo título da pergunta.
@@ -262,6 +282,8 @@ export interface Lead {
   status: LeadStatus
   owner?: string
   notes?: string
+  /** Quando o lead foi marcado como venda concluída; alimenta a conversão offline do Ads. */
+  closedAt?: string
 }
 
 /* -------------------------- Usuários e auditoria --------------------------- */
@@ -331,6 +353,15 @@ export interface SiteSettings {
   gtmId?: string
   metaPixelId?: string
   googleAdsId?: string
+  /** Rótulos das ações de conversão do Google Ads (a parte depois da barra). */
+  adsConversionWhatsapp?: string
+  adsConversionLead?: string
+  /** Chave para esconder a seção de depoimentos (ex.: enquanto só houver demonstrativos). */
+  showTestimonials: boolean
+  /** Casos atendidos exibidos na home e nas páginas de destino. */
+  caseStudies: CaseStudy[]
+  /** Textos das páginas de destino (/lp/...), editáveis no painel. */
+  landingPages: Record<LandingSlug, LandingCopy>
   /** Campos que ainda aguardam informação real da UPAR. */
   pendingRealData: string[]
   /** Template do diagnóstico "Encontre sua configuração", editável no painel. */

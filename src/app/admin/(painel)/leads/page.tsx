@@ -10,7 +10,7 @@ import { formatDateTime, leadStatusLabel, leadStatusOrder } from '@/lib/format'
 import { updateLead } from '../../actions'
 import type { Lead, LeadStatus } from '@/lib/types'
 
-const ORIGINS = ['diagnostico', 'produto', 'comparativo', 'contato', 'consultoria', 'catalogo'] as const
+const ORIGINS = ['diagnostico', 'produto', 'comparativo', 'contato', 'consultoria', 'catalogo', 'landing'] as const
 
 const control =
   'h-10 rounded-lg border border-ink-600/70 bg-ink-900/70 px-3 text-sm text-ink-50 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/35 focus:outline-none'
@@ -64,13 +64,23 @@ export default async function LeadsPage({
         title="Leads"
         description="Contatos captados pelo diagnóstico, pelas páginas de produto, pelo comparativo e pelos formulários."
         actions={
-          <a
-            href={`/api/admin/leads/csv${csvQuery ? `?${csvQuery}` : ''}`}
-            className="inline-flex h-11 items-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/70 px-4 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
-          >
-            <Icon name="download" className="size-4" />
-            Exportar CSV
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href="/api/admin/leads/ads-offline"
+              title="Vendas concluídas que vieram de anúncio, no formato de importação de conversões do Google Ads"
+              className="inline-flex h-11 items-center gap-2 rounded-lg border border-ink-600/70 px-4 text-sm font-medium text-ink-200 transition-colors hover:border-ink-500 hover:text-white"
+            >
+              <Icon name="download" className="size-4" />
+              Conversões para o Ads
+            </a>
+            <a
+              href={`/api/admin/leads/csv${csvQuery ? `?${csvQuery}` : ''}`}
+              className="inline-flex h-11 items-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/70 px-4 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
+            >
+              <Icon name="download" className="size-4" />
+              Exportar CSV
+            </a>
+          </div>
         }
       />
 

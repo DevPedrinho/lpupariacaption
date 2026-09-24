@@ -29,9 +29,16 @@ const initial: State = {
 export function LeadForm({
   applications,
   origin = 'contato',
+  compact = false,
+  title = 'Fale com a nossa equipe',
+  description = 'Quanto mais detalhe sobre a sua aplicação, mais objetiva será a resposta.',
 }: {
   applications: Pick<Application, 'slug' | 'name'>[]
   origin?: LeadOrigin
+  /** Só nome, telefone e aplicação: para páginas de destino, onde cada campo a mais custa envio. */
+  compact?: boolean
+  title?: string
+  description?: string
 }) {
   const [values, setValues] = useState<State>(initial)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -108,10 +115,8 @@ export function LeadForm({
 
   return (
     <form onSubmit={submit} noValidate className="rounded-xl border border-ink-700/70 bg-ink-880/60 p-6 md:p-8">
-      <h2 className="text-xl font-semibold text-white">Fale com a nossa equipe</h2>
-      <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-300">
-        Quanto mais detalhe sobre a sua aplicação, mais objetiva será a resposta.
-      </p>
+      <h2 className="text-xl font-semibold text-white">{title}</h2>
+      <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-300">{description}</p>
 
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <Field label="Nome" required error={errors.name}>
@@ -138,6 +143,8 @@ export function LeadForm({
           )}
         </Field>
 
+        {!compact && (
+        <>
         <Field label="Empresa ou instituição" error={errors.company}>
           {(props) => (
             <Input
@@ -186,6 +193,8 @@ export function LeadForm({
             />
           )}
         </Field>
+        </>
+        )}
 
         <Field label="Aplicação principal" className="sm:col-span-2">
           {(props) => (
@@ -204,6 +213,7 @@ export function LeadForm({
           )}
         </Field>
 
+        {!compact && (
         <Field label="Como podemos ajudar?" className="sm:col-span-2">
           {(props) => (
             <Textarea
@@ -215,6 +225,7 @@ export function LeadForm({
             />
           )}
         </Field>
+        )}
       </div>
 
       <div className="mt-6">

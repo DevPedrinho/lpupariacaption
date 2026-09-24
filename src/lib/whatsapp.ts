@@ -9,6 +9,7 @@ export type WhatsAppContext =
   | { kind: 'diagnostico'; answers: DiagnosticAnswers; recommendation?: string }
   | { kind: 'aplicacao'; application: string }
   | { kind: 'consultoria' }
+  | { kind: 'lp'; page: string }
 
 /**
  * A mensagem muda conforme a origem do clique, para que o especialista já
@@ -53,6 +54,11 @@ export function buildWhatsAppMessage(context: WhatsAppContext, fallbackGreeting:
       return context.filters
         ? `Olá! Estou no catálogo da UPAR AI filtrando por ${context.filters}. Pode me ajudar a escolher?`
         : 'Olá! Estou no catálogo da UPAR AI e gostaria de ajuda para escolher a configuração certa.'
+    case 'lp':
+      return (
+        `Olá! Vim pela página "${context.page}" da UPAR AI e quero conversar sobre ` +
+        'uma configuração para a minha aplicação de inteligência artificial.'
+      )
     case 'consultoria':
       return (
         'Olá! Quero conversar com um especialista da UPAR AI sobre o dimensionamento ' +
@@ -63,6 +69,11 @@ export function buildWhatsAppMessage(context: WhatsAppContext, fallbackGreeting:
     default:
       return fallbackGreeting
   }
+}
+
+/** Acrescenta a campanha de origem ao fim da mensagem, quando houver. */
+export function withCampaign(message: string, campaign?: string): string {
+  return campaign ? `${message}\n\n(Cheguei pelo anúncio: ${campaign})` : message
 }
 
 /** Monta a URL do WhatsApp já com a mensagem contextual. */

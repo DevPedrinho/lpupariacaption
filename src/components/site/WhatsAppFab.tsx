@@ -2,8 +2,8 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { track } from '@/lib/analytics'
-import { buildWhatsAppMessage, whatsappUrl } from '@/lib/whatsapp'
+import { campaignLabel, track } from '@/lib/analytics'
+import { buildWhatsAppMessage, whatsappUrl, withCampaign } from '@/lib/whatsapp'
 import { Icon } from '@/components/ui/Icon'
 import { useSiteConfig } from './SiteConfig'
 
@@ -12,8 +12,10 @@ export function WhatsAppFab() {
   const settings = useSiteConfig()
   const pathname = usePathname()
   const [visible, setVisible] = useState(false)
+  const [campaign, setCampaign] = useState<string | undefined>()
 
   useEffect(() => {
+    setCampaign(campaignLabel())
     const onScroll = () => setVisible(window.scrollY > 420)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -22,7 +24,7 @@ export function WhatsAppFab() {
 
   const href = whatsappUrl(
     settings.whatsappNumber,
-    buildWhatsAppMessage({ kind: 'geral' }, settings.whatsappGreeting),
+    withCampaign(buildWhatsAppMessage({ kind: 'geral' }, settings.whatsappGreeting), campaign),
   )
 
   return (

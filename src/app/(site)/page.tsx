@@ -10,6 +10,7 @@ import { ApplicationsGrid } from '@/components/home/ApplicationsGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
 import { Differentials } from '@/components/home/Differentials'
 import { Testimonials } from '@/components/home/Testimonials'
+import { CaseStudies } from '@/components/home/CaseStudies'
 import { FaqSection } from '@/components/home/FaqSection'
 import { FinalCta } from '@/components/home/FinalCta'
 
@@ -19,7 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: settings.seoTitle,
     description: settings.seoDescription,
     alternates: { canonical: '/' },
-    openGraph: { title: settings.seoTitle, description: settings.seoDescription, url: '/' },
+    // Sem objeto `openGraph` aqui: ele substituiria o da raiz por inteiro e a
+    // imagem de compartilhamento (opengraph-image.tsx) deixaria de entrar.
   }
 }
 
@@ -47,7 +49,8 @@ export default async function HomePage() {
       <ApplicationsGrid applications={applications} />
       <FeaturedProducts products={highlighted} applications={appIndex} />
       <Differentials />
-      <Testimonials testimonials={testimonials} />
+      <CaseStudies cases={settings.caseStudies} />
+      {settings.showTestimonials && <Testimonials testimonials={testimonials} />}
       <FaqSection faqs={faqs} />
       <FinalCta />
     </>

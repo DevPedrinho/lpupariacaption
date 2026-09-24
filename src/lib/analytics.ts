@@ -15,6 +15,8 @@ declare global {
     dataLayer?: Params[]
     gtag?: (...args: unknown[]) => void
     fbq?: (...args: unknown[]) => void
+    /** Rótulos de conversão do Google Ads por evento, definidos por <Analytics />. */
+    uparConversions?: Partial<Record<UparEvent, string>>
   }
 }
 
@@ -45,6 +47,10 @@ export function track(event: UparEvent, params: Params = {}): void {
 
   window.gtag?.('event', event, payload)
 
+  // Ação de conversão do Google Ads, quando o painel tiver o rótulo cadastrado.
+  const sendTo = window.uparConversions?.[event]
+  if (sendTo) window.gtag?.('event', 'conversion', { send_to: sendTo, ...payload })
+
   const metaEvent = META_EVENT[event]
   if (metaEvent) window.fbq?.('track', metaEvent, payload)
 }
@@ -67,6 +73,21 @@ export function captureUtm(): void {
   } catch {
     /* armazenamento indisponível — seguimos sem persistir */
   }
+}
+
+/**
+ * Nome curto da campanha de origem, para o vendedor saber de onde a conversa
+ * veio sem perguntar. Vazio quando a visita não veio de anúncio.
+ */
+export function campaignLabel(): string | undefined {
+  // Garante a captura mesmo quando este código roda antes do <Analytics />.
+  captureUtm()
+  const utm = readUtm()
+  const campaign = utm.utm_campaign?.trim()
+  if (campaign) return campaign.slice(0, 60)
+  if (utm.gclid) return 'Google Ads'
+  if (utm.fbclid) return 'Meta Ads'
+  return undefined
 }
 
 export function readUtm(): Record<string, string> {

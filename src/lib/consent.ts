@@ -2,7 +2,8 @@
 
 export type ConsentValue = 'accepted' | 'essential' | null
 
-const KEY = 'upar.consent'
+export const CONSENT_KEY = 'upar.consent'
+const KEY = CONSENT_KEY
 export const CONSENT_EVENT = 'upar:consent-change'
 
 export function readConsent(): ConsentValue {

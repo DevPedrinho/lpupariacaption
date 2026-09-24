@@ -15,9 +15,10 @@ import {
   normalizeQuestions,
   validateQuestions,
 } from '@/lib/diagnostic'
+import { LANDING_SLUGS, defaultLandingPages } from '@/data/landing'
 import type {
-  Article, DiagnosticQuestion, ProductImage, Availability, FormFactor, GpuVendor, LeadStatus, PerformanceTier, PriceMode, Product,
-  PublishStatus, SiteSettings, StorageDrive,
+  Article, DiagnosticQuestion, ProductImage, Availability, FormFactor, GpuVendor, LandingCopy, LandingSlug, LeadStatus,
+  PerformanceTier, PriceMode, Product, PublishStatus, SiteSettings, StorageDrive,
 } from '@/lib/types'
 
 export type ActionState = { error?: string; success?: string }
@@ -76,10 +77,14 @@ async function atualizarLead(formData: FormData): Promise<void> {
   const notes = text(formData, 'notes')
 
   const repo = getRepository()
+  const atual = (await repo.listLeads()).find((lead) => lead.id === id)
+  const fechouAgora = status === 'venda_concluida' && atual?.status !== 'venda_concluida'
   const updated = await repo.updateLead(id, {
     status,
     owner: owner || undefined,
     ...(formData.has('notes') ? { notes: notes || undefined } : {}),
+    // A data da venda é o que o Google Ads usa na conversão offline.
+    ...(fechouAgora ? { closedAt: new Date().toISOString() } : {}),
   })
 
   if (updated) {
@@ -331,6 +336,14 @@ async function salvarConfiguracoes(formData: FormData): Promise<void> {
     gtmId: text(formData, 'gtmId'),
     metaPixelId: text(formData, 'metaPixelId'),
     googleAdsId: text(formData, 'googleAdsId'),
+    adsConversionWhatsapp: text(formData, 'adsConversionWhatsapp'),
+    adsConversionLead: text(formData, 'adsConversionLead'),
+    showTestimonials: formData.get('showTestimonials') === 'on',
+    // Uma linha por caso: "Segmento | Título | Texto".
+    caseStudies: lines(formData, 'caseStudies')
+      .map((line) => line.split('|').map((part) => part.trim()))
+      .filter((parts) => parts.length >= 3 && parts[0] && parts[1] && parts[2])
+      .map(([segment, title, ...rest]) => ({ segment, title, text: rest.join(' | ') })),
     pendingRealData: lines(formData, 'pendingRealData'),
   }
 
@@ -344,6 +357,40 @@ async function salvarConfiguracoes(formData: FormData): Promise<void> {
 
   revalidatePath('/', 'layout')
   redirect('/admin/configuracoes?salvo=1')
+}
+
+/* --------------------------- Páginas de destino ---------------------------- */
+
+async function salvarPaginasDeDestino(formData: FormData): Promise<void> {
+  const session = await requireSession('configuracoes')
+  const repo = getRepository()
+  const atual = (await repo.getSettings()).landingPages
+
+  const landingPages = Object.fromEntries(
+    LANDING_SLUGS.map((slug) => {
+      const base = atual[slug] ?? defaultLandingPages[slug]
+      const copy: LandingCopy = {
+        eyebrow: text(formData, `${slug}.eyebrow`) || base.eyebrow,
+        title: text(formData, `${slug}.title`) || base.title,
+        subtitle: text(formData, `${slug}.subtitle`) || base.subtitle,
+        bullets: lines(formData, `${slug}.bullets`).slice(0, 6),
+        ctaLabel: text(formData, `${slug}.ctaLabel`) || base.ctaLabel,
+        note: text(formData, `${slug}.note`) || undefined,
+      }
+      return [slug, copy]
+    }),
+  ) as Record<LandingSlug, LandingCopy>
+
+  await repo.updateSettings({ landingPages })
+  await repo.log({
+    actor: session.email,
+    action: 'paginas_destino.atualizadas',
+    entity: 'site',
+    detail: LANDING_SLUGS.join(', '),
+  })
+
+  revalidatePath('/', 'layout')
+  redirect('/admin/paginas-de-destino?salvo=1')
 }
 
 /* ------------------------- Formulário do diagnóstico ----------------------- */
@@ -581,6 +628,9 @@ export async function saveArticle(formData: FormData): Promise<void> {
 }
 export async function saveSettings(formData: FormData): Promise<void> {
   return gravando('/admin/configuracoes', () => salvarConfiguracoes(formData))
+}
+export async function saveLandingPages(formData: FormData): Promise<void> {
+  return gravando('/admin/paginas-de-destino', () => salvarPaginasDeDestino(formData))
 }
 export async function saveDiagnosticForm(formData: FormData): Promise<void> {
   return gravando('/admin/formulario', () => salvarFormularioDoDiagnostico(formData))
