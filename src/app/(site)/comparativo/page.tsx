@@ -4,6 +4,8 @@ import { ButtonLink } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { PageHero } from '@/components/site/PageHero'
 import { Section, SectionHeader } from '@/components/ui/Section'
+import { notFound } from 'next/navigation'
+import { getRepository } from '@/lib/repository'
 import { getCustomerSession } from '@/lib/customer-auth'
 import { STATUS_LABEL, listCustomerComparisons, comparativosDisponiveis } from '@/lib/comparativos'
 import { formatDate } from '@/lib/format'
@@ -35,6 +37,8 @@ const GANHOS = [
 export const maxDuration = 60
 
 export default async function ComparativoPage() {
+  // Módulo desligado nas configurações: a página não existe para o público.
+  if (!(await getRepository().getSettings()).showComparativo) notFound()
   const session = await getCustomerSession()
 
   /* ------------------------ Visitante: apresentação ------------------------ */

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Icon } from '@/components/ui/Icon'
 import { Section } from '@/components/ui/Section'
+import { getRepository } from '@/lib/repository'
 import { requireCustomer } from '@/lib/customer-auth'
 import {
   STATUS_LABEL,
@@ -51,6 +52,7 @@ function Balao({
 
 export default async function ConversaPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
+  if (!(await getRepository().getSettings()).showComparativo) notFound()
   const session = await requireCustomer(`/comparativo/${id}`)
 
   // A posse é checada na consulta: id de outra pessoa simplesmente não retorna.

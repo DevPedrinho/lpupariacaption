@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Icon, type IconName } from '@/components/ui/Icon'
@@ -12,6 +11,11 @@ import {
   tierLabel, vramSummary,
 } from '@/lib/format'
 import type { Product } from '@/lib/types'
+
+/** O painel aceita "30" ou "30 dias": o número sozinho vira frase. */
+function prazo(value: string): string {
+  return /^\d+$/.test(value.trim()) ? `Prazo estimado: ${value.trim()} dias` : value
+}
 
 const availabilityTone = {
   in_stock: 'positive',
@@ -88,46 +92,21 @@ export function ProductBuyBox({
             {formatPrice(product.priceMode, product.priceBrl)}
           </p>
           <p className="mt-1 text-sm text-ink-400">
-            {product.isDemo && product.priceMode !== 'on_request'
-              ? 'Valor demonstrativo. O investimento final depende da configuração definida com o especialista.'
-              : 'O investimento final depende da configuração definida com o especialista.'}
+            {product.isDemo && product.priceMode !== 'on_request' ? 'Valor demonstrativo. ' : ''}
+            Proposta fechada com o especialista.
           </p>
-          {product.leadTime && <p className="mt-2 text-sm text-ink-300">{product.leadTime}</p>}
+          {product.leadTime && <p className="mt-2 text-sm text-ink-300">{prazo(product.leadTime)}</p>}
         </div>
 
-        <div className="flex flex-col gap-2.5">
-          <WhatsAppCta
-            context={{ kind: 'produto', product, application: applicationName }}
-            size="lg"
-            className="w-full"
-          >
-            {/* O rótulo longo não cabe em telas estreitas e o botão não quebra linha. */}
-            <span className="sm:hidden">Validar com especialista</span>
-            <span className="hidden sm:inline">Validar esta configuração no WhatsApp</span>
-          </WhatsAppCta>
-
-          {/* Ações secundárias em dois blocos iguais: cabem lado a lado até em 360px. */}
-          <div className="grid grid-cols-2 gap-2.5">
-            <Link
-              href="/comparativo"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-3 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
-            >
-              <Icon name="compare" className="size-4 shrink-0" />
-              Comparar
-            </Link>
-            <Link
-              href="/encontre-sua-configuracao"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-ink-600/70 bg-ink-800/60 px-3 text-sm font-medium text-ink-50 transition-colors hover:border-ink-500"
-            >
-              <Icon name="spark" className="size-4 shrink-0" />
-              É para mim?
-            </Link>
-          </div>
-        </div>
-
-        <p className="text-xs leading-relaxed text-ink-400">
-          Um especialista confere se esta configuração atende a sua aplicação antes de qualquer proposta.
-        </p>
+        {/* Um único botão: o WhatsApp é o caminho. Comparar e diagnóstico saíram daqui. */}
+        <WhatsAppCta
+          context={{ kind: 'produto', product, application: applicationName }}
+          size="lg"
+          className="w-full"
+        >
+          <span className="sm:hidden">Validar com especialista</span>
+          <span className="hidden sm:inline">Validar esta configuração no WhatsApp</span>
+        </WhatsAppCta>
       </div>
     </div>
   )

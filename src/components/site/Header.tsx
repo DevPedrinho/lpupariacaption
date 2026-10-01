@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/cn'
-import { mainNav } from '@/lib/navigation'
+import { mainNav, visivel } from '@/lib/navigation'
+import { useSiteConfig } from './SiteConfig'
 import { Icon } from '@/components/ui/Icon'
 import { ButtonLink } from '@/components/ui/Button'
 import { Logo } from './Logo'
@@ -12,6 +13,8 @@ import { WhatsAppCta } from './WhatsAppCta'
 
 export function Header() {
   const pathname = usePathname()
+  const settings = useSiteConfig()
+  const nav = visivel(mainNav, settings.showComparativo)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -54,7 +57,7 @@ export function Header() {
           <Logo />
 
           <nav aria-label="Navegação principal" className="hidden items-center gap-0.5 lg:flex">
-            {mainNav.map((item) => {
+            {nav.map((item) => {
               const active = pathname === item.href || pathname.startsWith(`${item.href}/`)
               return (
                 <Link
@@ -120,7 +123,7 @@ export function Header() {
           className="border-t border-ink-700/60 bg-ink-950/97 backdrop-blur-xl lg:hidden"
         >
           <nav aria-label="Navegação principal (celular)" className="container-page flex flex-col gap-1 py-4">
-            {mainNav.map((item) => (
+            {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

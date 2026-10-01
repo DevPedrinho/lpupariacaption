@@ -339,6 +339,7 @@ async function salvarConfiguracoes(formData: FormData): Promise<void> {
     adsConversionWhatsapp: text(formData, 'adsConversionWhatsapp'),
     adsConversionLead: text(formData, 'adsConversionLead'),
     showTestimonials: formData.get('showTestimonials') === 'on',
+    showComparativo: formData.get('showComparativo') === 'on',
     // Uma linha por caso: "Segmento | Título | Texto".
     caseStudies: lines(formData, 'caseStudies')
       .map((line) => line.split('|').map((part) => part.trim()))

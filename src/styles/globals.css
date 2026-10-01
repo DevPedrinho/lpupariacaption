@@ -226,8 +226,27 @@
   to   { transform: translateX(220%); }
 }
 
+@keyframes upar-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -7px, 0); }
+}
+@keyframes upar-scan {
+  0%   { transform: translate3d(0, -30%, 0); opacity: 0; }
+  12%  { opacity: 0.55; }
+  88%  { opacity: 0.55; }
+  100% { transform: translate3d(0, 130%, 0); opacity: 0; }
+}
+
 @utility animate-rise {
   animation: upar-rise 0.62s var(--ease-out-soft) both;
+}
+/* Flutuação suave dos cartões do hero: só `transform`, sem repaint pesado. */
+@utility animate-float {
+  animation: upar-float 5.5s ease-in-out infinite;
+}
+/* Linha de varredura sobre a ilustração: remete a leitura de dados. */
+@utility animate-scan {
+  animation: upar-scan 7s ease-in-out infinite;
 }
 @utility animate-slow-pulse {
   animation: upar-pulse 6s ease-in-out infinite;

@@ -83,14 +83,25 @@ export function Hero() {
               background: 'radial-gradient(circle, rgba(55,219,154,0.38), rgba(130,208,228,0.12) 55%, transparent 72%)',
             }}
           />
-          <div className="mx-auto h-[24rem] w-[19rem] animate-rise sm:h-[30rem] sm:w-[24rem] lg:h-[34rem] lg:w-[27rem]">
+          <div className="relative mx-auto h-[24rem] w-[19rem] animate-rise sm:h-[30rem] sm:w-[24rem] lg:h-[34rem] lg:w-[27rem]">
             <MachineRender variant="tower-glass" gpuCount={3} />
+            {/* Varredura: uma faixa fina que desce pela ilustração. Só transform e opacity. */}
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 inset-y-4 overflow-hidden rounded-3xl">
+              <div
+                className="absolute inset-x-0 top-0 h-24 animate-scan"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, transparent, rgba(55,219,154,0.18) 45%, rgba(130,208,228,0.22) 50%, rgba(55,219,154,0.18) 55%, transparent)',
+                }}
+              />
+            </div>
           </div>
 
-          {FLOATING.map((chip) => (
+          {FLOATING.map((chip, index) => (
             <div
               key={chip.label}
-              className={`absolute ${chip.position} flex items-center gap-2.5 rounded-lg border border-ink-600/70 bg-ink-900/85 px-3 py-2 shadow-lift backdrop-blur-md`}
+              style={{ animationDelay: `${index * 1.4}s` }}
+              className={`absolute ${chip.position} flex items-center gap-2.5 rounded-lg border border-ink-600/70 bg-ink-900/85 px-3 py-2 shadow-lift backdrop-blur-md animate-float`}
             >
               <Icon name={chip.icon} className="size-4 text-flux-400" />
               <span className="text-2xs tracking-[0.08em] text-ink-400 uppercase">{chip.label}</span>

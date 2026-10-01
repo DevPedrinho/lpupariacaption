@@ -10,6 +10,8 @@ import { JsonLd } from '@/components/site/JsonLd'
 import { PageHero } from '@/components/site/PageHero'
 import { ProductBuyBox } from '@/components/product/ProductBuyBox'
 import { ProductGallery } from '@/components/product/ProductGallery'
+import { PurchaseBenefits } from '@/components/product/PurchaseBenefits'
+import { SpecSheet } from '@/components/product/SpecSheet'
 import { ProductStickyCta } from '@/components/product/ProductStickyCta'
 import { ProductCard } from '@/components/catalog/ProductCard'
 import { FinalCta } from '@/components/home/FinalCta'
@@ -123,13 +125,15 @@ export default async function ProductPage({ params }: Params) {
         ...(product.chassis ? [{ label: 'Gabinete', value: product.chassis }] : []),
       ],
     },
+    ...(product.expansion.length > 0
+      ? [{ group: 'Expansão futura', rows: product.expansion.map((item) => ({ label: 'Pode ampliar', value: item })) }]
+      : []),
     {
       group: 'Comercial',
       rows: [
         { label: 'Formato', value: formFactorLabel[product.formFactor] },
         { label: 'Nível de desempenho', value: tierLabel[product.performanceTier] },
         { label: 'Disponibilidade', value: availabilityLabel[product.availability] },
-        { label: 'Perfil de cliente', value: product.clientProfile },
       ],
     },
   ]
@@ -182,7 +186,7 @@ export default async function ProductPage({ params }: Params) {
               <div>
                 <p className="text-2xs font-semibold tracking-[0.14em] text-ink-400 uppercase">Aplicações</p>
                 <ul className="mt-2 flex flex-wrap gap-2">
-                  {productApps.slice(0, 4).map((application) => (
+                  {productApps.map((application) => (
                     <li key={application.slug}>
                       <Link
                         href={`/solucoes/${application.slug}`}
@@ -205,6 +209,8 @@ export default async function ProductPage({ params }: Params) {
           </div>
         </div>
       </Section>
+
+      <PurchaseBenefits product={product} settings={settings} />
 
       {product.isDemo && (
         <div className="container-page pb-10">
@@ -245,6 +251,7 @@ export default async function ProductPage({ params }: Params) {
       </Section>
 
       {/* ------------------- O que este computador consegue fazer ----------------- */}
+      {product.capabilities.length > 0 && (
       <Section id="capacidades">
         <div className="container-page">
           <SectionHeader
@@ -272,6 +279,7 @@ export default async function ProductPage({ params }: Params) {
           </p>
         </div>
       </Section>
+      )}
 
       {/* ----------------------------- Benchmarks -------------------------------- */}
       {validatedBenchmarks.length > 0 && (
@@ -319,85 +327,7 @@ export default async function ProductPage({ params }: Params) {
             )}
           </div>
 
-          <div className="flex flex-col gap-6">
-            {fullSpecs.map((group) => (
-              <div key={group.group} className="overflow-hidden rounded-xl border border-ink-700/70">
-                <h3 className="border-b border-ink-700/60 bg-ink-850 px-5 py-3 text-sm font-semibold text-white">
-                  {group.group}
-                </h3>
-                <dl className="divide-y divide-ink-700/50">
-                  {group.rows.map((row) => (
-                    <div key={row.label} className="flex flex-col gap-1 px-5 py-3.5 sm:flex-row sm:gap-6">
-                      <dt className="shrink-0 text-sm text-ink-400 sm:w-56">{row.label}</dt>
-                      <dd className="text-sm text-ink-100">{row.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* ------------------- Aplicações, expansão, garantia ---------------------- */}
-      <Section id="indicacoes">
-        <div className="container-page grid gap-10 lg:grid-cols-3">
-          <div className="rounded-xl border border-ink-700/70 bg-ink-880/60 p-6">
-            <h2 className="text-lg font-semibold text-white">Aplicações recomendadas</h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink-300">
-              Esta configuração foi dimensionada considerando as seguintes aplicações.
-            </p>
-            <ul className="mt-5 flex flex-col gap-2">
-              {productApps.map((application) => (
-                <li key={application.slug}>
-                  <Link
-                    href={`/solucoes/${application.slug}`}
-                    className="group flex items-center justify-between gap-3 rounded-lg border border-ink-700/60 px-3.5 py-2.5 text-sm text-ink-100 transition-colors hover:border-brand-500/45 hover:text-white"
-                  >
-                    {application.name}
-                    <Icon name="arrowRight" className="size-4 text-ink-400 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-xl border border-ink-700/70 bg-ink-880/60 p-6">
-            <h2 className="text-lg font-semibold text-white">Possibilidades de expansão</h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink-300">
-              O que pode ser ampliado sem trocar o equipamento.
-            </p>
-            <ul className="mt-5 flex flex-col gap-3">
-              {product.expansion.map((item) => (
-                <li key={item} className="flex gap-2.5 text-sm text-ink-200">
-                  <Icon name="upgrade" className="mt-0.5 size-4 shrink-0 text-flux-400" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-xl border border-ink-700/70 bg-ink-880/60 p-6">
-            <h2 className="text-lg font-semibold text-white">Garantia e serviços</h2>
-            <ul className="mt-5 flex flex-col gap-3">
-              {product.services.map((service) => (
-                <li key={service} className="flex gap-2.5 text-sm text-ink-200">
-                  <Icon name="check" className="mt-0.5 size-4 shrink-0 text-flux-400" />
-                  {service}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 border-t border-ink-700/60 pt-4">
-              <h3 className="text-sm font-medium text-white">Garantia</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-300">
-                {product.warranty ?? settings.warrantyPolicy}
-              </p>
-              <Link href="/garantia" className="mt-2 inline-flex items-center gap-1 text-sm text-flux-300 hover:text-flux-400">
-                Ler a política de garantia
-                <Icon name="arrowRight" className="size-3.5" />
-              </Link>
-            </div>
-          </div>
+          <SpecSheet groups={fullSpecs} />
         </div>
       </Section>
 
@@ -416,7 +346,13 @@ export default async function ProductPage({ params }: Params) {
         </Section>
       )}
 
-      <FaqSection faqs={faqs} />
+      <FaqSection
+        faqs={faqs}
+        eyebrow="Entrega, montagem e garantia"
+        title="O que perguntam antes de fechar"
+        description="Prazo, entrega, pagamento, garantia e upgrade. O resto é conversa com o especialista."
+        limit={8}
+      />
 
       <FinalCta
         title="Esta configuração atende o que você precisa executar?"

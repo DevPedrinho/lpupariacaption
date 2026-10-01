@@ -81,6 +81,20 @@ export const differentials = [
 ] as const
 
 /**
+ * Benefícios de comprar com a UPAR, mostrados na página de produto logo após
+ * o resumo. São as condições que a empresa confirmou que cumpre sempre; o
+ * parcelamento vem das configurações para não repetir número no código.
+ */
+export const purchaseBenefits = [
+  { icon: 'users' as const, title: 'Consultoria técnica gratuita', text: 'Antes de qualquer proposta.' },
+  { icon: 'card' as const, title: 'Parcelamento no cartão', text: 'Condições no rodapé e na proposta.', installment: true },
+  { icon: 'shield' as const, title: 'Garantia de 12 a 60 meses', text: 'Conforme o produto, na proposta e na nota.' },
+  { icon: 'cpu' as const, title: 'Montagem e testes UPAR', text: 'Testada sob carga antes de sair da bancada.' },
+  { icon: 'clock' as const, title: 'Preventiva gratuita em Fortaleza', text: 'De 1 a 5 anos, conforme o produto.' },
+  { icon: 'upgrade' as const, title: 'Recompra no upgrade', text: 'Os itens trocados abatem no próximo passo.' },
+] as const
+
+/**
  * Seção de diagnóstico do problema na home.
  *
  * Cada item descreve um erro de dimensionamento verificável tecnicamente. Não

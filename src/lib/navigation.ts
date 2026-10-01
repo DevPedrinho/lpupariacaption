@@ -7,6 +7,14 @@ export const mainNav = [
   { href: '/sobre', label: 'Sobre a UPAR' },
 ] as const
 
+/** Esconde o comparativo quando o módulo estiver desligado nas configurações. */
+export function visivel<T extends { readonly href: string; readonly label: string }>(
+  items: readonly T[],
+  showComparativo: boolean,
+): T[] {
+  return items.filter((item) => showComparativo || !item.href.startsWith('/comparativo'))
+}
+
 export const footerNav = [
   {
     title: 'Soluções',

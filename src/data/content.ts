@@ -144,6 +144,69 @@ export const faqs: Faq[] = [
     status: 'published',
   },
   {
+    id: 'f-9',
+    question: 'Quanto tempo leva para montar e entregar?',
+    answer:
+      'Depois que a configuração é confirmada, a montagem e os testes levam alguns dias. O prazo exato depende da disponibilidade dos componentes e vai na proposta.',
+    scope: 'produto',
+    order: 9,
+    status: 'published',
+  },
+  {
+    id: 'f-10',
+    question: 'Como é feita a entrega?',
+    answer:
+      'Em Fortaleza, retirada na loja ou entrega na cidade. Para o restante do Brasil, envio por transportadora, com o frete informado na proposta.',
+    scope: 'produto',
+    order: 10,
+    status: 'published',
+  },
+  {
+    id: 'f-11',
+    question: 'O computador chega pronto para usar?',
+    answer:
+      'Sai da bancada montado e testado sob carga. A preparação de sistema e programas é combinada na proposta, conforme o que você vai rodar.',
+    scope: 'produto',
+    order: 11,
+    status: 'published',
+  },
+  {
+    id: 'f-12',
+    question: 'Como funciona o pagamento?',
+    answer:
+      'Em até 21x sem juros no cartão, além das formas listadas no rodapé. Empresas, universidades e órgãos públicos recebem a documentação do processo de compra.',
+    scope: 'produto',
+    order: 12,
+    status: 'published',
+  },
+  {
+    id: 'f-13',
+    question: 'Qual é a garantia e como aciono?',
+    answer:
+      'De 12 a 60 meses, conforme o produto. Para acionar, chame no WhatsApp com a nota fiscal. A política completa está na página de garantia.',
+    scope: 'produto',
+    order: 13,
+    status: 'published',
+  },
+  {
+    id: 'f-14',
+    question: 'O que é a manutenção preventiva gratuita?',
+    answer:
+      'Clientes de Fortaleza têm preventiva gratuita de 1 a 5 anos, conforme o produto: limpeza, pasta térmica e testes feitos pela equipe UPAR.',
+    scope: 'produto',
+    order: 14,
+    status: 'published',
+  },
+  {
+    id: 'f-15',
+    question: 'Posso fazer upgrade depois? E as peças que saem?',
+    answer:
+      'Sim. Cada configuração informa o que pode ser ampliado, e a UPAR recompra os itens substituídos para abater no upgrade.',
+    scope: 'produto',
+    order: 15,
+    status: 'published',
+  },
+  {
     id: 'f-7',
     question: 'Quanto tempo leva desde o primeiro contato até a entrega?',
     answer:
@@ -454,6 +517,7 @@ export const defaultSettings: SiteSettings = {
   adsConversionWhatsapp: '',
   adsConversionLead: '',
   showTestimonials: true,
+  showComparativo: false,
   caseStudies: [],
   landingPages: defaultLandingPages,
   pendingRealData: [

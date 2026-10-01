@@ -358,6 +358,8 @@ export interface SiteSettings {
   adsConversionLead?: string
   /** Chave para esconder a seção de depoimentos (ex.: enquanto só houver demonstrativos). */
   showTestimonials: boolean
+  /** Módulo de comparativo (envio de print para um consultor). Desligado no lançamento. */
+  showComparativo: boolean
   /** Casos atendidos exibidos na home e nas páginas de destino. */
   caseStudies: CaseStudy[]
   /** Textos das páginas de destino (/lp/...), editáveis no painel. */

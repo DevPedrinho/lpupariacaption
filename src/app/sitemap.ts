@@ -8,7 +8,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/`, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/solucoes`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/catalogo`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/comparativo`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/encontre-sua-configuracao`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/consultoria`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/conteudos`, changeFrequency: 'weekly', priority: 0.7 },
@@ -22,14 +21,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     const repo = getRepository()
-    const [products, applications, articles] = await Promise.all([
+    const [products, applications, articles, settings] = await Promise.all([
       repo.listProducts(),
       repo.listApplications(),
       repo.listArticles(),
+      repo.getSettings(),
     ])
 
     return [
       ...staticRoutes,
+      ...(settings.showComparativo
+        ? [{ url: `${base}/comparativo`, changeFrequency: 'monthly' as const, priority: 0.7 }]
+        : []),
       ...applications.map((application) => ({
         url: `${base}/solucoes/${application.slug}`,
         changeFrequency: 'monthly' as const,

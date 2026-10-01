@@ -16,11 +16,11 @@ function CompareColumn({ column, variant }: { column: Column; variant: 'wrong' |
       className={
         isRight
           ? 'flex flex-col gap-5 rounded-2xl border border-brand-500/40 bg-brand-500/[0.07] p-6 md:p-7'
-          : 'flex flex-col gap-5 rounded-2xl border border-ink-700/70 bg-ink-880/50 p-6 md:p-7'
+          : 'flex flex-col gap-5 rounded-2xl border border-critical-500/40 bg-critical-500/[0.07] p-6 md:p-7'
       }
     >
       <div className="flex flex-col gap-1">
-        <h3 className={isRight ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-ink-200'}>
+        <h3 className={isRight ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-[#F3A49E]'}>
           {column.title}
         </h3>
         <p className="text-sm text-ink-400">{column.subtitle}</p>
@@ -34,12 +34,12 @@ function CompareColumn({ column, variant }: { column: Column; variant: 'wrong' |
               className={
                 isRight
                   ? 'inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-500 text-ink-950'
-                  : 'inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-ink-700 text-ink-400'
+                  : 'inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-critical-500 text-white'
               }
             >
               <Icon name={isRight ? 'check' : 'close'} className="size-3" />
             </span>
-            <span className={isRight ? 'text-[0.9375rem] text-white' : 'text-[0.9375rem] text-ink-300'}>
+            <span className={isRight ? 'text-[0.9375rem] text-white' : 'text-[0.9375rem] text-ink-200'}>
               {item}
             </span>
           </li>

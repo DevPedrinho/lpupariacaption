@@ -218,6 +218,22 @@ export default async function SettingsPage({
                 </span>
               </label>
             </div>
+            <div className="md:col-span-2">
+              <label className="flex items-start gap-3 text-sm text-ink-200">
+                <input
+                  type="checkbox"
+                  name="showComparativo"
+                  defaultChecked={settings.showComparativo}
+                  className="mt-0.5 size-4 rounded border-ink-600 bg-ink-900 accent-brand-500"
+                />
+                <span>
+                  Mostrar o módulo de comparativo no site
+                  <span className="mt-0.5 block text-xs text-ink-500">
+                    Desligado, a página /comparativo some do menu, do rodapé e do sitemap. A caixa de entrada do painel continua funcionando.
+                  </span>
+                </span>
+              </label>
+            </div>
           </div>
         </Panel>
 

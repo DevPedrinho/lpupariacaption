@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { footerNav } from '@/lib/navigation'
+import { footerNav, visivel } from '@/lib/navigation'
 import { Icon } from '@/components/ui/Icon'
 import { Logo } from './Logo'
 import { WhatsAppCta } from './WhatsAppCta'
@@ -100,7 +100,7 @@ export function Footer() {
                   {group.title}
                 </h2>
                 <ul className="flex flex-col gap-2.5">
-                  {group.links.map((link) => (
+                  {visivel(group.links as readonly { href: string; label: string }[], settings.showComparativo).map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
