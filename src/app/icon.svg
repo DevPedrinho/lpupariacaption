@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="UPAR">
-  <!-- Marca reduzida: o círculo escuro com o triângulo verde que aparece sobre
-       o "U" do logotipo oficial. É o único elemento da marca que continua
-       legível a 16 px. -->
-  <rect width="32" height="32" rx="8" fill="#37DB9A"/>
-  <circle cx="16" cy="16" r="9.5" fill="#06090C"/>
-  <path d="M16 10.4l5.1 8.9H10.9z" fill="none" stroke="#37DB9A" stroke-width="2.1" stroke-linejoin="round"/>
-</svg>

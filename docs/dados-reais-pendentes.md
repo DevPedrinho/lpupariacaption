@@ -21,9 +21,9 @@ O arquivo `UPAR_WEB_ASSETS` fechou dois itens que antes bloqueavam a publicaçã
 - **Cores oficiais** — o verde `#37DB9A` saiu dos próprios vetores do logotipo, e as
   paletas secundária, de contraste e monocromática, da página “CORES, IMPRESSO E
   DIGITAL” do guia. Estão aplicadas em `src/styles/globals.css`.
-- **Logotipo em vetor** — `public/marca/upar.svg` (fundo claro) e
-  `public/marca/upar-negativo.svg` (fundo escuro, usado no site). O favicon em
-  `src/app/icon.svg` reproduz o círculo com triângulo da marca.
+- **Logotipo** — `public/marca/upar-negativo.png` (versão em negativo oficial, usada no site)
+  e `public/marca/upar.png` (mesma arte em escuro, para fundo claro). O favicon em
+  `src/app/icon.png` usa o "U" do logotipo em verde. Falta a versão em vetor (SVG).
 
 ### O que o pacote levantou de novo
 

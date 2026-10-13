@@ -22,7 +22,7 @@ Nenhuma delas é um fim em si; todas levam a uma conversa com um especialista.
 | `/politica-de-privacidade` | Conformidade | LGPD (texto preliminar, pendente de revisão jurídica) |
 | `/termos-de-uso` | Conformidade | Condições de uso (texto preliminar) |
 
-Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/icon.svg` e página 404 própria.
+Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/icon.png` e página 404 própria.
 
 ## Painel administrativo
 

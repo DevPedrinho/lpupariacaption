@@ -43,7 +43,7 @@ export function ConsultantPhoto({ className = '' }: { className?: string }) {
         />
       ) : (
         <div className="flex aspect-4/5 w-full items-center justify-center rounded-2xl border border-ink-700/70 bg-ink-850 sm:aspect-square lg:aspect-4/5">
-          <img src="/marca/upar-negativo.svg" alt="" aria-hidden="true" className="w-1/2 opacity-25" />
+          <img src="/marca/upar-negativo.png" alt="" aria-hidden="true" className="w-1/2 opacity-25" />
         </div>
       )}
 
