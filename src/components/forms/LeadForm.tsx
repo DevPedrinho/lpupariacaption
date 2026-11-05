@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Checkbox, Field, Input, Select, Textarea } from '@/components/ui/Field'
 import { Icon } from '@/components/ui/Icon'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
-import { readUtm, track } from '@/lib/analytics'
+import { track, utmDoLead } from '@/lib/analytics'
 import type { Application, LeadOrigin } from '@/lib/types'
 
 type State = {
@@ -73,7 +73,7 @@ export function LeadForm({
           application: applications.find((app) => app.slug === values.application)?.name || undefined,
           origin,
           originPath: window.location.pathname,
-          utm: readUtm(),
+          utm: utmDoLead(),
         }),
       })
 

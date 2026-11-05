@@ -8,7 +8,7 @@ import { Checkbox, Field, Input } from '@/components/ui/Field'
 import { Icon } from '@/components/ui/Icon'
 import { ProductCard } from '@/components/catalog/ProductCard'
 import { WhatsAppCta } from '@/components/site/WhatsAppCta'
-import { track, readUtm } from '@/lib/analytics'
+import { track, utmDoLead } from '@/lib/analytics'
 import { cn } from '@/lib/cn'
 import { OUTRO_LABEL, TIER_SUMMARY, recommendProducts, recommendTier } from '@/lib/diagnostic'
 import { tierLabel } from '@/lib/format'
@@ -133,7 +133,7 @@ export function DiagnosticWizard({
           productSlug: recommended[0]?.slug,
           origin: 'diagnostico',
           originPath: window.location.pathname,
-          utm: readUtm(),
+          utm: utmDoLead(),
         }),
       })
 

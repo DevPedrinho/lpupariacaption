@@ -99,3 +99,18 @@ export function readUtm(): Record<string, string> {
     return {}
   }
 }
+
+type UparTrack = { ref?: string; enviar?: (tipo: string, extra?: Record<string, unknown>) => void }
+
+/** UTM + código UP do rastreador do SGI, para anexar ao lead e avisar o SGI do envio. */
+export function utmDoLead(): Record<string, string> {
+  const utm = readUtm()
+  if (typeof window === 'undefined') return utm
+  const t = (window as unknown as { UparTrack?: UparTrack }).UparTrack
+  try {
+    t?.enviar?.('formulario', {})
+  } catch {
+    /* rastreador fora: segue */
+  }
+  return t?.ref ? { ...utm, up_ref: t.ref } : utm
+}

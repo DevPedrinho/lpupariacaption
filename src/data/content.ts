@@ -510,12 +510,13 @@ export const defaultSettings: SiteSettings = {
   seoTitle: 'UPAR AI — Computadores de alta performance para Inteligência Artificial',
   seoDescription:
     'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica para encontrar a configuração certa.',
-  ga4Id: '',
+  // Mesmos IDs da landing da workstation (GA4 da loja, conta de Google Ads da Upar)
+  ga4Id: 'G-XWCPTGVGCY',
   gtmId: '',
   metaPixelId: '',
-  googleAdsId: '',
-  adsConversionWhatsapp: '',
-  adsConversionLead: '',
+  googleAdsId: 'AW-17307218709',
+  adsConversionWhatsapp: 'rp9_CMLHmrIdEJXm3LxA',
+  adsConversionLead: 'Jr8ICL_HmrIdEJXm3LxA',
   showTestimonials: true,
   showComparativo: false,
   caseStudies: [],

@@ -197,9 +197,19 @@ export class SupabaseRepository implements Repository {
   }
 
   async getSettings(): Promise<SiteSettings> {
-    const { data, error } = await this.read().from('site_settings').select('payload').eq('id', 1).maybeSingle()
-    if (error) falha('getSettings', error)
-    return { ...defaultSettings, ...((data?.payload as Partial<SiteSettings>) ?? {}) }
+    // Banco pausado ou fora do ar: o site segue com as configurações padrão em vez de cair.
+    try {
+      const { data, error } = await this.read().from('site_settings').select('payload').eq('id', 1).maybeSingle()
+      if (error) falha('getSettings', error)
+      const salvo = (data?.payload as Partial<SiteSettings>) ?? {}
+      const s = { ...defaultSettings, ...salvo }
+      // ID vazio no painel não apaga o padrão da medição
+      for (const k of ['ga4Id', 'googleAdsId', 'adsConversionLead', 'adsConversionWhatsapp'] as const) if (!s[k]) s[k] = defaultSettings[k]
+      return s
+    } catch (e) {
+      console.warn('[getSettings] usando o padrão:', e instanceof Error ? e.message : e)
+      return { ...defaultSettings }
+    }
   }
 
   async updateSettings(patch: Partial<SiteSettings>): Promise<SiteSettings> {
