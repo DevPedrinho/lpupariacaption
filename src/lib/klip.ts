@@ -6,7 +6,7 @@ const API = 'https://api.wts.chat'
 const STEP = process.env.KLIP_STEP_ID || '582534ce-31ed-4e27-8558-95f3b86a658f' // Vendas - Pedro > Lead Entrada
 const RESP = process.env.KLIP_RESP_ID || '2bf72260-2d9b-4e1d-b7b0-3f924b2539bd' // Pedro Gledson
 const TAG_PAGO = 'ORIGEM • Anúncio'
-const TAG_SITE = 'ORIGEM • Orgânico' // etiqueta que já existe no Klip
+const TAG_SITE = 'ORIGEM • Site' // lead do site que não veio de anúncio
 
 const NOME_ORIGEM: Record<string, string> = {
   diagnostico: 'Diagnóstico',
