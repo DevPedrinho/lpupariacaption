@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getRepository } from '@/lib/repository'
 import { Analytics } from '@/components/site/Analytics'
+import { UparTrack } from '@/components/site/UparTrack'
 import { CookieConsent } from '@/components/site/CookieConsent'
 import { Logo } from '@/components/site/Logo'
 import { SiteConfigProvider } from '@/components/site/SiteConfig'
@@ -46,6 +47,7 @@ export default async function LandingLayout({ children }: { children: React.Reac
 
       <CookieConsent />
       <Analytics settings={settings} />
+      <UparTrack />
     </SiteConfigProvider>
   )
 }

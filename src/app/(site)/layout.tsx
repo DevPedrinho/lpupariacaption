@@ -1,5 +1,6 @@
 import { getRepository } from '@/lib/repository'
 import { Analytics } from '@/components/site/Analytics'
+import { UparTrack } from '@/components/site/UparTrack'
 import { CookieConsent } from '@/components/site/CookieConsent'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
@@ -19,6 +20,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <WhatsAppFab />
       <CookieConsent />
       <Analytics settings={settings} />
+      <UparTrack />
     </SiteConfigProvider>
   )
 }
