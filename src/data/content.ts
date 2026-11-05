@@ -513,7 +513,8 @@ export const defaultSettings: SiteSettings = {
   // Mesmos IDs da landing da workstation (GA4 da loja, conta de Google Ads da Upar)
   ga4Id: 'G-XWCPTGVGCY',
   gtmId: '',
-  metaPixelId: '',
+  metaPixelId: '1952141248760346', // Pixel de Upar Games (conta de anúncios 2453903541712758)
+  clarityId: '', // Microsoft Clarity: preencher quando o Pedro criar o projeto
   googleAdsId: 'AW-17307218709',
   adsConversionWhatsapp: 'rp9_CMLHmrIdEJXm3LxA',
   adsConversionLead: 'Jr8ICL_HmrIdEJXm3LxA',

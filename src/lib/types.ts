@@ -352,6 +352,7 @@ export interface SiteSettings {
   ga4Id?: string
   gtmId?: string
   metaPixelId?: string
+  clarityId?: string
   googleAdsId?: string
   /** Rótulos das ações de conversão do Google Ads (a parte depois da barra). */
   adsConversionWhatsapp?: string

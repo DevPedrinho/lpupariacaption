@@ -56,9 +56,10 @@ export function Analytics({ settings }: { settings: SiteSettings }) {
   const gtm = safeId(settings.gtmId || process.env.NEXT_PUBLIC_GTM_ID)
   const pixel = safeId(settings.metaPixelId || process.env.NEXT_PUBLIC_META_PIXEL_ID)
   const ads = safeId(settings.googleAdsId)
+  const clarity = safeId(settings.clarityId || process.env.NEXT_PUBLIC_CLARITY_ID)
   const google = ga4 || ads
 
-  if (!google && !gtm && !pixel) return null
+  if (!google && !gtm && !pixel && !clarity) return null
 
   // Rótulos das ações de conversão do Google Ads, lidos por `track()`.
   const conversions: Record<string, string> = {}
@@ -97,6 +98,12 @@ export function Analytics({ settings }: { settings: SiteSettings }) {
         `t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}` +
         `(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');` +
         `fbq('consent',uparAceito?'grant':'revoke');fbq('init','${pixel}');fbq('track','PageView');`
+      : '',
+    // Microsoft Clarity (mapa de calor e gravação): só carrega com o consentimento aceito.
+    clarity
+      ? `if(uparAceito){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};` +
+        `t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;` +
+        `y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','${clarity}');}`
       : '',
   ]
     .filter(Boolean)
