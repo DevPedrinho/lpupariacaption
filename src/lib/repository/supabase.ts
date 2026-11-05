@@ -204,7 +204,7 @@ export class SupabaseRepository implements Repository {
       const salvo = (data?.payload as Partial<SiteSettings>) ?? {}
       const s = { ...defaultSettings, ...salvo }
       // ID vazio no painel não apaga o padrão da medição
-      for (const k of ['ga4Id', 'googleAdsId', 'adsConversionLead', 'adsConversionWhatsapp', 'metaPixelId', 'clarityId'] as const) if (!s[k]) s[k] = defaultSettings[k]
+      for (const k of ['ga4Id', 'googleAdsId', 'adsConversionLead', 'adsConversionWhatsapp', 'metaPixelId', 'clarityId', 'gtmId'] as const) if (!s[k]) s[k] = defaultSettings[k]
       return s
     } catch (e) {
       console.warn('[getSettings] usando o padrão:', e instanceof Error ? e.message : e)

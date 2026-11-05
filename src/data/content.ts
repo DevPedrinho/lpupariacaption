@@ -512,7 +512,7 @@ export const defaultSettings: SiteSettings = {
     'Workstations, computadores e servidores dimensionados para IA. Consultoria técnica para encontrar a configuração certa.',
   // Mesmos IDs da landing da workstation (GA4 da loja, conta de Google Ads da Upar)
   ga4Id: 'G-XWCPTGVGCY',
-  gtmId: '',
+  gtmId: 'GTM-KX2LMN7Q', // Tag Manager da conta Upar Games (contêiner vazio em 05/11; só tags novas)
   metaPixelId: '1952141248760346', // Pixel de Upar Games (conta de anúncios 2453903541712758)
   clarityId: 'z92e6do0gf', // Microsoft Clarity, projeto "Upar site"
   googleAdsId: 'AW-17307218709',
